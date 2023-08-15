@@ -1,0 +1,10 @@
+<div class="container p-2">
+    <div *ngIf="authService.isLoggedIn(); else login">
+        <router-outlet></router-outlet>
+    </div>
+    <ng-template #login>
+        <app-login></app-login>
+    </ng-template>
+
+</div>
+

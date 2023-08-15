@@ -10,12 +10,14 @@ import {LoginComponent} from './auth/components/login/login.component';
 import {AngularSvgIconPreloaderModule} from "angular-svg-icon-preloader";
 import {AngularSvgIconModule} from "angular-svg-icon";
 import {HttpClientModule} from "@angular/common/http";
-import {HeaderComponent} from './layout/header/header.component';
+import {HeaderComponent} from './layout/components/header/header.component';
 import {UserQuickComponent} from './auth/components/user-quick/user-quick.component';
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { UserListComponent } from './list/components/user-list/user-list.component';
+import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
+import {getFirestore, provideFirestore} from '@angular/fire/firestore';
+import {getAuth, provideAuth} from '@angular/fire/auth';
+import {UserListComponent} from './list/components/user-list/user-list.component';
+import {FooterComponent} from './layout/components/footer/footer.component';
+import {MainComponent} from './layout/components/main/main.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +25,9 @@ import { UserListComponent } from './list/components/user-list/user-list.compone
         LoginComponent,
         HeaderComponent,
         UserQuickComponent,
-        UserListComponent
+        UserListComponent,
+        FooterComponent,
+        MainComponent
     ],
     imports: [
         BrowserModule,

@@ -1,15 +1,5 @@
-<div class="flex-container">
-  <app-header></app-header>
-  <div *ngIf="!authService.isLoggedIn(); else userContent">
-    <div class="row">
-      <div class="login-wrapper">
-        <app-login></app-login>
-      </div>
-    </div>
-  </div>
-  <ng-template #userContent>
-  </ng-template>
-  <div class="text-center">
-    <p class="mt-5 mb-3 text-muted">&copy; App 2023</p>
-  </div>
+<div class="main container">
+    <app-header></app-header>
+    <app-main></app-main>
+    <app-footer></app-footer>
 </div>
