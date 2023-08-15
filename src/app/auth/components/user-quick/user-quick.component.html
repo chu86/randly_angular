@@ -1,0 +1,6 @@
+<div *ngIf="authService.isLoggedIn()">
+    <span class="mx-2">{{authService.user?.email}}</span>
+    <button class="btn btn-light" type="submit" (click)="authService.logout()">
+        Logout
+    </button>
+</div>

@@ -1,0 +1,25 @@
+<div class="flex-container">
+  <div class="row">
+    <div class="login-wrapper text-center">
+<!--      <form class="form-signin">-->
+<!--        <h2 class="h4 mb-3 font-weight-normal">Please sign in</h2>-->
+<!--        <label for="inputEmail" class="visually-hidden">Email address</label>-->
+<!--        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>-->
+<!--        <label for="inputPassword" class="visually-hidden">Password</label>-->
+<!--        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
+
+<!--        <div class="mb-3">-->
+<!--          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
+<!--        </div>-->
+<!--        <div class="mb-3">-->
+<!--          -->
+<!--        </div>-->
+<!--      </form>-->
+      <button class="btn btn-light" type="submit" (click)="authService.goggleLogin()">
+        <svg-icon name="google-logo" [svgStyle]="{ 'width.px':18, 'margin.px': 5 }"></svg-icon>
+        Sign in with Google
+      </button>
+
+    </div>
+  </div>
+</div>

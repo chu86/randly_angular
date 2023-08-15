@@ -1,0 +1,10 @@
+{
+  "iconImageFiles": [
+    {
+      "iconName": "google-logo",
+      "iconPath": "/assets/auth/google.svg"
+    }
+  ],
+  "customIcons": [
+  ]
+}
