@@ -1,6 +1,16 @@
-<div class="container p-2">
+<div>
     <div *ngIf="authService.isLoggedIn(); else login">
-        <router-outlet></router-outlet>
+        <div class="row">
+            <div class="col-3">
+                <app-user-list (listSelected)="onListSelected($event)" ></app-user-list>
+            </div>
+            <div class="col-9">
+<!--                <router-outlet></router-outlet>-->
+                <app-list [listId]="selectedList"></app-list>
+                <app-list-item [listId]="selectedList"></app-list-item>
+            </div>
+        </div>
+
     </div>
     <ng-template #login>
         <app-login></app-login>

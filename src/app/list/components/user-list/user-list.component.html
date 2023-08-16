@@ -1,0 +1,10 @@
+<div class="actions">
+
+</div>
+<div class="list-group">
+    <button type="button" class="list-group-item list-group-item-action"
+            *ngFor="let item of list$ | async"
+            (click)="itemSelected(item.id)">
+        {{item.name}}
+    </button>
+</div>

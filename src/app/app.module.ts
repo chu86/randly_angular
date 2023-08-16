@@ -18,6 +18,8 @@ import {getAuth, provideAuth} from '@angular/fire/auth';
 import {UserListComponent} from './list/components/user-list/user-list.component';
 import {FooterComponent} from './layout/components/footer/footer.component';
 import {MainComponent} from './layout/components/main/main.component';
+import { ListComponent } from './list/components/list/list.component';
+import { ListItemComponent } from './list/components/list-item/list-item.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +29,9 @@ import {MainComponent} from './layout/components/main/main.component';
         UserQuickComponent,
         UserListComponent,
         FooterComponent,
-        MainComponent
+        MainComponent,
+        ListComponent,
+        ListItemComponent
     ],
     imports: [
         BrowserModule,

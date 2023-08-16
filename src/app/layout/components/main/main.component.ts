@@ -8,6 +8,12 @@ import {AuthService} from "../../../auth/services/auth.service";
 })
 export class MainComponent {
 
+  public selectedList: string |undefined;
+
   constructor(public authService: AuthService) {
+  }
+
+  onListSelected($event: string) {
+    this.selectedList = $event;
   }
 }
