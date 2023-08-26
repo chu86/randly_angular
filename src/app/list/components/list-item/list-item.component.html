@@ -1,9 +1,8 @@
 <div *ngIf="documents$ | async as items">
     <div class="list-group">
         <button type="button" class="list-group-item list-group-item-action"
-                *ngFor="let item of items">
+                *ngFor="let item of items" (click)="onItemSelected(item.id)">
             {{item.name}}
         </button>
     </div>
-
 </div>

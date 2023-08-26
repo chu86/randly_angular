@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-3">
+    <app-user-list (listSelected)="onListSelected($event)" ></app-user-list>
+  </div>
+  <div class="col-9">
+    <router-outlet name="list"></router-outlet>
+  </div>
+</div>
+

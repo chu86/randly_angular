@@ -1,18 +1,25 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from "./auth/components/login/login.component";
-import {UserListComponent} from "./list/components/user-list/user-list.component";
-import {ListComponent} from "./list/components/list/list.component";
+import {ItemComponent} from "./list/components/item/item.component";
 
 const routes: Routes = [
-    // {path: '', component: UserListComponent},
-    // {path: 'login', component: LoginComponent},
-    // {path: 'list', component: ListComponent},
+  {
+    path: '', pathMatch: 'full', redirectTo: 'list',
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./list/list.module').then(m => m.ListModule)
+  },
+  {
+    path: 'item/:listId/:docId',
+    component: ItemComponent,
+  },
+  {path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)},
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

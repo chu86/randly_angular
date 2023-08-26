@@ -1,5 +1,11 @@
-<div class="main container p-0">
-    <app-header></app-header>
-    <app-main></app-main>
-    <app-footer></app-footer>
+<div class="flex main container p-0">
+  <app-header></app-header>
+  <div *ngIf="authService.isLoggedIn(); else login">
+    <router-outlet></router-outlet>
+  </div>
+  <ng-template #login>
+    <app-login></app-login>
+  </ng-template>
+
 </div>
+<app-footer class="mt-auto"></app-footer>

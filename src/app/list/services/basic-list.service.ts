@@ -4,6 +4,7 @@ import {from, map, Observable} from "rxjs";
 import {collection, collectionData, doc, Firestore, getDoc, query, where} from '@angular/fire/firestore';
 import {AuthService} from "../../auth/services/auth.service";
 import {ListItem} from "../models/list-item.model";
+import {ItemListItem} from "../models/item-list-item.model";
 
 @Injectable({
     providedIn: 'root'
@@ -34,5 +35,16 @@ export class BasicListService {
         const collection1 = collection(this.firestore, `basic-list/${id}/listItems`);
         return collectionData(collection1, {idField: 'id'}) as Observable<ListItem[]>;
     }
+
+  public getItemDocument(listId: string, docId: string): Observable<BasicList> {
+    const path = doc(this.firestore, `basic-list/${listId}/listItems/${docId}`);
+    return from(getDoc(path)).pipe(map(docSnap =>
+      docSnap.data() as BasicList))
+  }
+
+  public getItemList(id: string, docId: string): Observable<ItemListItem[]> {
+    const collection1 = collection(this.firestore, `basic-list/${id}/listItems/${docId}/itemlist`);
+    return collectionData(collection1, {idField: 'id'}) as Observable<ItemListItem[]>;
+  }
 
 }

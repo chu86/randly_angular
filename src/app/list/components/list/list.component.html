@@ -1,4 +1,9 @@
+<p>listcomponent is working!</p>
 <div *ngIf="doc$ | async as doc">
-    <h2 class="h4">{{doc.name}}</h2>
+  <h2 class="h4">{{doc.name}}</h2>
+  <ng-container *ngIf="listId">
+    <app-list-item [listId]="listId" (itemSelected)="onItemSelected($event)"></app-list-item>
+  </ng-container>
+
 </div>
 
