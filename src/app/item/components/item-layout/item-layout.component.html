@@ -1,0 +1,13 @@
+<app-item-main
+        [document]="doc$ | async"
+        [isEditing]="isEditing"
+        (editClicked)="onEdit()"
+        (editCancel)="onEditCancel()"
+        (navigateBack)="onNavigateBack()"></app-item-main>
+<app-item-list
+        [listitems]="listitems$ | async"
+        [isEditing]="isEditing"
+        (addNewActivated)="onAddNewActivated($event)"
+        (deleteActivated)="onDeleteActivated($event)"
+        (editItemActivated)="onEditItemActivated($event)"
+></app-item-list>

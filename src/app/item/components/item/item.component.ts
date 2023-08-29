@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {BasicListService} from "../../services/basic-list.service";
+import {BasicListService} from "../../../list/services/basic-list.service";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {map, Observable} from "rxjs";
-import {BasicList} from "../../models/basic-list.model";
+import {BasicList} from "../../../list/models/basic-list.model";
 import {ItemListItem} from "../../models/item-list-item.model";
 import {FormArray, FormBuilder, Validators} from "@angular/forms";
 
@@ -22,14 +22,13 @@ export class ItemComponent implements OnInit {
     listitems: this.fb.array([])
   });
 
-
   public isEditing = false;
 
   constructor(
     private listService: BasicListService,
     private route: ActivatedRoute,
     private fb: FormBuilder) {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(() => {
       this.ngOnInit();
     });
   }
@@ -98,9 +97,5 @@ export class ItemComponent implements OnInit {
   deleteItem(index: number) {
     this.listitems.removeAt(index);
   }
-
-  public save() {
-  }
-
 
 }

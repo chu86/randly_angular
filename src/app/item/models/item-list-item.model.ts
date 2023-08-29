@@ -1,5 +1,6 @@
 export interface ItemListItem {
-    id: string;
+    id?: string;
     name: string;
     count: string;
+    order: number;
 }

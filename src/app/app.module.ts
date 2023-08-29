@@ -13,7 +13,7 @@ import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {UserListComponent} from './list/components/user-list/user-list.component';
 import {FooterComponent} from './layout/components/footer/footer.component';
-import {ListHomeComponent} from './list/components/list-home/list-home.component';
+import {ListLayoutComponent} from './list/components/list-layout/list-layout.component';
 import {AuthModule} from "./auth/auth.module";
 import {check, NgxBootstrapIconsModule, pencil, plus, trash} from "ngx-bootstrap-icons";
 
@@ -32,8 +32,7 @@ const icons = {
     UserQuickComponent,
     UserListComponent,
     FooterComponent,
-
-    ListHomeComponent
+    ListLayoutComponent
   ],
   imports: [
     BrowserModule,

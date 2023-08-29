@@ -1,12 +1,12 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
-import {ListHomeComponent} from "./components/list-home/list-home.component";
+import {ListLayoutComponent} from "./components/list-layout/list-layout.component";
 import {ListComponent} from "./components/list/list.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: ListHomeComponent,
+    component: ListLayoutComponent,
     children: [
       {
         path: 'id/:id',

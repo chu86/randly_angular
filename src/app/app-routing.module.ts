@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ItemComponent} from "./list/components/item/item.component";
 
 const routes: Routes = [
   {
@@ -12,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'item/:listId/:docId',
-    component: ItemComponent,
+    loadChildren: () => import('./item/item.module').then(m => m.ItemModule)
   },
   {path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)},
 ];

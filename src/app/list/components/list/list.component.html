@@ -1,9 +1,26 @@
-<p>listcomponent is working!</p>
-<div *ngIf="doc$ | async as doc">
-  <h2 class="h4">{{doc.name}}</h2>
-  <ng-container *ngIf="listId">
-    <app-list-item [listId]="listId" (itemSelected)="onItemSelected($event)"></app-list-item>
-  </ng-container>
-
+<div *ngIf="doc$ | async as doc" class="container-fluid pt-2">
+    <app-list-main
+            [document]="doc$ | async"
+            [isEditing]="isEditing"
+            (editClicked)="onEditClicked()"
+            (editCancel)="onEditCancel()"
+            (navigateBack)="onNavigateBackClicked()"
+    ></app-list-main>
+    <hr/>
+    <div class="row p-2">
+        <ng-container *ngIf="listId">
+            <app-list-item
+                    [listId]="listId"
+                    [listitems]="listItems$ | async"
+                    [isEditing]="isEditing"
+                    (itemSelected)="onItemSelected($event)"
+            ></app-list-item>
+        </ng-container>
+    </div>
 </div>
+
+
+
+
+
 
