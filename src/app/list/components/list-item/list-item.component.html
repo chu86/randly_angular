@@ -1,37 +1,41 @@
 <ng-container *ngIf="isEditing; else showOnly">
-    <div [formGroup]="form">
-        <ng-container formArrayName="listitems">
-            <ng-container *ngFor="let _lessonForm of listitemControls.controls; let i = index">
-                <div class="row" [formGroupName]="i">
-                    <div class="col">
-                        <input type="text" class="form-control" formControlName="name">
+    <div class="container-fluid">
+        <div [formGroup]="form">
+            <ng-container formArrayName="listitems">
+                <ng-container *ngFor="let _lessonForm of listitemControls.controls; let i = index">
+
+                    <div class="row" [formGroupName]="i">
+                        <div class="col p-0">
+                            <input type="text" class="form-control" formControlName="name">
+                        </div>
+                        <div class="col-auto p-0">
+                            <button class="btn btn-light" type="button" (click)="deleteItem(i)">
+                                <i-bs name="trash"></i-bs>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-1">
-                        <button class="btn btn-light" type="button" (click)="deleteItem(i)">
-                            <i-bs name="trash"></i-bs>
-                        </button>
-                    </div>
-                </div>
+                </ng-container>
             </ng-container>
-        </ng-container>
-        <div class="row p-1">
-            <div class="col-auto">
-                <button class="btn btn-light" type="button" (click)="addNew()">
-                    <i-bs name="plus"></i-bs>
-                </button>
+            <div class="row">
+                <div class="col-auto p-0">
+                    <button class="btn btn-light" type="button" (click)="addNew()">
+                        <i-bs name="plus"></i-bs>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-
 </ng-container>
 <ng-template #showOnly>
-    <div *ngIf="listitems as items">
-        <div class="row" *ngFor="let item of items; let i = index">
-            <div class="list-group col">
-                <button type="button" class="list-group-item list-group-item-action"
-                        (click)="onItemSelected(item.id)">
-                    {{item.name}}
-                </button>
+    <div class="container-fluid">
+        <div *ngIf="listitems as items">
+            <div class="row" *ngFor="let item of items; let i = index">
+                <div class="list-group col p-0">
+                    <button type="button" class="list-group-item list-group-item-action"
+                            (click)="onItemSelected(item.id)">
+                        {{item.name}}
+                    </button>
+                </div>
             </div>
         </div>
     </div>

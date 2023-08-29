@@ -43,7 +43,9 @@ export class BasicListService {
 
   public getListItems(id: string): Observable<ListItem[]> {
     const collection1 = collection(this.firestore, `basic-list/${id}/listItems`);
-    return collectionData(collection1, {idField: 'id'}) as Observable<ListItem[]>;
+    const orderByCondition = orderBy('order', 'asc');
+    const queryVar = query(collection1, orderByCondition);
+    return collectionData(queryVar, {idField: 'id'}) as Observable<ListItem[]>;
   }
 
   public getItemDocument(listId: string, docId: string): Observable<BasicList> {
@@ -77,6 +79,27 @@ export class BasicListService {
     const path = doc(this.firestore, `basic-list/${listId}/listItems/${docId}/itemlist/${document.id}`);
     await deleteDoc(path).then(() => {
       console.log('document deleted.')
+    });
+  }
+
+  public async addListItem(listId: string, document: ListItem): Promise<void> {
+    const path = `basic-list/${listId}/listItems`;
+    const collection1 = collection(this.firestore, path);
+    const docRef = await addDoc(collection1, document);
+    console.log("Document written with ID: ", docRef.id);
+  }
+
+  public async deleteListItem(listId: string, document: ListItem): Promise<void> {
+    const path = doc(this.firestore, `basic-list/${listId}/listItems/${document.id}`);
+    await deleteDoc(path).then(() => {
+      console.log('document deleted.')
+    });
+  }
+
+  public async updateListItem(listId: string, document: ListItem): Promise<void> {
+    const path = doc(this.firestore, `basic-list/${listId}/listItems/${document.id}`);
+    await setDoc(path, document).then(() => {
+      console.log('document updated.')
     });
   }
 }

@@ -93,7 +93,7 @@ export class ItemListComponent implements OnDestroy {
         if (!this.listitems) {
             return 0;
         }
-        return Math.max(...this.listitems.map(o => o.order))
+        return Math.max(...this.listitems.map(o => o.order), 1)
     }
 
 

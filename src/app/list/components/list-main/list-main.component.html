@@ -1,10 +1,10 @@
-<div *ngIf="document" class="container-fluid pt-2">
+<div *ngIf="document" class="container-fluid p-0 list-main">
     <div class="row">
-        <div class="col-auto d-flex">
-            <button *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onNavigateBackClicked()">
+        <div class="col-auto d-flex align-items-center">
+            <button class="btn btn-light" type="button" (click)="onNavigateBackClicked()">
                 <
             </button>
-            <h2 class="h4">{{document.name}}</h2>
+            <h2 class="h5 m-0 px-1">{{document.name}}</h2>
         </div>
         <div class="col d-flex flex-row-reverse">
             <button *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onEditClicked()">
@@ -15,7 +15,6 @@
             </button>
         </div>
     </div>
-
 </div>
 
 

@@ -53,4 +53,22 @@ export class ListComponent implements OnInit {
     onNavigateBackClicked() {
         this.location.back();
     }
+
+    onDeleteActivated($event: ListItem) {
+        if (this.listId) {
+            this.listService.deleteListItem(this.listId, $event).then(r => console.log('deleted!'));
+        }
+    }
+
+    onAddNewActivated($event: ListItem) {
+        if (this.listId) {
+            this.listService.addListItem(this.listId, $event).then(r => console.log('added!'));
+        }
+    }
+
+    onEditItemActivated($event: ListItem) {
+        if (this.listId) {
+            this.listService.updateListItem(this.listId, $event).then(r => console.log('updated!'));
+        }
+    }
 }

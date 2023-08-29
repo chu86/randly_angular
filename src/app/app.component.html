@@ -1,6 +1,6 @@
-<div class="flex main container p-0">
+<div class="flex main h-100 container p-0">
   <app-header></app-header>
-  <div *ngIf="authService.isLoggedIn(); else login">
+  <div class="h-100 container-fluid" *ngIf="authService.isLoggedIn(); else login">
     <router-outlet></router-outlet>
   </div>
   <ng-template #login>

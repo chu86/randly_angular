@@ -1,21 +1,18 @@
-<ng-container *ngIf="document">
-    <div class="container-fluid pt-2">
-        <div class="row">
-            <div class="col-auto d-flex">
-                <button *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onNavigateBackClicked()">
-                    <
-                </button>
-                <h1 class="h3">{{document.name}}</h1>
-            </div>
-            <div class="col d-flex flex-row-reverse">
-                <button *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onEditClicked()">
-                    <i-bs name="pencil"></i-bs>
-                </button>
-                <button *ngIf="isEditing" class="btn btn-light" type="button" (click)="onEditCancel()">
-                    <i-bs name="x"></i-bs>
-                </button>
-            </div>
+<div class="container-fluid p-0 item-main">
+    <div class="row" *ngIf="document">
+        <div class="col-auto d-flex align-items-center">
+            <button class="btn btn-light" type="button" (click)="onNavigateBackClicked()">
+                <
+            </button>
+            <h2 class="h5 m-0 px-1">{{document.name}}</h2>
         </div>
-        <hr/>
+        <div class="col d-flex flex-row-reverse">
+            <button *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onEditClicked()">
+                <i-bs name="pencil"></i-bs>
+            </button>
+            <button *ngIf="isEditing" class="btn btn-light" type="button" (click)="onEditCancel()">
+                <i-bs name="x"></i-bs>
+            </button>
+        </div>
     </div>
-</ng-container>
+</div>

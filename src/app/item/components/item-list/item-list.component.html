@@ -4,14 +4,14 @@
             <div [formGroup]="form">
                 <ng-container formArrayName="listitems">
                     <ng-container *ngFor="let lessonForm of listitemControls.controls; let i = index">
-                        <div class="row p-1" [formGroupName]="i">
-                            <div class="col">
+                        <div class="row" [formGroupName]="i">
+                            <div class="col p-0">
                                 <input type="text" class="form-control" formControlName="name">
                             </div>
-                            <div class="col">
+                            <div class="col p-0">
                                 <input type="text" class="form-control" formControlName="count">
                             </div>
-                            <div class="col-1">
+                            <div class="col-auto p-0">
                                 <button class="btn btn-light" type="button" (click)="deleteItem(i)">
                                     <i-bs name="trash"></i-bs>
                                 </button>
@@ -19,16 +19,14 @@
                         </div>
                     </ng-container>
                 </ng-container>
-                <div class="row p-1">
-                    <div class="col-auto">
+                <div class="row">
+                    <div class="col-auto p-0">
                         <button class="btn btn-light" type="button" (click)="addNew()">
                             <i-bs name="plus"></i-bs>
                         </button>
                     </div>
                 </div>
             </div>
-            <hr>
-
         </ng-container>
         <ng-template #showOnly>
             <ng-container *ngIf="listitems">
