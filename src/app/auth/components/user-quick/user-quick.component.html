@@ -1,6 +1,14 @@
 <div *ngIf="authService.isLoggedIn()">
     <span class="mx-2">{{authService.user?.email}}</span>
-    <button class="btn btn-light" type="submit" (click)="authService.logout()">
-        Logout
-    </button>
+<!--    <button class="btn btn-light" type="submit" (click)="authService.logout()">-->
+<!--        Logout-->
+<!--    </button>-->
+    <div ngbDropdown class="d-inline-block" placement="bottom-end">
+        <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
+            <i-bs name="three-dots-vertical"></i-bs>
+        </button>
+        <div ngbDropdownMenu class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem (click)="authService.logout()">Logout</button>
+        </div>
+    </div>
 </div>

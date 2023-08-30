@@ -15,14 +15,16 @@ import {UserListComponent} from './list/components/user-list/user-list.component
 import {FooterComponent} from './layout/components/footer/footer.component';
 import {ListLayoutComponent} from './list/components/list-layout/list-layout.component';
 import {AuthModule} from "./auth/auth.module";
-import {check, NgxBootstrapIconsModule, pencil, plus, trash} from "ngx-bootstrap-icons";
+import {check, NgxBootstrapIconsModule, pencil, plus, threeDotsVertical, trash} from "ngx-bootstrap-icons";
+import {SharedModule} from "./shared/shared.module";
 
 // Select some icons (use an object, not an array)
 const icons = {
   pencil,
   trash,
   check,
-  plus
+  plus,
+  threeDotsVertical
 };
 
 @NgModule({
@@ -43,6 +45,7 @@ const icons = {
     NgxBootstrapIconsModule.pick(icons),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    SharedModule,
 
   ],
   providers: [AuthService],

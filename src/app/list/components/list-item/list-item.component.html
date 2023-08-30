@@ -27,15 +27,24 @@
     </div>
 </ng-container>
 <ng-template #showOnly>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
+<!--        <div *ngIf="listitems as items">-->
+<!--            <div class="row" *ngFor="let item of items; let i = index">-->
+<!--                <div class="list-group col p-0">-->
+<!--                    <button type="button" class="list-group-item list-group-item-action"-->
+<!--                            (click)="onItemSelected(item.id)">-->
+<!--                        {{item.name}}-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <div *ngIf="listitems as items">
-            <div class="row" *ngFor="let item of items; let i = index">
-                <div class="list-group col p-0">
-                    <button type="button" class="list-group-item list-group-item-action"
-                            (click)="onItemSelected(item.id)">
-                        {{item.name}}
-                    </button>
-                </div>
+            <div class="list-group p-0">
+                <button type="button" class="list-group-item list-group-item-action"
+                        *ngFor="let item of items; let i = index"
+                        (click)="onItemSelected(item.id)">
+                    {{item.name}}
+                </button>
             </div>
         </div>
     </div>
