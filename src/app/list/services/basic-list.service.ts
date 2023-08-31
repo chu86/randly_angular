@@ -22,8 +22,6 @@ import {ItemListItem} from "../../item/models/item-list-item.model";
 })
 export class BasicListService {
 
-  public test$: Observable<BasicList[]> | undefined;
-
   constructor(public firestore: Firestore,
               public authService: AuthService) {
   }

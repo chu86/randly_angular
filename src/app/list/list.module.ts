@@ -4,8 +4,9 @@ import {ListRoutingModule} from "./list-routing.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ListComponent} from "./components/list/list.component";
 import {ListItemComponent} from "./components/list-item/list-item.component";
-import {check, NgxBootstrapIconsModule, pencil, plus, search, threeDotsVertical, trash, x} from "ngx-bootstrap-icons";
+import {check, NgxBootstrapIconsModule, pencil, plus, search, threeDotsVertical, trash, x, share} from "ngx-bootstrap-icons";
 import { ListMainComponent } from './components/list-main/list-main.component';
+import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
 
 // Select some icons (use an object, not an array)
 const icons = {
@@ -15,7 +16,8 @@ const icons = {
   plus,
   x,
   search,
-  threeDotsVertical
+  threeDotsVertical,
+  share
 };
 
 @NgModule({
@@ -30,6 +32,10 @@ const icons = {
     ListRoutingModule,
     ReactiveFormsModule,
     NgxBootstrapIconsModule.pick(icons),
+    NgbDropdown,
+    NgbDropdownItem,
+    NgbDropdownMenu,
+    NgbDropdownToggle,
   ]
 })
 export class ListModule {

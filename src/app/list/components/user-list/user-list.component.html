@@ -1,6 +1,6 @@
 <div class="list-group">
     <button type="button" class="list-group-item list-group-item-action"
-            *ngFor="let item of list$ | async"
+            *ngFor="let item of listitems"
             (click)="itemSelected(item.id)">
         {{item.name}}
     </button>

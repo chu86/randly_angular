@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {firstValueFrom, map, Observable} from "rxjs";
 import {BasicList} from "../../models/basic-list.model";
 import {BasicListService} from "../../services/basic-list.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {ListItem} from "../../models/list-item.model";
+import {ShareService} from "../../services/share.service";
+import {Share} from "../../models/share.model";
 
 @Component({
     selector: 'app-list',
@@ -19,6 +21,7 @@ export class ListComponent implements OnInit {
 
     constructor(
         private listService: BasicListService,
+        private shareService: ShareService,
         private route: ActivatedRoute,
         private router: Router,
         private location: Location) {
@@ -70,5 +73,26 @@ export class ListComponent implements OnInit {
         if (this.listId) {
             this.listService.updateListItem(this.listId, $event).then(r => console.log('updated!'));
         }
+    }
+
+    async onShareClicked() {
+        if (!this.listId) {
+            return;
+        }
+        const listId = this.listId;
+        const newShare: Share = {
+            listId
+        }
+        this.shareService.get(this.listId).pipe(map(share => {
+            if (share && share.length > 0) {
+                console.table(share[0]);
+            } else {
+                this.shareService.add(newShare).then(() => {
+                    this.shareService.get(listId).pipe(map(share => {
+                        console.table(share);
+                    }));
+                })
+            }
+        })).subscribe();
     }
 }

@@ -4,7 +4,7 @@
       <div class="container-fluid p-0 h-100">
         <div class="row">
           <div class="col-auto d-flex align-items-center">
-            <h2 class="h5 m-0 px-1">Collections</h2>
+            <h2 class="h6 m-0 px-1">Collections</h2>
           </div>
           <div class="col d-flex flex-row-reverse">
             <div ngbDropdown class="d-inline-block" placement="bottom-end">
@@ -18,13 +18,12 @@
           </div>
         </div>
         <div class="row">
-          <app-input-filter></app-input-filter>
+          <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>
         </div>
         <div class="row">
-          <app-user-list (listSelected)="onListSelected($event)" ></app-user-list>
+          <app-user-list [listitems]="list$ | async" (listSelected)="onListSelected($event)" ></app-user-list>
         </div>
       </div>
-
     </div>
     <div class="col-8 p-0">
       <router-outlet name="list"></router-outlet>

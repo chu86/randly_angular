@@ -4,12 +4,22 @@
             <button class="btn btn-light" type="button" (click)="onNavigateBackClicked()">
                 <
             </button>
-            <h2 class="h5 m-0 px-1">{{document.name}}</h2>
+            <h2 class="h6 m-0 px-1">{{document.name}}</h2>
         </div>
         <div class="col d-flex flex-row-reverse">
-            <button *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onEditClicked()">
-                <i-bs name="pencil"></i-bs>
-            </button>
+            <div *ngIf="!isEditing" ngbDropdown class="d-inline-block" placement="bottom-end">
+                <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
+                    <i-bs name="three-dots-vertical"></i-bs>
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onEditClicked()">
+                        <i-bs name="pencil"></i-bs><span class="px-2">Edit</span>
+                    </button>
+                    <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onShareClicked()">
+                        <i-bs name="share"></i-bs><span class="px-2">Share</span>
+                    </button>
+                </div>
+            </div>
             <button *ngIf="isEditing" class="btn btn-light" type="button" (click)="onEditCancel()">
                 <i-bs name="x"></i-bs>
             </button>
