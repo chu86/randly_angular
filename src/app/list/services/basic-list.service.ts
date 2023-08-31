@@ -5,7 +5,7 @@ import {
   addDoc,
   collection,
   collectionData, deleteDoc,
-  doc,
+  doc, documentId,
   Firestore,
   getDoc,
   orderBy,
@@ -29,6 +29,13 @@ export class BasicListService {
   public getCollection(): Observable<BasicList[]> {
     const collection1 = collection(this.firestore, 'basic-list');
     const whereCondition = where('users', "array-contains", this.authService.user?.uid);
+    const queryVar = query(collection1, whereCondition);
+    return collectionData(queryVar, {idField: 'id'}) as Observable<BasicList[]>;
+  }
+
+  public getUserCollections(listIds: string[]): Observable<BasicList[]> {
+    const collection1 = collection(this.firestore, 'basic-list');
+    const whereCondition = where(documentId(), "in", listIds);
     const queryVar = query(collection1, whereCondition);
     return collectionData(queryVar, {idField: 'id'}) as Observable<BasicList[]>;
   }

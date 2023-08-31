@@ -1,0 +1,55 @@
+<div class="container-fluid p-0 h-100">
+  <div class="row list-top">
+    <div class="col-auto d-flex align-items-center">
+      <button class="btn btn-light" type="button" (click)="onNavigateToLists()">
+        <
+      </button>
+      <h2 class="h6 m-0 px-1">Collections</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="container-fluid p-0 h-100">
+        <div class="row">
+          <div class="col text-center">
+            <h2 class="p-lg-4">Collection Invitation</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="(userListDoc$ | async) === undefined; else cannotAccept">
+    <div class="row" *ngIf="listDoc$ | async as list">
+      <div class="col">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <p class="text-center">You have been invited to collaborate on list {{list.name}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p class="text-center">Would you like to accept and add {{list.name}} to your collections?</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col d-flex justify-content-center">
+              <button class="btn btn-primary" type="button" (click)="onAccept()">
+                Accept
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #cannotAccept>
+    <div class="row" *ngIf="(userListDoc$ | async)">
+      <div class="col">
+        <p class="text-center">You are already participating in this collection.</p>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+

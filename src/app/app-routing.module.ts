@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'item/:listId/:docId',
     loadChildren: () => import('./item/item.module').then(m => m.ItemModule)
   },
+  {
+    path: 'invite/:id',
+    loadChildren: () => import('./invite/invite.module').then(m => m.InviteModule)
+  },
   {path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)},
 ];
 

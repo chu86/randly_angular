@@ -1,4 +1,4 @@
-export interface Share {
+export interface Invite {
     id?: string;
     listId: string;
 }

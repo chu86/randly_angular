@@ -7,6 +7,10 @@ import {ListItemComponent} from "./components/list-item/list-item.component";
 import {check, NgxBootstrapIconsModule, pencil, plus, search, threeDotsVertical, trash, x, share} from "ngx-bootstrap-icons";
 import { ListMainComponent } from './components/list-main/list-main.component';
 import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
+import { ListLayoutComponent } from './components/list-layout/list-layout.component';
+import {SharedModule} from "../shared/shared.module";
+import {ListLayoutOldComponent} from "./components/list-layout/list-layout-old.component";
+import {UserListComponent} from "./components/user-list/user-list.component";
 
 // Select some icons (use an object, not an array)
 const icons = {
@@ -25,7 +29,9 @@ const icons = {
     ListComponent,
     ListItemComponent,
     ListMainComponent,
-
+    ListLayoutComponent,
+    ListLayoutOldComponent,
+    UserListComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +42,7 @@ const icons = {
     NgbDropdownItem,
     NgbDropdownMenu,
     NgbDropdownToggle,
+    SharedModule,
   ]
 })
 export class ListModule {

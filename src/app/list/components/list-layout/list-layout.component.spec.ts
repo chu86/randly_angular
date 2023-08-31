@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListLayoutComponent } from './list-layout.component';
 
-describe('ListHomeComponent', () => {
+describe('ListLayoutComponent', () => {
   let component: ListLayoutComponent;
   let fixture: ComponentFixture<ListLayoutComponent>;
 
