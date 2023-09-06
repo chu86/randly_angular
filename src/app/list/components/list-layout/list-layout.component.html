@@ -1,19 +1,21 @@
-<div class="container-fluid p-0 h-100">
+<div class="container-fluid h-100">
   <div class="row list-top">
-    <div class="col">
-      <div class="container-fluid p-0 h-100">
+    <div class="col p-0">
+      <div class="container-fluid h-100">
         <div class="row">
-          <div class="col-auto d-flex align-items-center">
+          <div class="col-auto d-flex align-items-center p-0">
             <h2 class="h6 m-0 px-1">Collections</h2>
           </div>
-          <div class="col d-flex flex-row-reverse">
+          <div class="col d-flex flex-row-reverse p-0">
             <div *ngIf="!isEditing" ngbDropdown class="d-inline-block" placement="bottom-end">
               <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
                 <i-bs name="three-dots-vertical"></i-bs>
               </button>
               <div ngbDropdownMenu class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onEditClicked()">
-                  <i-bs name="pencil"></i-bs><span class="px-2">Edit</span>
+                <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button"
+                        (click)="onEditClicked()">
+                  <i-bs name="pencil"></i-bs>
+                  <span class="px-2">Edit</span>
                 </button>
               </div>
             </div>
@@ -22,17 +24,24 @@
             </button>
           </div>
         </div>
-<!--        <div class="row">-->
-<!--          <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>-->
-<!--        </div>-->
+        <!--        <div class="row">-->
+        <!--          <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>-->
+        <!--        </div>-->
       </div>
     </div>
   </div>
   <div class="row">
-    <app-collections [listitems]="list$ | async" (listSelected)="onListSelected($event)"></app-collections>
+    <div class="col p-0">
+      <app-collections [listitems]="list$ | async"
+                       [isEditing]="isEditing"
+                       (listSelected)="onListSelected($event)"
+                       (deleteActivated)="onDeleteActivated($event)"
+                       >
+      </app-collections>
+    </div>
   </div>
   <div class="row" *ngIf="isEditing">
-    <div class="col">
+    <div class="col p-0">
       <button class="btn btn-light" type="button" (click)="addNew()">
         <i-bs name="plus"></i-bs>
       </button>

@@ -137,4 +137,11 @@ export class BasicListService {
             console.log('document updated.')
         });
     }
+
+  public async deleteCollection(document: BasicList): Promise<void> {
+    const path = doc(this.firestore, `basic-list/${document.id}`);
+    await deleteDoc(path).then(() => {
+      console.log('document deleted.')
+    });
+  }
 }

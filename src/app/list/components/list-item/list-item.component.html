@@ -28,13 +28,18 @@
 <ng-template #showOnly>
   <div class="container-fluid p-0">
     <div *ngIf="listitems as items">
-      <div class="list-group p-0">
+      <div class="list-group p-0" *ngIf="items.length > 0; else noItems">
         <button type="button" class="list-group-item list-group-item-action"
                 *ngFor="let item of items; let i = index"
                 (click)="onItemSelected(item.id)">
           {{item.name}}
         </button>
       </div>
+      <ng-template #noItems>
+        <div class="d-flex justify-content-center">
+          <p>No items yet.</p>
+        </div>
+      </ng-template>
     </div>
   </div>
 </ng-template>

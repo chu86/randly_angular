@@ -1,4 +1,4 @@
-<div class="main h-100 container-fluid p-0 overflow-hidden">
+<div class="main h-100 container-fluid p-0">
   <app-header></app-header>
   <div class="h-100 container-fluid p-0" *ngIf="authService.isLoggedIn(); else login">
     <router-outlet></router-outlet>
@@ -6,6 +6,6 @@
   <ng-template #login>
     <app-login></app-login>
   </ng-template>
-
+<!--  <app-footer></app-footer>-->
 </div>
-<app-footer class="mt-auto"></app-footer>
+

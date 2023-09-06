@@ -1,5 +1,5 @@
 <ng-container *ngIf="listitems">
-    <div class="container-fluid">
+    <div class="container-fluid" *ngIf="listitems.length > 0; else noItems">
         <ng-container *ngIf="isEditing; else showOnly">
             <div [formGroup]="form">
                 <ng-container formArrayName="listitems">
@@ -37,4 +37,9 @@
             </ng-container>
         </ng-template>
     </div>
+    <ng-template #noItems>
+        <div class="d-flex justify-content-center">
+            <p>No items yet.</p>
+        </div>
+    </ng-template>
 </ng-container>

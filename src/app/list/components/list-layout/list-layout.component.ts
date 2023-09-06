@@ -6,53 +6,53 @@ import {BasicListService} from "../../services/basic-list.service";
 import {UserListService} from "../../services/user-list.service";
 
 @Component({
-    selector: 'app-list-layout',
-    templateUrl: './list-layout.component.html',
-    styleUrls: ['./list-layout.component.scss']
+  selector: 'app-list-layout',
+  templateUrl: './list-layout.component.html',
+  styleUrls: ['./list-layout.component.scss']
 })
 export class ListLayoutComponent implements OnInit, OnDestroy {
-    public list$: Observable<BasicList[]> | undefined;
-    private subscription: Subscription | undefined;
-    public isEditing = false;
+  public list$: Observable<BasicList[]> | undefined;
+  private subscription: Subscription | undefined;
+  public isEditing = false;
 
-    constructor(
-        private router: Router,
-        private userlistService: UserListService,
-        private listService: BasicListService) {
-    }
+  constructor(
+    private router: Router,
+    private userlistService: UserListService,
+    private listService: BasicListService) {
+  }
 
-    public ngOnInit(): void {
-        this.subscription = this.userlistService.getUserListIds().subscribe(userListIds => {
-            this.list$ = this.listService.getUserCollections(userListIds);
-        });
-    }
+  public ngOnInit(): void {
+    this.subscription = this.userlistService.getUserListIds().subscribe(userListIds => {
+      this.list$ = this.listService.getUserCollections(userListIds);
+    });
+  }
 
-    onListSelected($event: string) {
-        this.router.navigate(['list', $event]);
-    }
+  onListSelected($event: string) {
+    this.router.navigate(['list', $event]);
+  }
 
-    onFilterValueChanged($event: string | null) {
-        // TODO umsetzung
-    }
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
 
-    ngOnDestroy(): void {
-        this.subscription?.unsubscribe();
-    }
+  onEditClicked() {
+    this.isEditing = true;
+  }
 
-    onEditClicked() {
-        this.isEditing = true;
-    }
+  onEditCancel() {
+    this.isEditing = false;
+  }
 
-    onEditCancel() {
-        this.isEditing = false;
+  addNew() {
+    const collection: BasicList = {
+      name: 'New Collection',
+      created: new Date(),
+      description1: ''
     }
+    this.listService.addCollection(collection).then(() => console.log('added!'));
+  }
 
-    addNew() {
-        const collection: BasicList = {
-            name: 'New Collection',
-            created: new Date(),
-            description1: ''
-        }
-        this.listService.addCollection(collection).then(r => console.log('added!'));
-    }
+  onDeleteActivated($event: BasicList) {
+    this.listService.deleteCollection($event);
+  }
 }

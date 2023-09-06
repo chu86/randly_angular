@@ -11,21 +11,21 @@ import {Router} from "@angular/router";
 export class CollectionsComponent {
 
   @Input()
+  public isEditing = false;
+
+  @Input()
   get filter(): string | null | undefined {
     return this._filter;
   }
 
   set filter(value: string | null | undefined) {
     this._filter = value;
-    if (this.listitems) {
-      // if (!value) {
-      //
-      // }
-      // this.filtereditems = this.listitems.filter(item=>item.name.startsWith(value))
-    }
   }
 
   private _filter: string | null | undefined;
+
+  @Output()
+  public deleteActivated: EventEmitter<BasicList> = new EventEmitter<BasicList>();
 
   @Input()
   get listitems(): BasicList[] | null | undefined {
@@ -50,5 +50,12 @@ export class CollectionsComponent {
     if (id) {
       this.listSelected.emit(id);
     }
+  }
+
+  deleteItem(i: number) {
+    if (!this.listitems) {
+      return;
+    }
+    this.deleteActivated.emit(this.listitems[i])
   }
 }
