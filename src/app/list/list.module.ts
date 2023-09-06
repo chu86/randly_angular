@@ -9,8 +9,7 @@ import { ListMainComponent } from './components/list-main/list-main.component';
 import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
 import { ListLayoutComponent } from './components/list-layout/list-layout.component';
 import {SharedModule} from "../shared/shared.module";
-import {ListLayoutOldComponent} from "./components/list-layout/list-layout-old.component";
-import {UserListComponent} from "./components/user-list/user-list.component";
+import {CollectionsComponent} from "./components/collections/collections.component";
 
 // Select some icons (use an object, not an array)
 const icons = {
@@ -30,8 +29,7 @@ const icons = {
     ListItemComponent,
     ListMainComponent,
     ListLayoutComponent,
-    ListLayoutOldComponent,
-    UserListComponent,
+    CollectionsComponent,
   ],
   imports: [
     CommonModule,

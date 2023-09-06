@@ -1,11 +1,12 @@
 <div *ngIf="doc$ | async as doc" class="container-fluid p-0">
     <app-list-main
-            [document]="doc$ | async"
+            [document]="doc"
             [isEditing]="isEditing"
             (editClicked)="onEditClicked()"
             (editCancel)="onEditCancel()"
             (navigateBack)="onNavigateBackClicked()"
             (shareClicked)="onShareClicked()"
+            (valueChanged)="onValueChanged($event)"
     ></app-list-main>
 
     <div class="row p-0">

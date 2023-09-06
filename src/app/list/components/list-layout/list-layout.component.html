@@ -7,14 +7,19 @@
             <h2 class="h6 m-0 px-1">Collections</h2>
           </div>
           <div class="col d-flex flex-row-reverse">
-            <div ngbDropdown class="d-inline-block" placement="bottom-end">
+            <div *ngIf="!isEditing" ngbDropdown class="d-inline-block" placement="bottom-end">
               <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
                 <i-bs name="three-dots-vertical"></i-bs>
               </button>
               <div ngbDropdownMenu class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem>Action - 1</button>
+                <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onEditClicked()">
+                  <i-bs name="pencil"></i-bs><span class="px-2">Edit</span>
+                </button>
               </div>
             </div>
+            <button *ngIf="isEditing" class="btn btn-light" type="button" (click)="onEditCancel()">
+              <i-bs name="x"></i-bs>
+            </button>
           </div>
         </div>
 <!--        <div class="row">-->
@@ -24,7 +29,14 @@
     </div>
   </div>
   <div class="row">
-    <app-user-list [listitems]="list$ | async" (listSelected)="onListSelected($event)"></app-user-list>
+    <app-collections [listitems]="list$ | async" (listSelected)="onListSelected($event)"></app-collections>
+  </div>
+  <div class="row" *ngIf="isEditing">
+    <div class="col">
+      <button class="btn btn-light" type="button" (click)="addNew()">
+        <i-bs name="plus"></i-bs>
+      </button>
+    </div>
   </div>
 </div>
 

@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title">Share Collection</h4>
+    <button type="button" class="close btn btn-light" aria-label="Close" (click)="closeModal()">
+        <i-bs name="x"></i-bs>
+    </button>
+</div>
+<div class="modal-body">
+    <p>You can copy and share the following link with someone to invite them to collaborate!</p>
+    <div class="btn-group w-100" role="group">
+        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" [formControl]="urlInput">
+        <button type="button" class="btn btn-primary" aria-label="Copy" (click)="onCopyActivated()">Copy</button>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Close</button>
+</div>

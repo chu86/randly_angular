@@ -37,8 +37,15 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
         if (!this.listId || !this.docId) {
             return;
         }
-        this.doc$ = this.listService.getItemDocument(this.listId, this.docId);
+        this.readDocument();
         this.listitems$ = this.listService.getItemList(this.listId, this.docId);
+    }
+
+    private readDocument() {
+        if (!this.listId || !this.docId) {
+            return;
+        }
+        this.doc$ = this.listService.getItemDocument(this.listId, this.docId);
     }
 
     private readPathParams(p: ParamMap) {
@@ -60,23 +67,29 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
 
     onAddNewActivated(newItem: ItemListItem) {
         if (this.docId && this.listId) {
-            this.listService.addItem(this.listId, this.docId, newItem).then(r => console.log('added!'));
+            this.listService.addItem(this.listId, this.docId, newItem).then(() => console.log('added!'));
         }
     }
 
     onDeleteActivated($event: ItemListItem) {
         if (this.docId && this.listId) {
-            this.listService.deleteItem(this.listId, this.docId, $event).then(r => console.log('deleted!'));
+            this.listService.deleteItem(this.listId, this.docId, $event).then(() => console.log('deleted!'));
         }
     }
 
     onEditItemActivated($event: ItemListItem) {
         if (this.docId && this.listId) {
-            this.listService.updateItem(this.listId, this.docId, $event).then(r => console.log('updated!'));
+            this.listService.updateItemListItem(this.listId, this.docId, $event).then(() => console.log('updated!'));
         }
     }
 
     onNavigateBack() {
         this.location.back();
+    }
+
+    onValueChanged($event: BasicList) {
+        if (this.listId) {
+            this.listService.updateItemDocument(this.listId, $event).then(r => this.readDocument())
+        }
     }
 }
