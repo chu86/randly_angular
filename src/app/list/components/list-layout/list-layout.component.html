@@ -1,52 +1,32 @@
-<div class="container-fluid h-100">
-  <div class="row list-top">
-    <div class="col p-0">
-      <div class="container-fluid h-100">
-        <div class="row">
-          <div class="col-auto d-flex align-items-center p-0">
-            <h2 class="h6 m-0 px-1">Collections</h2>
-          </div>
-          <div class="col d-flex flex-row-reverse p-0">
-            <div *ngIf="!isEditing" ngbDropdown class="d-inline-block" placement="bottom-end">
-              <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
-                <i-bs name="three-dots-vertical"></i-bs>
-              </button>
-              <div ngbDropdownMenu class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button"
-                        (click)="onEditClicked()">
-                  <i-bs name="pencil"></i-bs>
-                  <span class="px-2">Edit</span>
-                </button>
-              </div>
-            </div>
-            <button *ngIf="isEditing" class="btn btn-light" type="button" (click)="onEditCancel()">
-              <i-bs name="x"></i-bs>
-            </button>
-          </div>
-        </div>
-        <!--        <div class="row">-->
-        <!--          <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>-->
-        <!--        </div>-->
-      </div>
+<div *ngIf="doc$ | async as doc" class="container-fluid p-0">
+    <app-list-main
+            [document]="doc"
+            [isEditing]="isEditing"
+            (editClicked)="onEditClicked()"
+            (editCancel)="onEditCancel()"
+            (navigateBack)="onNavigateBackClicked()"
+            (shareClicked)="onShareClicked()"
+            (valueChanged)="onValueChanged($event)"
+            (fullRandomClicked)="onFullRandomClicked()"
+    ></app-list-main>
+
+    <div class="row p-0">
+        <ng-container *ngIf="listId">
+            <app-list-item
+                    [listId]="listId"
+                    [listitems]="listItems$ | async"
+                    [isEditing]="isEditing"
+                    (itemSelected)="onItemSelected($event)"
+                    (deleteActivated)="onDeleteActivated($event)"
+                    (addNewActivated)="onAddNewActivated($event)"
+                    (editItemActivated)="onEditItemActivated($event)"
+            ></app-list-item>
+        </ng-container>
     </div>
-  </div>
-  <div class="row">
-    <div class="col p-0">
-      <app-collections [listitems]="list$ | async"
-                       [isEditing]="isEditing"
-                       (listSelected)="onListSelected($event)"
-                       (deleteActivated)="onDeleteActivated($event)"
-                       >
-      </app-collections>
-    </div>
-  </div>
-  <div class="row" *ngIf="isEditing">
-    <div class="col p-0">
-      <button class="btn btn-light" type="button" (click)="addNew()">
-        <i-bs name="plus"></i-bs>
-      </button>
-    </div>
-  </div>
 </div>
+
+
+
+
 
 

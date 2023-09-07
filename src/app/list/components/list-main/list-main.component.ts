@@ -34,6 +34,7 @@ export class ListMainComponent implements OnInit, OnDestroy {
   @Output() navigateBack = new EventEmitter<void>();
   @Output() shareClicked = new EventEmitter<void>();
   @Output() valueChanged = new EventEmitter<BasicList>();
+  @Output() fullRandomClicked = new EventEmitter<void>();
 
   constructor(
     private location: Location, private fb: FormBuilder) {
@@ -86,5 +87,9 @@ export class ListMainComponent implements OnInit, OnDestroy {
 
   private onValueChanged(value: BasicList) {
     this.valueChanged.emit(value);
+  }
+
+  onRandomClicked() {
+    this.fullRandomClicked.emit();
   }
 }

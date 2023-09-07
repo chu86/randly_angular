@@ -11,14 +11,18 @@
         <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
           <i-bs name="three-dots-vertical"></i-bs>
         </button>
-        <div ngbDropdownMenu class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onEditClicked()">
+        <div ngbDropdownMenu *ngIf="!isEditing" class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem  class="btn btn-light" type="button" (click)="onEditClicked()">
             <i-bs name="pencil"></i-bs>
             <span class="px-2">Edit</span>
           </button>
-          <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onShareClicked()">
+          <button ngbDropdownItem class="btn btn-light" type="button" (click)="onShareClicked()">
             <i-bs name="share"></i-bs>
             <span class="px-2">Share</span>
+          </button>
+          <button ngbDropdownItem class="btn btn-light" type="button" (click)="onRandomClicked()">
+            <i-bs name="dice-6"></i-bs>
+            <span class="px-2">Full Random</span>
           </button>
         </div>
       </div>
@@ -44,7 +48,7 @@
     </div>
     <div class="col" *ngIf="isEditing">
       <div class="form-group">
-        <label for="description">Name</label>
+        <label for="description">Description</label>
         <textarea id="description" rows="3" class="form-control" formControlName="description1"
                   placeholder="Enter description"></textarea>
       </div>

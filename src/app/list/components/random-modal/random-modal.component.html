@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title">Full Random</h4>
+  <button type="button" class="close btn btn-light" aria-label="Close" (click)="closeModal()">
+    <i-bs name="x"></i-bs>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="text-center py-4">
+    <p>You have rolled:</p>
+    <h2>{{listItem?.name}}</h2>
+  </div>
+  <div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-primary" aria-label="Show" (click)="showItem()">Show</button>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Close</button>
+</div>
