@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {InputFilterComponent} from './components/input-filter/input-filter.component';
 import {check, NgxBootstrapIconsModule, pencil, plus, search, threeDotsVertical, trash, x} from "ngx-bootstrap-icons";
 import {ReactiveFormsModule} from "@angular/forms";
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 const icons = {
     pencil,
@@ -16,7 +17,8 @@ const icons = {
 
 @NgModule({
     declarations: [
-        InputFilterComponent
+        InputFilterComponent,
+        ConfirmModalComponent
     ],
     imports: [
         CommonModule,

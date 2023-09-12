@@ -20,7 +20,6 @@ import { ListMainComponent } from './components/list-main/list-main.component';
 import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
 import { CollectionsLayoutComponent } from './components/collections-layout/collections-layout.component';
 import {SharedModule} from "../shared/shared.module";
-import {CollectionsComponent} from "./components/collections/collections.component";
 import { RandomModalComponent } from './components/random-modal/random-modal.component';
 
 // Select some icons (use an object, not an array)
@@ -42,7 +41,6 @@ const icons = {
     ListItemComponent,
     ListMainComponent,
     CollectionsLayoutComponent,
-    CollectionsComponent,
     RandomModalComponent,
   ],
   imports: [

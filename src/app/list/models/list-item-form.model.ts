@@ -1,6 +1,6 @@
 import {FormArray, FormControl} from "@angular/forms";
-import {ListItem} from "./list-item.model";
+import { BasicList } from "./basic-list.model";
 
 export interface ListItemForm {
-    listitems: FormArray<FormControl<ListItem>>;
+    listitems: FormArray<FormControl<BasicList>>;
 }

@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChildren} from '@angular/core';
 import {Subscription} from "rxjs";
-import {ListItem} from "../../models/list-item.model";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ListItemForm} from "../../models/list-item-form.model";
+import { BasicList } from '../../models/basic-list.model';
+import { BasicListService } from '../../services/basic-list.service';
 
 @Component({
   selector: 'app-list-item',
@@ -12,50 +13,40 @@ import {ListItemForm} from "../../models/list-item-form.model";
 export class ListItemComponent implements OnDestroy {
 
   @Output() itemSelected = new EventEmitter<string>();
-  @Output() addNewActivated = new EventEmitter<ListItem>();
-  @Output() deleteActivated = new EventEmitter<ListItem>();
-  @Output() editItemActivated = new EventEmitter<ListItem>();
+  @Output() addNewActivated = new EventEmitter<BasicList>();
+  @Output() deleteActivated = new EventEmitter<BasicList>();
+  @Output() editItemActivated = new EventEmitter<BasicList>();
 
   @Input()
   public isEditing = false;
 
   @Input()
-  get listId(): string | undefined {
-    return this._listId;
-  }
-
-  set listId(value: string | undefined) {
-    this._listId = value;
-  }
-
-  private _listId: string | undefined;
-
-  @Input()
-  get listitems(): ListItem[] | null | undefined {
+  get listitems(): BasicList[] | null | undefined {
     return this._listitems;
   }
 
-  set listitems(value: ListItem[] | null | undefined) {
-    this._listitems = value;
+  set listitems(value: BasicList[] | null | undefined) {
+    this._listitems = value?.sort(({order:a}, {order:b}) => a-b);
     if (this._listitems) {
       this.initFormGroup(this._listitems);
     }
   }
 
-  private _listitems: ListItem[] | null | undefined;
+  private _listitems: BasicList[] | null | undefined;
 
   @ViewChildren('input') test: QueryList<Element> | undefined
 
   private formSubscriptions: Subscription[] = [];
   public form = new FormGroup<ListItemForm>({
-    listitems: new FormArray<FormControl<ListItem>>([])
+    listitems: new FormArray<FormControl<BasicList>>([])
   })
 
   constructor(
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private listService: BasicListService) {
   }
 
-  private initFormGroup(items: ListItem[]) {
+  private initFormGroup(items: BasicList[]) {
     this.listitemControls.clear();
     for (const val of items) {
       this.addListItem(val.name, val.order, val.id);
@@ -70,14 +61,14 @@ export class ListItemComponent implements OnDestroy {
     }, {updateOn: 'blur'});
     const subscription = listItemForm.valueChanges.subscribe(item => {
       if (item) {
-        this.onItemChanged(item as ListItem);
+        this.onItemChanged(item as BasicList);
       }
     })
     this.formSubscriptions.push(subscription);
     this.listitemControls.push(listItemForm);
   }
 
-  onItemChanged(item: ListItem): void {
+  onItemChanged(item: BasicList): void {
     this.editItemActivated.emit(item);
   }
 
@@ -98,19 +89,15 @@ export class ListItemComponent implements OnDestroy {
   }
 
   addNew() {
-    const newItem: ListItem = {
+    const newItem: BasicList = {
       name: '',
-      order: this.getMaxOrder() + 1
+      order: this.listService.getMaxOrder(this.listitems) + 1,
+      description1: '',
+      created: new Date()
     }
     this.addNewActivated.emit(newItem);
   }
 
-  private getMaxOrder(): number {
-    if (!this.listitems) {
-      return 0;
-    }
-    return Math.max(...this.listitems.map(o => o.order), 1)
-  }
 
   ngOnDestroy(): void {
     this.formSubscriptions.forEach(sub => sub.unsubscribe())

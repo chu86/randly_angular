@@ -4,6 +4,7 @@ import {BasicList} from "../../models/basic-list.model";
 import {Router} from "@angular/router";
 import {BasicListService} from "../../services/basic-list.service";
 import {UserListService} from "../../services/user-list.service";
+import { ModalService } from 'src/app/shared/service/modal.service';
 
 @Component({
   selector: 'app-collections-layout',
@@ -18,13 +19,13 @@ export class CollectionsLayoutComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private userlistService: UserListService,
-    private listService: BasicListService) {
+    private listService: BasicListService,
+    private modalService: ModalService) {
   }
 
   public ngOnInit(): void {
-    this.subscription = this.userlistService.getUserListIds().subscribe(userListIds => {
-      this.list$ = this.listService.getUserCollections(userListIds);
-    });
+    this.readData();
+
   }
 
   onListSelected($event: string) {
@@ -43,16 +44,27 @@ export class CollectionsLayoutComponent implements OnInit, OnDestroy {
     this.isEditing = false;
   }
 
-  addNew() {
-    const collection: BasicList = {
-      name: 'New Collection',
-      created: new Date(),
-      description1: ''
-    }
-    this.listService.addCollection(collection).then(() => console.log('added!'));
+  onAddNewActivated($event: BasicList) {
+    this.listService.addCollection($event).then(() => console.log('added!'));
   }
 
   onDeleteActivated($event: BasicList) {
-    this.listService.deleteCollection($event);
+    this.modalService.openConfirmModal('Confirm delete', 'Are you sure?').then(confirmed=>{
+      if (confirmed){
+        this.listService.deleteCollection($event);
+      }
+    })
+  }
+
+  onValueChanged($event: BasicList) {
+    this.listService.updateCollection($event).then(() => this.readData());
+  }
+
+  readData(): void {
+    this.subscription?.unsubscribe();
+    this.subscription = this.userlistService.getUserListIds().subscribe(userListIds => {
+      this.list$ = this.listService.getUserCollections(userListIds);
+    });
+    
   }
 }

@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
-import {BasicList} from "../../../list/models/basic-list.model";
-import {ItemListItem} from "../../models/item-list-item.model";
-import {BasicListService} from "../../../list/services/basic-list.service";
-import {ActivatedRoute, ParamMap} from "@angular/router";
-import {Location} from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from "rxjs";
+import { BasicList } from "../../../list/models/basic-list.model";
+import { ItemListItem } from "../../models/item-list-item.model";
+import { BasicListService } from "../../../list/services/basic-list.service";
+import { ActivatedRoute, ParamMap } from "@angular/router";
+import { Location } from '@angular/common';
+import { ModalService } from 'src/app/shared/service/modal.service';
 
 @Component({
     selector: 'app-item-layout',
@@ -23,7 +24,8 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
     constructor(
         private listService: BasicListService,
         private route: ActivatedRoute,
-        private location: Location) {
+        private location: Location,
+        private modalService: ModalService) {
     }
 
     public ngOnInit(): void {
@@ -73,7 +75,14 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
 
     onDeleteActivated($event: ItemListItem) {
         if (this.docId && this.listId) {
-            this.listService.deleteItem(this.listId, this.docId, $event).then(() => console.log('deleted!'));
+            this.modalService.openConfirmModal('Confirm delete', 'Are you sure?').then(confirmed => {
+                if (confirmed) {
+                    this.listService.deleteItem(this.listId!, this.docId!, $event).then(() => console.log('deleted!'));
+                }
+            })
+
+
+
         }
     }
 

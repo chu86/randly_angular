@@ -19,7 +19,7 @@ export class ItemListComponent implements OnDestroy {
     }
 
     set listitems(value: ItemListItem[] | null | undefined) {
-        this._listitems = value;
+        this._listitems = value?.sort(({order:a}, {order:b}) => a-b);
         if (this._listitems) {
             this.initFormGroup(this._listitems);
         }

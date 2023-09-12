@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import {ListItem} from "../../models/list-item.model";
 import {Router} from "@angular/router";
+import {BasicList} from "../../models/basic-list.model";
 
 @Component({
   selector: 'app-random-modal',
@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 export class RandomModalComponent {
 
   @Input()
-  public listItem: ListItem | undefined;
+  public listItem: BasicList | undefined;
 
   @Input()
   public listUid: number | undefined;

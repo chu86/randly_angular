@@ -13,7 +13,6 @@
     <div class="row p-0">
         <ng-container *ngIf="listId">
             <app-list-item
-                    [listId]="listId"
                     [listitems]="listItems$ | async"
                     [isEditing]="isEditing"
                     (itemSelected)="onItemSelected($event)"

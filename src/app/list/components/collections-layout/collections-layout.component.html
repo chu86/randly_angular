@@ -13,7 +13,7 @@
               </button>
               <div ngbDropdownMenu class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
                 <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button"
-                        (click)="onEditClicked()">
+                  (click)="onEditClicked()">
                   <i-bs name="pencil"></i-bs>
                   <span class="px-2">Edit</span>
                 </button>
@@ -32,21 +32,9 @@
   </div>
   <div class="row">
     <div class="col p-0">
-      <app-collections [listitems]="list$ | async"
-                       [isEditing]="isEditing"
-                       (listSelected)="onListSelected($event)"
-                       (deleteActivated)="onDeleteActivated($event)"
-                       >
-      </app-collections>
-    </div>
-  </div>
-  <div class="row" *ngIf="isEditing">
-    <div class="col p-0">
-      <button class="btn btn-light" type="button" (click)="addNew()">
-        <i-bs name="plus"></i-bs>
-      </button>
+      <app-list-item [listitems]="list$ | async" [isEditing]="isEditing" (itemSelected)="onListSelected($event)"
+        (deleteActivated)="onDeleteActivated($event)" (addNewActivated)="onAddNewActivated($event)"
+        (editItemActivated)="onValueChanged($event)"></app-list-item>
     </div>
   </div>
 </div>
-
-
