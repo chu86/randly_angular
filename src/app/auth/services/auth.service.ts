@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {GoogleAuthProvider} from 'firebase/auth';
-import {Auth, authState, signInWithPopup, signOut, User, user} from "@angular/fire/auth";
+import {Auth, authState, FacebookAuthProvider, signInWithPopup, signOut, User, user} from "@angular/fire/auth";
 import {Subscription} from "rxjs";
 
 @Injectable({
@@ -28,6 +28,10 @@ export class AuthService implements OnDestroy {
     return this.googleSigninPopup(new GoogleAuthProvider());
   }
 
+  public facebookLogin(): Promise<void> {
+    return this.googleSigninPopup(new FacebookAuthProvider());
+  }
+
   public logout(): Promise<void> {
     return signOut(this.auth)
       .then(() => {
@@ -45,6 +49,18 @@ export class AuthService implements OnDestroy {
   private googleSigninPopup(provider: GoogleAuthProvider): Promise<void> {
     return signInWithPopup(this.auth, provider)
       .then(() => {
+        console.log('You have been successfully logged in!');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  private facebookSigninPopup(provider: FacebookAuthProvider): Promise<void> {
+    return signInWithPopup(this.auth, provider)
+      .then(result => {
+        const user = result.user;
+        console.log(user);
         console.log('You have been successfully logged in!');
       })
       .catch((error) => {
