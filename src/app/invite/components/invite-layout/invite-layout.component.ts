@@ -57,7 +57,7 @@ export class InviteLayoutComponent implements OnInit, OnDestroy {
       return this.listService.getCollectionDocument(invite.listId);
     }));
     this.userListDoc$ = this.inviteDoc$.pipe(switchMap(invite => {
-      return this.userListService.getUserLists().pipe(map(lists=> {
+      return this.userListService.getAllForUser().pipe(map(lists=> {
         return lists.find(l=>l.listUid == invite.listId)
       }))
     }))

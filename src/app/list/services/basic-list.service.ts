@@ -1,25 +1,25 @@
-import {Injectable} from '@angular/core';
-import {BasicList} from "../models/basic-list.model";
-import {from, map, Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { BasicList } from "../models/basic-list.model";
+import { firstValueFrom, from, map, Observable, switchMap } from "rxjs";
 import {
-  addDoc,
-  collection,
-  collectionData,
-  deleteDoc,
-  doc,
-  documentId,
-  Firestore,
-  getDoc,
-  orderBy,
-  query,
-  setDoc,
-  where
+    addDoc,
+    collection,
+    collectionData,
+    deleteDoc,
+    doc,
+    documentId,
+    Firestore,
+    getDoc,
+    orderBy,
+    query,
+    setDoc,
+    where
 } from '@angular/fire/firestore';
-import {AuthService} from "../../auth/services/auth.service";
-import {ItemListItem} from "../../item/models/item-list-item.model";
-import {UserListService} from "./user-list.service";
-import {UserList} from "../models/user-list.model";
-import {UserListRole} from "../models/user-list-role-enum.model";
+import { AuthService } from "../../auth/services/auth.service";
+import { ItemListItem } from "../../item/models/item-list-item.model";
+import { UserListService } from "./user-list.service";
+import { UserList } from "../models/user-list.model";
+import { UserListRole } from "../models/user-list-role-enum.model";
 
 @Injectable({
     providedIn: 'root'
@@ -27,25 +27,28 @@ import {UserListRole} from "../models/user-list-role-enum.model";
 export class BasicListService {
 
     constructor(public firestore: Firestore,
-                public authService: AuthService,
-                public userListService: UserListService) {
+        public authService: AuthService,
+        public userListService: UserListService) {
     }
 
     public getUserCollections(listIds: string[]): Observable<BasicList[]> {
+        if (!listIds || listIds.length === 0){
+            return from([]);
+        }
         const collection1 = collection(this.firestore, 'basic-list');
         const whereCondition = where(documentId(), "in", listIds);
         const queryVar = query(collection1, whereCondition);
-        return collectionData(queryVar, {idField: 'id'}) as Observable<BasicList[]>;
+        return collectionData(queryVar, { idField: 'id' }) as Observable<BasicList[]>;
     }
 
     public getCollectionDocument(id: string): Observable<BasicList> {
         const path = doc(this.firestore, `basic-list/${id}`);
-        return from(getDoc(path)).pipe(map(docSnap => ({id, ...docSnap.data()} as BasicList)))
+        return from(getDoc(path)).pipe(map(docSnap => ({ id, ...docSnap.data() } as BasicList)))
     }
 
     public getListItems(id: string): Observable<BasicList[]> {
         const collection1 = collection(this.firestore, `basic-list/${id}/listItems`);
-        return collectionData(collection1, {idField: 'id'}) as Observable<BasicList[]>;
+        return collectionData(collection1, { idField: 'id' }) as Observable<BasicList[]>;
     }
 
     public getItemDocument(listId: string, docId: string): Observable<BasicList> {
@@ -63,14 +66,14 @@ export class BasicListService {
 
     public getItemList(id: string, docId: string): Observable<ItemListItem[]> {
         const collection1 = collection(this.firestore, `basic-list/${id}/listItems/${docId}/itemlist`);
-        return collectionData(collection1, {idField: 'id'}) as Observable<ItemListItem[]>;
+        return collectionData(collection1, { idField: 'id' }) as Observable<ItemListItem[]>;
     }
 
     public async addItem(listId: string, docId: string, document: ItemListItem): Promise<void> {
         const path = `basic-list/${listId}/listItems/${docId}/itemlist`;
         const collection1 = collection(this.firestore, path);
         const docRef = await addDoc(collection1, document);
-        console.log("Document written with ID: ", docRef.id);
+        console.log("Collection added with ID: ", docRef.id);
     }
 
     public async updateItemListItem(listId: string, docId: string, document: ItemListItem): Promise<void> {
@@ -133,17 +136,34 @@ export class BasicListService {
         });
     }
 
-  public async deleteCollection(document: BasicList): Promise<void> {
-    const path = doc(this.firestore, `basic-list/${document.id}`);
-    await deleteDoc(path).then(() => {
-      console.log('document deleted.')
-    });
-  }
-
-  public getMaxOrder(listItems: BasicList[] | null | undefined): number {
-    if (!listItems) {
-      return 0;
+    public async deleteCollection(document: BasicList): Promise<void> {
+        if (!document.id) {
+            throw new Error('Invalid Document-UID.');
+        }
+       
+        await this.userListService.getByListUid(document.id).then(test=> {
+            if (test.length !== 1) {
+                throw new Error('Invalid User-List assignment.')
+            }
+            const userList = test[0];
+            const isOwner = userList.role === UserListRole.Owner;
+            this.userListService.delete(userList).then(()=>{
+                console.log('UserList deleted.');
+                if (isOwner) {
+                    const path = doc(this.firestore, `basic-list/${document.id}`);
+                    return from(deleteDoc(path).then(() => {
+                        console.log('Collection deleted.');
+                    }));
+                }
+                return from([]);
+            })
+        });
     }
-    return Math.max(...listItems.map(o => o.order), 1)
-  }
+
+    public getMaxOrder(listItems: BasicList[] | null | undefined): number {
+        if (!listItems) {
+            return 0;
+        }
+        return Math.max(...listItems.map(o => o.order ?? 1), 1)
+    }
 }

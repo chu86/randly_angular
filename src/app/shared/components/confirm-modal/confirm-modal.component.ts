@@ -31,7 +31,6 @@ export class ConfirmModalComponent implements AfterViewInit {
   ngAfterViewInit() {
     console.log(this.cancelButton?.nativeElement);
     this.cancelButton?.nativeElement.focus();
-    this.cancelButton?.nativeElement.select();
  }
 
   closeModal() {

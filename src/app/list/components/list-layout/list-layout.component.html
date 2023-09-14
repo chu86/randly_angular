@@ -1,31 +1,24 @@
 <div *ngIf="doc$ | async as doc" class="container-fluid p-0">
-    <app-list-main
-            [document]="doc"
-            [isEditing]="isEditing"
-            (editClicked)="onEditClicked()"
-            (editCancel)="onEditCancel()"
-            (navigateBack)="onNavigateBackClicked()"
-            (shareClicked)="onShareClicked()"
-            (valueChanged)="onValueChanged($event)"
-            (fullRandomClicked)="onFullRandomClicked()"
-    ></app-list-main>
-
-    <div class="row p-0">
-        <ng-container *ngIf="listId">
-            <app-list-item
-                    [listitems]="listItems$ | async"
-                    [isEditing]="isEditing"
-                    (itemSelected)="onItemSelected($event)"
-                    (deleteActivated)="onDeleteActivated($event)"
-                    (addNewActivated)="onAddNewActivated($event)"
-                    (editItemActivated)="onEditItemActivated($event)"
-            ></app-list-item>
-        </ng-container>
+    <div class="row">
+        <div class="col p-0">
+            <app-list-main [document]="doc" [isEditing]="isEditing" (editClicked)="onEditClicked()"
+                (editCancel)="onEditCancel()" (navigateBack)="onNavigateBackClicked()" (shareClicked)="onShareClicked()"
+                (valueChanged)="onValueChanged($event)" (fullRandomClicked)="onFullRandomClicked()"></app-list-main>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col p-0">
+            <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col p-0">
+            <ng-container *ngIf="listId">
+                <app-list-item [listitems]="listItems$ | async" [isEditing]="isEditing"
+                    (itemSelected)="onItemSelected($event)" (deleteActivated)="onDeleteActivated($event)"
+                    (addNewActivated)="onAddNewActivated($event)" (editItemActivated)="onEditItemActivated($event)"
+                    [filter]="filter"></app-list-item>
+            </ng-container>
+        </div>
     </div>
 </div>
-
-
-
-
-
-

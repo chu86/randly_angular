@@ -22,6 +22,7 @@ export class ListLayoutComponent implements OnInit {
   public listItems$: Observable<BasicList[]> | undefined;
   public listId: string | null | undefined;
   public isEditing = false;
+  public filter: string | null | undefined;
 
   modalRef: NgbModalRef | null = null;
 
@@ -141,5 +142,9 @@ export class ListLayoutComponent implements OnInit {
     this.modalRef = this.ngbModal.open(RandomModalComponent);
     this.modalRef.componentInstance.listItem = randomItem;
     this.modalRef.componentInstance.listUid = this.listId;
+  }
+
+  onFilterValueChanged($event: string | null) {
+    this.filter = $event;
   }
 }

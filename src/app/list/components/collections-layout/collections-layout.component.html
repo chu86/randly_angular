@@ -24,9 +24,11 @@
             </button>
           </div>
         </div>
-        <!--        <div class="row">-->
-        <!--          <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>-->
-        <!--        </div>-->
+        <div class="row">
+          <div class="col p-0">
+            <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,7 +36,7 @@
     <div class="col p-0">
       <app-list-item [listitems]="list$ | async" [isEditing]="isEditing" (itemSelected)="onListSelected($event)"
         (deleteActivated)="onDeleteActivated($event)" (addNewActivated)="onAddNewActivated($event)"
-        (editItemActivated)="onValueChanged($event)"></app-list-item>
+        (editItemActivated)="onValueChanged($event)" [filter]="filter"></app-list-item>
     </div>
   </div>
 </div>

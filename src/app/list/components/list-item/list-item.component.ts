@@ -18,7 +18,32 @@ export class ListItemComponent implements OnDestroy {
   @Output() editItemActivated = new EventEmitter<BasicList>();
 
   @Input()
-  public isEditing = false;
+  get filter(): string | null | undefined {
+    return this._filter;
+  }
+
+  set filter(value: string | null | undefined) {
+    this._filter = value;
+    this.filteredListItems = this.filterSortListItems(this.listitems);
+    if (this.filteredListItems) {
+      this.initFormGroup(this.filteredListItems);
+    }
+  }
+
+  private _filter: string | null | undefined;
+
+  @Input()
+  public set isEditing(value) {
+    this._isEditing = value;
+    if (this.isEditing && this.filteredListItems) {
+      this.initFormGroup(this.filteredListItems);
+    }
+  }
+
+  private _isEditing = false;
+  public get isEditing() {
+    return this._isEditing;
+  }
 
   @Input()
   get listitems(): BasicList[] | null | undefined {
@@ -26,13 +51,15 @@ export class ListItemComponent implements OnDestroy {
   }
 
   set listitems(value: BasicList[] | null | undefined) {
-    this._listitems = value?.sort(({order:a}, {order:b}) => a-b);
-    if (this._listitems) {
-      this.initFormGroup(this._listitems);
+    this._listitems = value;
+    this.filteredListItems = this.filterSortListItems(value);
+    if (this.filteredListItems) {
+      this.initFormGroup(this.filteredListItems);
     }
   }
 
   private _listitems: BasicList[] | null | undefined;
+  public filteredListItems: BasicList[] = [];
 
   @ViewChildren('input') test: QueryList<Element> | undefined
 
@@ -51,6 +78,17 @@ export class ListItemComponent implements OnDestroy {
     for (const val of items) {
       this.addListItem(val.name, val.order, val.id);
     }
+  }
+
+  private filterSortListItems(value: BasicList[] | null | undefined): BasicList[] {
+    if (!value){
+      return [];
+    }
+    let filteredValue = value;
+    if (this.filter){
+      filteredValue = value.filter(item=> item.name.toLowerCase().includes(this.filter!))
+    }
+    return filteredValue?.sort(({order:a}, {order:b}) => a-b);
   }
 
   addListItem(name: string, order: number, id: string | undefined) {
@@ -83,8 +121,8 @@ export class ListItemComponent implements OnDestroy {
   }
 
   deleteItem(index: number) {
-    if (this.listitems) {
-      this.deleteActivated.emit(this.listitems[index])
+    if (this.filteredListItems) {
+      this.deleteActivated.emit(this.filteredListItems[index])
     }
   }
 

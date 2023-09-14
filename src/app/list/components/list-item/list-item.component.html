@@ -27,7 +27,7 @@
 </ng-container>
 <ng-template #showOnly>
   <div class="container-fluid p-0">
-    <div *ngIf="listitems as items">
+    <div *ngIf="filteredListItems as items">
       <div class="list-group p-0" *ngIf="items.length > 0; else noItems">
         <button type="button" class="list-group-item list-group-item-action"
                 *ngFor="let item of items; let i = index"
@@ -36,8 +36,8 @@
         </button>
       </div>
       <ng-template #noItems>
-        <div class="d-flex justify-content-center">
-          <p>No items yet.</p>
+        <div class="d-flex justify-content-center p-2">
+          <p>Empty</p>
         </div>
       </ng-template>
     </div>

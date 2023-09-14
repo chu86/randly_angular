@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from "rxjs";
-import {BasicList} from "../../models/basic-list.model";
-import {Router} from "@angular/router";
-import {BasicListService} from "../../services/basic-list.service";
-import {UserListService} from "../../services/user-list.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from "rxjs";
+import { BasicList } from "../../models/basic-list.model";
+import { Router } from "@angular/router";
+import { BasicListService } from "../../services/basic-list.service";
+import { UserListService } from "../../services/user-list.service";
 import { ModalService } from 'src/app/shared/service/modal.service';
 
 @Component({
@@ -12,9 +12,11 @@ import { ModalService } from 'src/app/shared/service/modal.service';
   styleUrls: ['./collections-layout.component.scss']
 })
 export class CollectionsLayoutComponent implements OnInit, OnDestroy {
+
   public list$: Observable<BasicList[]> | undefined;
   private subscription: Subscription | undefined;
   public isEditing = false;
+  public filter: string | null | undefined;
 
   constructor(
     private router: Router,
@@ -49,8 +51,8 @@ export class CollectionsLayoutComponent implements OnInit, OnDestroy {
   }
 
   onDeleteActivated($event: BasicList) {
-    this.modalService.openConfirmModal('Confirm delete', 'Are you sure?').then(confirmed=>{
-      if (confirmed){
+    this.modalService.openConfirmModal('Confirm delete', 'Are you sure?').then(confirmed => {
+      if (confirmed) {
         this.listService.deleteCollection($event);
       }
     })
@@ -65,6 +67,10 @@ export class CollectionsLayoutComponent implements OnInit, OnDestroy {
     this.subscription = this.userlistService.getUserListIds().subscribe(userListIds => {
       this.list$ = this.listService.getUserCollections(userListIds);
     });
-    
+
+  }
+
+  onFilterValueChanged($event: string | null) {
+    this.filter = $event;
   }
 }
