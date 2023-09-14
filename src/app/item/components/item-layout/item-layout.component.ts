@@ -80,9 +80,6 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
                     this.listService.deleteItem(this.listId!, this.docId!, $event).then(() => console.log('deleted!'));
                 }
             })
-
-
-
         }
     }
 
@@ -98,7 +95,7 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
 
     onValueChanged($event: BasicList) {
         if (this.listId) {
-            this.listService.updateItemDocument(this.listId, $event).then(r => this.readDocument())
+            this.listService.updateItemDocument(this.listId, $event).then(r => this.readDocument());
         }
     }
 }

@@ -43,15 +43,19 @@ export class ItemListComponent implements OnDestroy {
     }
 
     private initFormGroup(items: ItemListItem[]) {
-        this.listitemControls.clear();
-
+        const formGroups: FormGroup[] = []
         for (const val of items) {
-            this.addListItem(val.name, val.count, val.order, val.id);
+            formGroups.push(this.addListItem(val.name, val.count, val.order, val.id));
         }
+        this.listitemControls = new FormArray(formGroups)
     }
 
     get listitemControls() {
         return this.form.controls["listitems"] as FormArray;
+    }
+
+    set listitemControls(value: FormArray) {
+        this.form.controls["listitems"] = value;
     }
 
     addNew() {
@@ -63,7 +67,7 @@ export class ItemListComponent implements OnDestroy {
         this.addNewActivated.emit(newItem);
     }
 
-    addListItem(name: string, count: string, order: number, id: string | undefined) {
+    addListItem(name: string, count: string, order: number, id: string | undefined): FormGroup {
         const listItemForm = this.fb.group({
             name: new FormControl(name, Validators.required),
             count: new FormControl(count, Validators.required),
@@ -76,7 +80,7 @@ export class ItemListComponent implements OnDestroy {
           }
         })
         this.formSubscriptions.push(subscription);
-        this.listitemControls.push(listItemForm);
+        return listItemForm;
     }
 
     onItemChanged(item: ItemListItem): void {

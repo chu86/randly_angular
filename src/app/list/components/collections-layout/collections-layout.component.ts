@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, switchMap } from "rxjs";
 import { BasicList } from "../../models/basic-list.model";
 import { Router } from "@angular/router";
 import { BasicListService } from "../../services/basic-list.service";
@@ -14,7 +14,7 @@ import { ModalService } from 'src/app/shared/service/modal.service';
 export class CollectionsLayoutComponent implements OnInit, OnDestroy {
 
   public list$: Observable<BasicList[]> | undefined;
-  private subscription: Subscription | undefined;
+  //private subscription: Subscription | undefined;
   public isEditing = false;
   public filter: string | null | undefined;
 
@@ -35,7 +35,7 @@ export class CollectionsLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    //this.subscription?.unsubscribe();
   }
 
   onEditClicked() {
@@ -59,14 +59,16 @@ export class CollectionsLayoutComponent implements OnInit, OnDestroy {
   }
 
   onValueChanged($event: BasicList) {
-    this.listService.updateCollection($event).then(() => this.readData());
+    this.listService.updateCollection($event).then(() => {
+      console.log('updated!');
+      //return this.readData();
+    });
   }
 
   readData(): void {
-    this.subscription?.unsubscribe();
-    this.subscription = this.userlistService.getUserListIds().subscribe(userListIds => {
-      this.list$ = this.listService.getUserCollections(userListIds);
-    });
+    this.list$ = this.userlistService.getUserListIds().pipe(switchMap(userListIds => {
+      return this.listService.getUserCollections(userListIds);
+    }))
 
   }
 

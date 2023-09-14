@@ -74,10 +74,11 @@ export class ListItemComponent implements OnDestroy {
   }
 
   private initFormGroup(items: BasicList[]) {
-    this.listitemControls.clear();
+    const formGroups: FormGroup[] = [];
     for (const val of items) {
-      this.addListItem(val.name, val.order, val.id);
+        formGroups.push(this.addListItem(val.name, val.order, val.id));
     }
+    this.listitemControls = new FormArray(formGroups);
   }
 
   private filterSortListItems(value: BasicList[] | null | undefined): BasicList[] {
@@ -91,7 +92,7 @@ export class ListItemComponent implements OnDestroy {
     return filteredValue?.sort(({order:a}, {order:b}) => a-b);
   }
 
-  addListItem(name: string, order: number, id: string | undefined) {
+  addListItem(name: string, order: number, id: string | undefined): FormGroup {
     const listItemForm = this.fb.group({
       name: new FormControl(name, Validators.required),
       order: new FormControl(order, Validators.required),
@@ -103,7 +104,7 @@ export class ListItemComponent implements OnDestroy {
       }
     })
     this.formSubscriptions.push(subscription);
-    this.listitemControls.push(listItemForm);
+    return listItemForm;
   }
 
   onItemChanged(item: BasicList): void {
@@ -112,6 +113,10 @@ export class ListItemComponent implements OnDestroy {
 
   get listitemControls() {
     return this.form.controls["listitems"] as FormArray;
+  }
+
+  set listitemControls(value: FormArray) {
+    this.form.controls["listitems"] = value;
   }
 
   public onItemSelected(id: string | undefined) {
