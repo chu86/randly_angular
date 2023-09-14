@@ -1,15 +1,19 @@
-<div class="main h-100 container-fluid p-0">
-  <app-header></app-header>
+<div class="main h-100 container-fluid">
   <div class="row">
     <div class="col p-0">
-      <div class="h-100 container-fluid" *ngIf="authService.isLoggedIn(); else login">
-        <router-outlet></router-outlet>
-      </div>
+      <app-header></app-header>
     </div>
+  </div>
+  
+  <div class="row h-100" *ngIf="authService.isLoggedIn(); else login">
+    <div class="col p-0">
+      <router-outlet></router-outlet>
+    </div>
+    
   </div>
   <ng-template #login>
     <app-login></app-login>
   </ng-template>
-<!--  <app-footer></app-footer>-->
+  <!--  <app-footer></app-footer>-->
 </div>
 
