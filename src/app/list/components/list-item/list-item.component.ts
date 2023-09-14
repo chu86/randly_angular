@@ -86,7 +86,7 @@ export class ListItemComponent implements OnDestroy {
     }
     let filteredValue = value;
     if (this.filter){
-      filteredValue = value.filter(item=> item.name.toLowerCase().includes(this.filter!))
+      filteredValue = value.filter(item=> item.name.toLowerCase().includes(this.filter!.toLocaleLowerCase()))
     }
     return filteredValue?.sort(({order:a}, {order:b}) => a-b);
   }
