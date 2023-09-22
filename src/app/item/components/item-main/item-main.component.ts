@@ -9,8 +9,10 @@ import {Subscription} from "rxjs";
     styleUrls: ['./item-main.component.scss']
 })
 export class ItemMainComponent implements OnInit, OnDestroy{
+[x: string]: any;
 
     public formGroup: FormGroup;
+    public tagInput = new FormControl('');
 
     private subscription: Subscription | undefined;
 
@@ -32,6 +34,10 @@ export class ItemMainComponent implements OnInit, OnDestroy{
         return this._document;
     }
 
+    get getTags() {
+        return this.document?.tags?.join(", ");
+    }
+
     private _document: BasicList | null | undefined;
 
     @Input()
@@ -41,6 +47,8 @@ export class ItemMainComponent implements OnInit, OnDestroy{
     @Output() editCancel = new EventEmitter<void>();
     @Output() navigateBack = new EventEmitter<void>();
     @Output() valueChanged = new EventEmitter<BasicList>();
+    @Output() deleteTagClicked = new EventEmitter<{doc: BasicList, tagIndex: number}>();
+    @Output() addTagClicked = new EventEmitter<{doc: BasicList, tag: string}>();
 
 
     ngOnDestroy(): void {
@@ -73,5 +81,21 @@ export class ItemMainComponent implements OnInit, OnDestroy{
 
     onNavigateBackClicked() {
         this.navigateBack.emit();
+    }
+
+    onDeleteTag(index: number) {
+        if (!this.document){
+            return;
+        }
+        this.deleteTagClicked.emit({doc: this.document, tagIndex: index});
+    }
+
+    onTagEntered() {
+        const tagInputValue = this.tagInput.getRawValue()!;
+        if (!this.document || !tagInputValue){
+            return;
+        }
+        this.addTagClicked.emit({doc: this.document, tag: this.tagInput.getRawValue()!});
+        this.tagInput.reset();
     }
 }

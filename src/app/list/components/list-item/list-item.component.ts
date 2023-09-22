@@ -24,7 +24,7 @@ export class ListItemComponent implements OnDestroy {
 
   set filter(value: string | null | undefined) {
     this._filter = value;
-    this.filteredListItems = this.filterSortListItems(this.listitems);
+    this.filteredListItems = this.listService.filterSortListItems(this.listitems, this.filter);
     if (this.filteredListItems) {
       this.initFormGroup(this.filteredListItems);
     }
@@ -52,7 +52,7 @@ export class ListItemComponent implements OnDestroy {
 
   set listitems(value: BasicList[] | null | undefined) {
     this._listitems = value;
-    this.filteredListItems = this.filterSortListItems(value);
+    this.filteredListItems = this.listService.filterSortListItems(value, this.filter);
     if (this.filteredListItems) {
       this.initFormGroup(this.filteredListItems);
     }
@@ -79,17 +79,6 @@ export class ListItemComponent implements OnDestroy {
         formGroups.push(this.addListItem(val.name, val.order, val.id));
     }
     this.listitemControls = new FormArray(formGroups);
-  }
-
-  private filterSortListItems(value: BasicList[] | null | undefined): BasicList[] {
-    if (!value){
-      return [];
-    }
-    let filteredValue = value;
-    if (this.filter){
-      filteredValue = value.filter(item=> item.name.toLowerCase().includes(this.filter!.toLocaleLowerCase()))
-    }
-    return filteredValue?.sort(({order:a}, {order:b}) => a-b);
   }
 
   addListItem(name: string, order: number, id: string | undefined): FormGroup {
@@ -136,7 +125,8 @@ export class ListItemComponent implements OnDestroy {
       name: '',
       order: this.listService.getMaxOrder(this.listitems) + 1,
       description1: '',
-      created: new Date()
+      created: new Date(),
+      tags: []
     }
     this.addNewActivated.emit(newItem);
   }

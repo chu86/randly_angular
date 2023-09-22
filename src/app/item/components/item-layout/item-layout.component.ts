@@ -98,4 +98,23 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
             this.listService.updateItemDocument(this.listId, $event).then(r => this.readDocument());
         }
     }
+
+    onAddTag($event: { doc: BasicList, tag: string }) {
+        if (this.listId) {
+            const doc = $event.doc;
+            if (!doc.tags){
+                doc.tags = [];
+            }
+            doc.tags.push($event.tag)
+            this.listService.updateItemDocument(this.listId, doc).then(r => this.readDocument());
+        }
+    }
+
+    onDeleteTag($event: { doc: BasicList, tagIndex: number }) {
+        if (this.listId) {
+            const doc = $event.doc;
+            doc.tags.splice($event.tagIndex, 1);
+            this.listService.updateItemDocument(this.listId, doc).then(r => this.readDocument());
+        }
+    }
 }

@@ -4,5 +4,6 @@ export interface BasicList {
     name: string;
     order: number;
     description1: string;
-    created: Date
+    created: Date;
+    tags: string[];
 }

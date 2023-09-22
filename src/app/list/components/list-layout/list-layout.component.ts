@@ -138,7 +138,8 @@ export class ListLayoutComponent implements OnInit {
       return;
     }
     const items = await firstValueFrom(this.listItems$);
-    const randomItem = this.randomService.getArrayRandom(items);
+    const filteredItems = this.listService.filterSortListItems(items, this.filter);
+    const randomItem = this.randomService.getArrayRandom(filteredItems);
     this.modalRef = this.ngbModal.open(RandomModalComponent);
     this.modalRef.componentInstance.listItem = randomItem;
     this.modalRef.componentInstance.listUid = this.listId;

@@ -166,4 +166,18 @@ export class BasicListService {
         }
         return Math.max(...listItems.map(o => o.order ?? 1), 1)
     }
+
+    public filterSortListItems(value: BasicList[] | null | undefined, filter: string | null | undefined): BasicList[] {
+        if (!value){
+          return [];
+        }
+        let filteredValue = value;
+        if (filter){
+          filteredValue = value.filter(item=> {
+            const lcFilter = filter!.toLocaleLowerCase();
+            return item.name.toLowerCase().includes(lcFilter) || item.tags?.map(t=>t.toLowerCase()).includes(lcFilter);
+          })
+        }
+        return filteredValue?.sort(({order:a}, {order:b}) => a-b);
+      }
 }
