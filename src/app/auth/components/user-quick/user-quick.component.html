@@ -1,8 +1,5 @@
-<div *ngIf="authService.isLoggedIn()">
-    <span class="mx-2">{{authService.user?.email}}</span>
-<!--    <button class="btn btn-light" type="submit" (click)="authService.logout()">-->
-<!--        Logout-->
-<!--    </button>-->
+<div *ngIf="authService.authState$ | async">
+    <img class="align-self-start mr-5 rounded-circle social-icon" [src]="authService.user?.photoURL" referrerpolicy="no-referrer">
     <div ngbDropdown class="d-inline-block" placement="bottom-end">
         <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
             <i-bs name="three-dots-vertical"></i-bs>
