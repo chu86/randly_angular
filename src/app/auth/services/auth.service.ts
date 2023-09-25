@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {GoogleAuthProvider} from 'firebase/auth';
 import {Auth, authState, FacebookAuthProvider, signInWithPopup, signOut, User, user} from "@angular/fire/auth";
-import {Subscription} from "rxjs";
+import {BehaviorSubject, Observable, Subscription} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,8 @@ export class AuthService implements OnDestroy {
   public userSubscription: Subscription | undefined;
   public user$;
   public authState$;
+  private _initialized: BehaviorSubject<User | null | undefined> = new BehaviorSubject<User | null | undefined>(undefined);
+  public initialized$: Observable<User | null | undefined> = this._initialized.asObservable();
 
   public constructor(
     public auth: Auth,
@@ -20,7 +22,7 @@ export class AuthService implements OnDestroy {
     this.userSubscription = this.authState$.subscribe((aUser: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user.
       this.user = aUser;
-      console.log(aUser);
+      this._initialized.next(this.user);
     })
   }
 

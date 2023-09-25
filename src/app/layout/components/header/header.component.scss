@@ -1,4 +1,10 @@
+@import "../../../../customize-bootstrap.scss";
+
 .nav-container {
   background-color: whitesmoke;
   border-bottom: 4px solid #dee2e6;
+}
+
+.brand {
+  color: $primary;
 }

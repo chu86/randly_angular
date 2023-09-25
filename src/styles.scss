@@ -16,3 +16,9 @@ body {
 .dropdown-toggle::after{
   content:initial
 }
+
+button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

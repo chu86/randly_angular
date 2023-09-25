@@ -4,16 +4,24 @@
       <app-header></app-header>
     </div>
   </div>
-  
-  <div class="row h-100" *ngIf="authService.isLoggedIn(); else login">
+
+
+  <div class="row h-100" *ngIf="authService.authState$ | async; else load">
     <div class="col p-0">
       <router-outlet></router-outlet>
     </div>
-    
   </div>
-  <ng-template #login>
-    <app-login></app-login>
+  <ng-template #load>
+    <div class="d-flex justify-content-center" *ngIf="(authService.initialized$ | async) !== null">
+      <div class="spinner-grow text-primary" role="status">
+        <span aria-hidden="true" hidden>Loading...</span>
+      </div>
+    </div>
   </ng-template>
+
+  <div class="col p-0" *ngIf="(authService.initialized$ | async) === null">
+    <app-login></app-login>
+  </div>
+
   <!--  <app-footer></app-footer>-->
 </div>
-
