@@ -6,6 +6,8 @@ import {ItemRoutingModule} from "./item-routing.module";
 import {ItemLayoutComponent} from './components/item-layout/item-layout.component';
 import {ItemMainComponent} from './components/item-main/item-main.component';
 import {ItemListComponent} from './components/item-list/item-list.component';
+import { SharedModule } from '../shared/shared.module';
+import { ItemAddComponent } from './components/item-add/item-add.component';
 
 // Select some icons (use an object, not an array)
 const icons = {
@@ -21,11 +23,13 @@ const icons = {
         ItemLayoutComponent,
         ItemMainComponent,
         ItemListComponent,
+        ItemAddComponent,
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         ItemRoutingModule,
+        SharedModule,
         NgxBootstrapIconsModule.pick(icons),
     ]
 })

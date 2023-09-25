@@ -42,8 +42,12 @@ export class ItemMainComponent implements OnInit, OnDestroy{
 
     @Input()
     public isEditing = false;
+    @Input()
+    public isAdding = false;
 
     @Output() editClicked = new EventEmitter<void>();
+    @Output() addClicked = new EventEmitter<void>();
+    @Output() confirmClicked = new EventEmitter<void>();
     @Output() editCancel = new EventEmitter<void>();
     @Output() navigateBack = new EventEmitter<void>();
     @Output() valueChanged = new EventEmitter<BasicList>();
@@ -60,7 +64,12 @@ export class ItemMainComponent implements OnInit, OnDestroy{
     }
 
     private onValueChanged(value: BasicList) {
-        this.valueChanged.emit(value);
+        if (!this.document){
+            return;
+        }
+        this.document.name = value.name;
+        this.document.description1 = value.description1;
+        this.valueChanged.emit(this.document);
     }
 
     private patchForm() {
@@ -71,15 +80,23 @@ export class ItemMainComponent implements OnInit, OnDestroy{
         }, { emitEvent: false})
     }
 
-    onEditClicked() {
+    onEdit() {
         this.editClicked.emit();
     }
 
-    onEditCancel() {
+    onAdd() {
+        this.addClicked.emit();
+    }
+
+    onConfirm() {
+        this.confirmClicked.emit();
+    }
+
+    onCancel() {
         this.editCancel.emit();
     }
 
-    onNavigateBackClicked() {
+    onNavigateBack() {
         this.navigateBack.emit();
     }
 
@@ -87,7 +104,8 @@ export class ItemMainComponent implements OnInit, OnDestroy{
         if (!this.document){
             return;
         }
-        this.deleteTagClicked.emit({doc: this.document, tagIndex: index});
+        this.document.tags.splice(index, 1);
+        this.valueChanged.emit(this.document);
     }
 
     onTagEntered() {
@@ -95,7 +113,12 @@ export class ItemMainComponent implements OnInit, OnDestroy{
         if (!this.document || !tagInputValue){
             return;
         }
-        this.addTagClicked.emit({doc: this.document, tag: this.tagInput.getRawValue()!});
+        if (!this.document.tags){
+            this.document.tags = [];
+        }
+        this.document.tags.push(this.tagInput.getRawValue()!);
         this.tagInput.reset();
+
+        this.valueChanged.emit(this.document);
     }
 }

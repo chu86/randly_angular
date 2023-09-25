@@ -13,7 +13,7 @@ import {
     orderBy,
     query,
     setDoc,
-    where
+    where, writeBatch
 } from '@angular/fire/firestore';
 import { AuthService } from "../../auth/services/auth.service";
 import { ItemListItem } from "../../item/models/item-list-item.model";
@@ -46,7 +46,10 @@ export class BasicListService {
         return from(getDoc(path)).pipe(map(docSnap => ({ id, ...docSnap.data() } as BasicList)))
     }
 
-    public getListItems(id: string): Observable<BasicList[]> {
+    public getListItems(id: string | null | undefined): Observable<BasicList[]> {
+        if (!id){
+            return from([]);
+        }
         const collection1 = collection(this.firestore, `basic-list/${id}/listItems`);
         return collectionData(collection1, { idField: 'id' }) as Observable<BasicList[]>;
     }
@@ -80,6 +83,17 @@ export class BasicListService {
         const path = doc(this.firestore, `basic-list/${listId}/listItems/${docId}/itemlist/${document.id}`);
         await setDoc(path, document).then(() => {
             console.log('document updated.')
+        });
+    }
+
+    public async updateItemListItemBatch(listId: string, docId: string, documents: ItemListItem[]): Promise<void> {
+        const batchWrite = writeBatch(this.firestore);
+        documents.forEach(document=> {
+            const path = doc(this.firestore, `basic-list/${listId}/listItems/${docId}/itemlist/${document.id}`);
+            batchWrite.set(path, document);
+        });       
+        await batchWrite.commit().then(() => {
+            console.log('item updated.')
         });
     }
 
@@ -136,6 +150,28 @@ export class BasicListService {
         });
     }
 
+    public async updateCollectionBatch(documents: BasicList[]): Promise<void> {
+        const batchWrite = writeBatch(this.firestore);
+        documents.forEach(document=> {
+            const path = doc(this.firestore, `basic-list/${document.id}`);
+            batchWrite.set(path, document);
+        });       
+        await batchWrite.commit().then(() => {
+            console.log('document updated.')
+        });
+    }
+
+    public async updateCollectionItemBatch(listId: string, documents: BasicList[]): Promise<void> {
+        const batchWrite = writeBatch(this.firestore);
+        documents.forEach(document=> {
+            const path = doc(this.firestore, `basic-list/${listId}/listItems/${document.id}`);
+            batchWrite.set(path, document);
+        });       
+        await batchWrite.commit().then(() => {
+            console.log('document updated.')
+        });
+    }
+
     public async deleteCollection(document: BasicList): Promise<void> {
         if (!document.id) {
             throw new Error('Invalid Document-UID.');
@@ -181,3 +217,4 @@ export class BasicListService {
         return filteredValue?.sort(({order:a}, {order:b}) => a-b);
       }
 }
+

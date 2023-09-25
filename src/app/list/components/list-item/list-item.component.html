@@ -1,47 +1,15 @@
-<ng-container *ngIf="isEditing; else showOnly">
-  <div class="container-fluid">
-    <div [formGroup]="form">
-      <ng-container formArrayName="listitems">
-        <ng-container *ngFor="let _lessonForm of listitemControls.controls; let i = index">
-          <div class="row" [formGroupName]="i">
-            <div class="col p-0">
-              <input type="text" class="form-control" formControlName="name" placeholder="Enter value">
-            </div>
-            <div class="col-auto p-0">
-              <button class="btn btn-light" type="button" (click)="deleteItem(i)">
-                <i-bs name="trash"></i-bs>
-              </button>
-            </div>
-          </div>
-        </ng-container>
-      </ng-container>
-      <div class="row">
-        <div class="col-auto p-0">
-          <button class="btn btn-light" type="button" (click)="addNew()">
-            <i-bs name="plus"></i-bs>
-          </button>
-        </div>
-      </div>
+<div class="container-fluid p-0">
+  <div *ngIf="filteredListItems as items">
+    <div class="list-group p-0" *ngIf="items.length > 0; else noItems">
+      <button type="button" class="list-group-item list-group-item-action" *ngFor="let item of items; let i = index"
+        (click)="onItemSelected(item.id)">
+        {{item.name}}
+      </button>
     </div>
-  </div>
-</ng-container>
-<ng-template #showOnly>
-  <div class="container-fluid p-0">
-    <div *ngIf="filteredListItems as items">
-      <div class="list-group p-0" *ngIf="items.length > 0; else noItems">
-        <button type="button" class="list-group-item list-group-item-action"
-                *ngFor="let item of items; let i = index"
-                (click)="onItemSelected(item.id)">
-          {{item.name}}
-        </button>
+    <ng-template #noItems>
+      <div class="d-flex justify-content-center p-2">
+        <p>Empty</p>
       </div>
-      <ng-template #noItems>
-        <div class="d-flex justify-content-center p-2">
-          <p>Empty</p>
-        </div>
-      </ng-template>
-    </div>
+    </ng-template>
   </div>
-</ng-template>
-
-
+</div>

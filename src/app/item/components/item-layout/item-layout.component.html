@@ -7,7 +7,10 @@
                         <app-item-main
                                 [document]="doc$ | async"
                                 [isEditing]="isEditing"
+                                [isAdding]="isAdding"
                                 (editClicked)="onEdit()"
+                                (confirmClicked)="onConfirm()"
+                                (addClicked)="onAdd()"
                                 (editCancel)="onEditCancel()"
                                 (navigateBack)="onNavigateBack()"
                                 (valueChanged)="onValueChanged($event)"
@@ -18,12 +21,14 @@
                 </div>
                 <div class="row">
                     <div class="col p-0">
+                        <app-item-add *ngIf="isAdding"
+                        (cancel)="onEditCancel()"
+                        (confirm)="onAddConfirm($event)"></app-item-add>
                         <app-item-list
                                 [listitems]="listitems$ | async"
                                 [isEditing]="isEditing"
-                                (addNewActivated)="onAddNewActivated($event)"
                                 (deleteActivated)="onDeleteActivated($event)"
-                                (editItemActivated)="onEditItemActivated($event)"
+                                (itemsChanged)="onEditItemActivated($event)"
                         ></app-item-list>
                     </div>
                 </div>

@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {firstValueFrom, map, Observable, Subscription} from "rxjs";
-import {BasicList} from "../../models/basic-list.model";
-import {BasicListService} from "../../services/basic-list.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Location} from "@angular/common";
-import {InviteService} from "../../services/invite.service";
-import {Invite} from "../../models/share.model";
-import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {InviteModalComponent} from "../../../invite/components/invite-modal/invite-modal.component";
-import {RandomService} from "../../services/random.service";
-import {RandomModalComponent} from "../random-modal/random-modal.component";
+import { Component, OnInit } from '@angular/core';
+import { firstValueFrom, map, Observable, Subscription } from "rxjs";
+import { BasicList } from "../../models/basic-list.model";
+import { BasicListService } from "../../services/basic-list.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from "@angular/common";
+import { InviteService } from "../../services/invite.service";
+import { Invite } from "../../models/share.model";
+import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
+import { InviteModalComponent } from "../../../invite/components/invite-modal/invite-modal.component";
+import { RandomService } from "../../services/random.service";
+import { RandomModalComponent } from "../random-modal/random-modal.component";
 import { ModalService } from 'src/app/shared/service/modal.service';
 
 @Component({
@@ -20,11 +20,16 @@ import { ModalService } from 'src/app/shared/service/modal.service';
 export class ListLayoutComponent implements OnInit {
   public doc$: Observable<BasicList> | undefined;
   public listItems$: Observable<BasicList[]> | undefined;
+  public filteredListItems$: Observable<BasicList[]> | undefined;
   public listId: string | null | undefined;
   public isEditing = false;
+  public isAdding = false;
   public filter: string | null | undefined;
 
   modalRef: NgbModalRef | null = null;
+
+  public changes: BasicList | undefined = undefined;
+  public itemChanges: BasicList[] = [];
 
   constructor(
     private listService: BasicListService,
@@ -69,22 +74,27 @@ export class ListLayoutComponent implements OnInit {
 
   }
 
-  onEditClicked() {
+  onEdit() {
     this.isEditing = true;
   }
 
-  onEditCancel() {
-    this.isEditing = false;
+  onAdd() {
+    this.isAdding = true;
   }
 
-  onNavigateBackClicked() {
+  onCancel() {
+    this.isEditing = false;
+    this.isAdding = false;
+  }
+
+  onNavigateBack() {
     this.location.back();
   }
 
   onDeleteActivated($event: BasicList) {
     if (this.listId) {
-      this.modalService.openConfirmModal('Confirm delete', 'Are you sure?').then(confirmed=>{
-        if (confirmed){
+      this.modalService.openConfirmModal('Confirm delete', 'Are you sure?').then(confirmed => {
+        if (confirmed) {
           this.listService.deleteListItem(this.listId!, $event).then(() => console.log('deleted!'));
         }
       })
@@ -95,12 +105,30 @@ export class ListLayoutComponent implements OnInit {
     if (this.listId) {
       this.listService.addListItem(this.listId, $event).then(() => console.log('added!'));
     }
+    this.isAdding = false;
   }
 
-  onEditItemActivated($event: BasicList) {
-    if (this.listId) {
-      this.listService.updateListItem(this.listId, $event).then(() => console.log('updated!'));
+  onConfirmClicked() {
+    if (this.changes){
+      this.listService.updateCollection(this.changes).then(()=>{
+        console.log('main updated!');
+        this.readDocument();
+      });
     }
+
+    if (this.itemChanges && this.itemChanges.length > 0) {
+      this.listService.updateCollectionItemBatch(this.listId!, this.itemChanges).then(() => {
+        console.log('item updated!');
+        this.isEditing = false;
+      });
+    }
+    else {
+      this.isEditing = false;
+    }
+  }
+
+  onValueChanged($event: BasicList) {
+    this.changes = $event;
   }
 
   async onShareClicked() {
@@ -124,8 +152,9 @@ export class ListLayoutComponent implements OnInit {
     })).subscribe();
   }
 
-  onValueChanged($event: BasicList) {
-    this.listService.updateCollection($event).then(() => this.readDocument());
+  onItemValueChanged($event: BasicList[]) {
+    this.itemChanges = $event;
+    console.table(this.itemChanges);
   }
 
   private showModal(share: Invite) {
@@ -140,7 +169,7 @@ export class ListLayoutComponent implements OnInit {
     const items = await firstValueFrom(this.listItems$);
     const filteredItems = this.listService.filterSortListItems(items, this.filter);
     const randomItem = this.randomService.getArrayRandom(filteredItems);
-    this.modalRef = this.ngbModal.open(RandomModalComponent);
+    this.modalRef = this.ngbModal.open(RandomModalComponent, {fullscreen: true});
     this.modalRef.componentInstance.listItem = randomItem;
     this.modalRef.componentInstance.listUid = this.listId;
   }

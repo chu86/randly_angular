@@ -11,12 +11,15 @@ import { ModalService } from 'src/app/shared/service/modal.service';
   templateUrl: './collections-layout.component.html',
   styleUrls: ['./collections-layout.component.scss']
 })
-export class CollectionsLayoutComponent implements OnInit, OnDestroy {
+export class CollectionsLayoutComponent implements OnInit {
 
   public list$: Observable<BasicList[]> | undefined;
-  //private subscription: Subscription | undefined;
   public isEditing = false;
+  public isAdding = false;
   public filter: string | null | undefined;
+
+  public changes: BasicList[] = [];
+  public adds: BasicList | undefined = undefined;
 
   constructor(
     private router: Router,
@@ -27,27 +30,40 @@ export class CollectionsLayoutComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.readData();
-
   }
 
   onListSelected($event: string) {
     this.router.navigate(['list', $event]);
   }
 
-  ngOnDestroy(): void {
-    //this.subscription?.unsubscribe();
-  }
-
   onEditClicked() {
     this.isEditing = true;
   }
 
-  onEditCancel() {
+  onAddClicked() {
+    this.isAdding = true;
+  }
+
+  onConfirmClicked() {
+    if (this.changes && this.changes.length > 0){
+      this.listService.updateCollectionBatch(this.changes).then(() => {
+        console.log('updated!');
+        this.isEditing = false;
+      });
+    }
+    else {
+      this.isEditing = false;
+    }
+  }
+
+  onCancel() {
     this.isEditing = false;
+    this.isAdding = false;
   }
 
   onAddNewActivated($event: BasicList) {
     this.listService.addCollection($event).then(() => console.log('added!'));
+    this.isAdding = false;
   }
 
   onDeleteActivated($event: BasicList) {
@@ -58,11 +74,9 @@ export class CollectionsLayoutComponent implements OnInit, OnDestroy {
     })
   }
 
-  onValueChanged($event: BasicList) {
-    this.listService.updateCollection($event).then(() => {
-      console.log('updated!');
-      //return this.readData();
-    });
+  onValueChanged($event: BasicList[]) {
+    this.changes = $event;
+    console.table(this.changes);
   }
 
   readData(): void {

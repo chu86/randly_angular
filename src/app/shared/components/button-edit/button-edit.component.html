@@ -1,0 +1,15 @@
+<button *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onAddClicked()">
+  <i-bs name="plus"></i-bs>
+</button>
+<button *ngIf="!isEditing" class="btn btn-light" type="button" (click)="onEditClicked()">
+  <i-bs name="pencil"></i-bs>
+  <span class="visually-hidden">Edit</span>
+</button>
+<button *ngIf="isEditing" class="btn btn-primary" type="button" (click)="onConfirm()">
+  <i-bs name="check"></i-bs>
+  <span class="visually-hidden">Cancel Edit</span>
+</button>
+<button *ngIf="isEditing" class="btn btn-secondary" type="button" (click)="onEditCancel()">
+  <i-bs name="x"></i-bs>
+  <span class="visually-hidden">Cancel Edit</span>
+</button>

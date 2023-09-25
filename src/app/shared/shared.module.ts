@@ -4,6 +4,7 @@ import {InputFilterComponent} from './components/input-filter/input-filter.compo
 import {check, NgxBootstrapIconsModule, pencil, plus, search, threeDotsVertical, trash, x} from "ngx-bootstrap-icons";
 import {ReactiveFormsModule} from "@angular/forms";
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { ButtonEditComponent } from './components/button-edit/button-edit.component';
 
 const icons = {
     pencil,
@@ -18,14 +19,15 @@ const icons = {
 @NgModule({
     declarations: [
         InputFilterComponent,
-        ConfirmModalComponent
+        ConfirmModalComponent,
+        ButtonEditComponent
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         NgxBootstrapIconsModule.pick(icons),
     ],
-    exports: [InputFilterComponent]
+    exports: [InputFilterComponent, ButtonEditComponent]
 })
 export class SharedModule {
 }

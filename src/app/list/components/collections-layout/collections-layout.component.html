@@ -2,11 +2,12 @@
   <div class="row list-top">
     <div class="col p-0">
       <div class="container-fluid h-100">
-        <div class="row">
+        <div class="row row-actions">
           <div class="col-auto d-flex align-items-center">
             <h2 class="h6 m-0 px-1">Collections</h2>
           </div>
           <div class="col d-flex flex-row-reverse p-0">
+            <!--
             <div *ngIf="!isEditing" ngbDropdown class="d-inline-block" placement="bottom-end">
               <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
                 <i-bs name="three-dots-vertical"></i-bs>
@@ -22,6 +23,10 @@
             <button *ngIf="isEditing" class="btn btn-light" type="button" (click)="onEditCancel()">
               <i-bs name="x"></i-bs>
             </button>
+          -->
+            <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEditClicked()"
+            (addClicked)="onAddClicked()"(confirm)="onConfirmClicked()" [isEditing]="isEditing">
+            </app-button-edit>
           </div>
         </div>
         <div class="row">
@@ -34,9 +39,12 @@
   </div>
   <div class="row">
     <div class="col p-0">
-      <app-list-item [listitems]="list$ | async" [isEditing]="isEditing" (itemSelected)="onListSelected($event)"
-        (deleteActivated)="onDeleteActivated($event)" (addNewActivated)="onAddNewActivated($event)"
-        (editItemActivated)="onValueChanged($event)" [filter]="filter"></app-list-item>
+      <app-list-item-add *ngIf="isAdding" (confirm)="onAddNewActivated($event)" (cancel)="onCancel()"></app-list-item-add>
+      <app-list-item *ngIf="!isEditing" [listitems]="list$ | async" (itemSelected)="onListSelected($event)"
+        [filter]="filter"></app-list-item>
+      <app-list-item-edit *ngIf="isEditing" [listitems]="list$ | async"
+        (deleteActivated)="onDeleteActivated($event)"
+        (editItemActivated)="onValueChanged($event)" [filter]="filter"></app-list-item-edit>
     </div>
   </div>
 </div>

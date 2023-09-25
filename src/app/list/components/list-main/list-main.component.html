@@ -1,7 +1,7 @@
 <div class="container-fluid list-main" [formGroup]="formGroup">
   <div class="row">
     <div class="col-auto d-flex align-items-center p-0">
-      <button class="btn btn-light" type="button" (click)="onNavigateBackClicked()">
+      <button class="btn btn-light" type="button" (click)="onNavigateBack()">
         <
       </button>
       <h2 class="h6 m-0 px-1">Collections / {{document?.name}}</h2>
@@ -12,11 +12,7 @@
           <i-bs name="three-dots-vertical"></i-bs>
         </button>
         <div ngbDropdownMenu *ngIf="!isEditing" class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem  class="btn btn-light" type="button" (click)="onEditClicked()">
-            <i-bs name="pencil"></i-bs>
-            <span class="px-2">Edit</span>
-          </button>
-          <button ngbDropdownItem class="btn btn-light" type="button" (click)="onShareClicked()">
+          <button ngbDropdownItem class="btn btn-light" type="button" (click)="onShare()">
             <i-bs name="share"></i-bs>
             <span class="px-2">Share</span>
           </button>
@@ -26,9 +22,9 @@
           </button>
         </div>
       </div>
-      <button *ngIf="isEditing" class="btn btn-light" type="button" (click)="onEditCancel()">
-        <i-bs name="x"></i-bs>
-      </button>
+      <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEdit()"
+      (addClicked)="onAdd()"(confirm)="onConfirm()" [isEditing]="isEditing">
+      </app-button-edit>
     </div>
   </div>
   <div class="row">

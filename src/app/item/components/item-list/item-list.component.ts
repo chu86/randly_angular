@@ -12,6 +12,7 @@ import {ItemListForm} from "../../models/item-list-form.model";
 export class ItemListComponent implements OnDestroy {
 
     private formSubscriptions: Subscription[] = [];
+    private changes: ItemListItem[] = [];
 
     @Input()
     get listitems(): ItemListItem[] | null | undefined {
@@ -30,9 +31,8 @@ export class ItemListComponent implements OnDestroy {
     @Input()
     public isEditing = false;
 
-    @Output() addNewActivated = new EventEmitter<ItemListItem>();
     @Output() deleteActivated = new EventEmitter<ItemListItem>();
-    @Output() editItemActivated = new EventEmitter<ItemListItem>();
+    @Output() itemsChanged = new EventEmitter<ItemListItem[]>();
 
     public form = new FormGroup<ItemListForm>({
         listitems: new FormArray<FormControl<ItemListItem>>([])
@@ -58,15 +58,6 @@ export class ItemListComponent implements OnDestroy {
         this.form.controls["listitems"] = value;
     }
 
-    addNew() {
-        const newItem: ItemListItem = {
-            name: '',
-            count: '',
-            order: this.getMaxOrder() + 1
-        }
-        this.addNewActivated.emit(newItem);
-    }
-
     addListItem(name: string, count: string, order: number, id: string | undefined): FormGroup {
         const listItemForm = this.fb.group({
             name: new FormControl(name, Validators.required),
@@ -84,22 +75,23 @@ export class ItemListComponent implements OnDestroy {
     }
 
     onItemChanged(item: ItemListItem): void {
-        this.editItemActivated.emit(item);
-    }
+        const sameItem = this.changes.find(c => c.id === item.id);
+        if (sameItem) { 
+          const itemIndex = this.changes.indexOf(sameItem);
+          this.changes[itemIndex] = item;
+        }
+        else {
+          this.changes.push(item);
+        }
+        this.itemsChanged.emit(this.changes);
+    
+      }
 
     deleteItem(index: number) {
         if (this.listitems) {
             this.deleteActivated.emit(this.listitems[index])
         }
     }
-
-    private getMaxOrder(): number {
-        if (!this.listitems) {
-            return 0;
-        }
-        return Math.max(...this.listitems.map(o => o.order), 1)
-    }
-
 
     ngOnDestroy(): void {
         this.formSubscriptions.forEach(sub => sub.unsubscribe())

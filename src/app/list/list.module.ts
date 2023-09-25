@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ListRoutingModule} from "./list-routing.module";
-import {ReactiveFormsModule} from "@angular/forms";
-import {ListLayoutComponent} from "./components/list-layout/list-layout.component";
-import {ListItemComponent} from "./components/list-item/list-item.component";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ListRoutingModule } from "./list-routing.module";
+import { ReactiveFormsModule } from "@angular/forms";
+import { ListLayoutComponent } from "./components/list-layout/list-layout.component";
+import { ListItemComponent } from "./components/list-item/list-item.component";
 import {
   check,
   NgxBootstrapIconsModule,
@@ -17,10 +17,12 @@ import {
   dice6
 } from "ngx-bootstrap-icons";
 import { ListMainComponent } from './components/list-main/list-main.component';
-import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
+import { NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
 import { CollectionsLayoutComponent } from './components/collections-layout/collections-layout.component';
-import {SharedModule} from "../shared/shared.module";
+import { SharedModule } from "../shared/shared.module";
 import { RandomModalComponent } from './components/random-modal/random-modal.component';
+import { ListItemEditComponent } from './components/list-item-edit/list-item-edit.component';
+import { ListItemAddComponent } from './components/list-item-add/list-item-add.component';
 
 // Select some icons (use an object, not an array)
 const icons = {
@@ -39,9 +41,11 @@ const icons = {
   declarations: [
     ListLayoutComponent,
     ListItemComponent,
+    ListItemEditComponent,
+    ListItemAddComponent,
     ListMainComponent,
     CollectionsLayoutComponent,
-    RandomModalComponent,
+    RandomModalComponent
   ],
   imports: [
     CommonModule,

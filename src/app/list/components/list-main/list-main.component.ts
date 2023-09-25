@@ -28,8 +28,12 @@ export class ListMainComponent implements OnInit, OnDestroy {
 
   @Input()
   public isEditing = false;
+  @Input()
+  public isAdding = false;
 
   @Output() editClicked = new EventEmitter<void>();
+  @Output() addClicked = new EventEmitter<void>();
+  @Output() confirmClicked = new EventEmitter<void>();
   @Output() editCancel = new EventEmitter<void>();
   @Output() navigateBack = new EventEmitter<void>();
   @Output() shareClicked = new EventEmitter<void>();
@@ -45,19 +49,27 @@ export class ListMainComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEditClicked() {
+  onEdit() {
     this.editClicked.emit();
   }
 
-  onEditCancel() {
+  onAdd() {
+    this.addClicked.emit();
+  }
+
+  onCancel() {
     this.editCancel.emit();
   }
 
-  onNavigateBackClicked() {
+  onConfirm() {
+    this.confirmClicked.emit();
+  }
+
+  onNavigateBack() {
     this.location.back();
   }
 
-  onShareClicked() {
+  onShare() {
     this.shareClicked.emit();
   }
 

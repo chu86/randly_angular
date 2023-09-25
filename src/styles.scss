@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
+@import 'customize-bootstrap.scss';
 @import 'bootstrap/scss/bootstrap';
+
 
 html {
   height:100%;
@@ -14,4 +16,3 @@ body {
 .dropdown-toggle::after{
   content:initial
 }
-

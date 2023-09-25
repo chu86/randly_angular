@@ -17,7 +17,10 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
     public listitems$: Observable<ItemListItem[]> | undefined;
     public listId: string | null | undefined;
     public docId: string | null | undefined;
+    public docChanges: BasicList | undefined | null;
+    public itemChanges: ItemListItem[] = [];
     public isEditing = false;
+    public isAdding = false;
 
     public paramMapSubscription: Subscription | undefined;
 
@@ -59,15 +62,38 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
         this.isEditing = true;
     }
 
+    onConfirm() {
+        if (this.listId && this.docChanges) {
+            this.listService.updateItemDocument(this.listId, this.docChanges).then(r => this.readDocument());
+            console.log('doc updated!');
+        }
+
+        if (this.itemChanges && this.itemChanges.length > 0){
+          this.listService.updateItemListItemBatch(this.listId!, this.docId!, this.itemChanges).then(() => {
+            console.log('items updated!');
+            this.isEditing = false;
+          });
+        }
+        else {
+          this.isEditing = false;
+        }
+      }
+
+    public onAdd() {
+        this.isAdding = true;
+    }
+
     ngOnDestroy(): void {
         this.paramMapSubscription?.unsubscribe();
     }
 
     onEditCancel() {
         this.isEditing = false;
+        this.isAdding = false;
+        this.initializeData();
     }
 
-    onAddNewActivated(newItem: ItemListItem) {
+    onAddConfirm(newItem: ItemListItem): void {
         if (this.docId && this.listId) {
             this.listService.addItem(this.listId, this.docId, newItem).then(() => console.log('added!'));
         }
@@ -83,10 +109,11 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
         }
     }
 
-    onEditItemActivated($event: ItemListItem) {
-        if (this.docId && this.listId) {
-            this.listService.updateItemListItem(this.listId, this.docId, $event).then(() => console.log('updated!'));
-        }
+    onEditItemActivated($event: ItemListItem[]) {
+        //if (this.docId && this.listId) {
+        //    this.listService.updateItemListItem(this.listId, this.docId, $event).then(() => console.log('updated!'));
+        //}
+        this.itemChanges = $event;
     }
 
     onNavigateBack() {
@@ -94,9 +121,7 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
     }
 
     onValueChanged($event: BasicList) {
-        if (this.listId) {
-            this.listService.updateItemDocument(this.listId, $event).then(r => this.readDocument());
-        }
+        this.docChanges = $event;
     }
 
     onAddTag($event: { doc: BasicList, tag: string }) {

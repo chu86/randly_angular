@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div [formGroup]="form">
+    <ng-container formArrayName="listitems">
+      <ng-container *ngFor="let _lessonForm of listitemControls.controls; let i = index">
+        <div class="row" [formGroupName]="i">
+          <div class="col p-0">
+            <input type="text" class="form-control" formControlName="name" placeholder="Enter value">
+          </div>
+          <div class="col-auto p-0">
+            <button class="btn btn-light" type="button" (click)="deleteItem(i)">
+              <i-bs name="trash"></i-bs>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

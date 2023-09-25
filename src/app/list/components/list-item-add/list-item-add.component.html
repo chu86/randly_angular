@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col p-0">
+      <input #nameInput type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" [formControl]="name" placeholder="Enter name">
+    </div>
+    <div class="col-auto p-0">
+      <button class="btn btn-primary" type="button" (click)="onConfirm()">
+        <i-bs name="check"></i-bs>
+        <span class="visually-hidden">Cancel Edit</span>
+      </button>
+      <button class="btn btn-secondary" type="button" (click)="onCancel()">
+        <i-bs name="x"></i-bs>
+        <span class="visually-hidden">Cancel Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
