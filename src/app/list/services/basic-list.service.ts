@@ -32,7 +32,7 @@ export class BasicListService {
     }
 
     public getUserCollections(listIds: string[]): Observable<BasicList[]> {
-        if (!listIds || listIds.length === 0){
+        if (!listIds || listIds.length === 0) {
             return from([]);
         }
         const collection1 = collection(this.firestore, 'basic-list');
@@ -47,7 +47,7 @@ export class BasicListService {
     }
 
     public getListItems(id: string | null | undefined): Observable<BasicList[]> {
-        if (!id){
+        if (!id) {
             return from([]);
         }
         const collection1 = collection(this.firestore, `basic-list/${id}/listItems`);
@@ -57,7 +57,7 @@ export class BasicListService {
     public getItemDocument(listId: string, docId: string): Observable<BasicList> {
         const path = doc(this.firestore, `basic-list/${listId}/listItems/${docId}`);
         return from(getDoc(path)).pipe(map(docSnap =>
-            docSnap.data() as BasicList))
+            ({ ...docSnap.data(), id: docId } as BasicList)))
     }
 
     public async updateItemDocument(listId: string, document: BasicList): Promise<void> {
@@ -88,10 +88,10 @@ export class BasicListService {
 
     public async updateItemListItemBatch(listId: string, docId: string, documents: ItemListItem[]): Promise<void> {
         const batchWrite = writeBatch(this.firestore);
-        documents.forEach(document=> {
+        documents.forEach(document => {
             const path = doc(this.firestore, `basic-list/${listId}/listItems/${docId}/itemlist/${document.id}`);
             batchWrite.set(path, document);
-        });       
+        });
         await batchWrite.commit().then(() => {
             console.log('item updated.')
         });
@@ -152,10 +152,10 @@ export class BasicListService {
 
     public async updateCollectionBatch(documents: BasicList[]): Promise<void> {
         const batchWrite = writeBatch(this.firestore);
-        documents.forEach(document=> {
+        documents.forEach(document => {
             const path = doc(this.firestore, `basic-list/${document.id}`);
             batchWrite.set(path, document);
-        });       
+        });
         await batchWrite.commit().then(() => {
             console.log('document updated.')
         });
@@ -163,10 +163,10 @@ export class BasicListService {
 
     public async updateCollectionItemBatch(listId: string, documents: BasicList[]): Promise<void> {
         const batchWrite = writeBatch(this.firestore);
-        documents.forEach(document=> {
+        documents.forEach(document => {
             const path = doc(this.firestore, `basic-list/${listId}/listItems/${document.id}`);
             batchWrite.set(path, document);
-        });       
+        });
         await batchWrite.commit().then(() => {
             console.log('document updated.')
         });
@@ -176,14 +176,14 @@ export class BasicListService {
         if (!document.id) {
             throw new Error('Invalid Document-UID.');
         }
-       
-        await this.userListService.getByListUid(document.id).then(test=> {
+
+        await this.userListService.getByListUid(document.id).then(test => {
             if (test.length !== 1) {
                 throw new Error('Invalid User-List assignment.')
             }
             const userList = test[0];
             const isOwner = userList.role === UserListRole.Owner;
-            this.userListService.delete(userList).then(()=>{
+            this.userListService.delete(userList).then(() => {
                 console.log('UserList deleted.');
                 if (isOwner) {
                     const path = doc(this.firestore, `basic-list/${document.id}`);
@@ -204,17 +204,17 @@ export class BasicListService {
     }
 
     public filterSortListItems(value: BasicList[] | null | undefined, filter: string | null | undefined): BasicList[] {
-        if (!value){
-          return [];
+        if (!value) {
+            return [];
         }
         let filteredValue = value;
-        if (filter){
-          filteredValue = value.filter(item=> {
-            const lcFilter = filter!.toLocaleLowerCase();
-            return item.name.toLowerCase().includes(lcFilter) || item.tags?.map(t=>t.toLowerCase()).includes(lcFilter);
-          })
+        if (filter) {
+            filteredValue = value.filter(item => {
+                const lcFilter = filter!.toLocaleLowerCase();
+                return item.name.toLowerCase().includes(lcFilter) || item.tags?.map(t => t.toLowerCase()).includes(lcFilter);
+            })
         }
-        return filteredValue?.sort(({order:a}, {order:b}) => a-b);
-      }
+        return filteredValue?.sort(({ order: a }, { order: b }) => a - b);
+    }
 }
 

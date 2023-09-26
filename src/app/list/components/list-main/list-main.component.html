@@ -1,17 +1,17 @@
 <div class="container-fluid list-main" [formGroup]="formGroup">
   <div class="row">
     <div class="col-auto d-flex align-items-center p-0">
-      <button class="btn btn-light" type="button" (click)="onNavigateBack()">
+      <button class="btn btn-light icon-button" type="button" (click)="onNavigateBack()">
         <
       </button>
       <h2 class="h6 m-0 px-1">Collections / {{document?.name}}</h2>
     </div>
     <div class="col d-flex flex-row-reverse  p-0">
       <div *ngIf="!isEditing" ngbDropdown class="d-inline-block" placement="bottom-end">
-        <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
+        <button type="button" class="btn btn-light icon-button" id="dropdownBasic1" ngbDropdownToggle>
           <i-bs name="three-dots-vertical"></i-bs>
         </button>
-        <div ngbDropdownMenu *ngIf="!isEditing" class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
+        <div ngbDropdownMenu *ngIf="!isEditing" class="dropdown-menu-end icon-button" aria-labelledby="dropdownBasic1">
           <button ngbDropdownItem class="btn btn-light" type="button" (click)="onShare()">
             <i-bs name="share"></i-bs>
             <span class="px-2">Share</span>

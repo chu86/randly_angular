@@ -110,9 +110,6 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
     }
 
     onEditItemActivated($event: ItemListItem[]) {
-        //if (this.docId && this.listId) {
-        //    this.listService.updateItemListItem(this.listId, this.docId, $event).then(() => console.log('updated!'));
-        //}
         this.itemChanges = $event;
     }
 
