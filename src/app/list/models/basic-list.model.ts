@@ -1,8 +1,8 @@
 
 export interface BasicList {
+    parent?: BasicList
     id?: string;
     name: string;
-    order: number;
     description1: string;
     created: Date;
     tags: string[];

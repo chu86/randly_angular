@@ -65,15 +65,14 @@ export class ListItemEditComponent implements OnDestroy {
   private initFormGroup(items: BasicList[]) {
     const formGroups: FormGroup[] = [];
     for (const val of items) {
-      formGroups.push(this.addListItem(val.name, val.order, val.id));
+      formGroups.push(this.addListItem(val.name, val.id));
     }
     this.listitemControls = new FormArray(formGroups);
   }
 
-  addListItem(name: string, order: number, id: string | undefined): FormGroup {
+  addListItem(name: string, id: string | undefined): FormGroup {
     const listItemForm = this.fb.group({
       name: new FormControl(name, Validators.required),
-      order: new FormControl(order, Validators.required),
       id: new FormControl(id)
     }, { updateOn: 'blur' });
     const subscription = listItemForm.valueChanges.subscribe(item => {

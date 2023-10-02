@@ -29,7 +29,6 @@ export class ListItemAddComponent implements AfterViewInit {
   public onConfirm(): void {
     const newItem: BasicList = {
       name: this.name.getRawValue()!,
-      order: 0,
       description1: '',
       created: new Date(),
       tags: []

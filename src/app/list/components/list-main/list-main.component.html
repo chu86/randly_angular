@@ -1,10 +1,7 @@
 <div class="container-fluid list-main" [formGroup]="formGroup">
   <div class="row">
     <div class="col-auto d-flex align-items-center p-0">
-      <button class="btn btn-light icon-button" type="button" (click)="onNavigateBack()">
-        <
-      </button>
-      <h2 class="h6 m-0 px-1">Collections / {{document?.name}}</h2>
+      <app-breadcrumb></app-breadcrumb>
     </div>
     <div class="col d-flex flex-row-reverse  p-0">
       <div *ngIf="!isEditing" ngbDropdown class="d-inline-block" placement="bottom-end">
@@ -22,8 +19,8 @@
           </button>
         </div>
       </div>
-      <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEdit()"
-      (addClicked)="onAdd()"(confirm)="onConfirm()" [isEditing]="isEditing">
+      <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEdit()" (addClicked)="onAdd()"
+        (confirm)="onConfirm()" [isEditing]="isEditing">
       </app-button-edit>
     </div>
   </div>
@@ -46,14 +43,8 @@
       <div class="form-group">
         <label for="description">Description</label>
         <textarea id="description" rows="3" class="form-control" formControlName="description1"
-                  placeholder="Enter description"></textarea>
+          placeholder="Enter description"></textarea>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-

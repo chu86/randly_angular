@@ -69,8 +69,8 @@ export class ListLayoutComponent implements OnInit {
     this.doc$ = this.listService.getCollectionDocument(this.listId);
   }
 
-  public onItemSelected($event: string) {
-    this.router.navigate(['item', this.listId, $event]);
+  public onItemSelected(itemId: string) {
+    this.router.navigate(['item', this.listId, itemId]);
 
   }
 

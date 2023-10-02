@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {BasicList} from "../../models/basic-list.model";
-import {Location} from "@angular/common";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {Subscription} from "rxjs";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { BasicList } from "../../models/basic-list.model";
+import { Location } from "@angular/common";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { Breadcrumb } from 'src/app/shared/model/breadcrumb.model';
 
 @Component({
   selector: 'app-list-main',
@@ -10,6 +11,10 @@ import {Subscription} from "rxjs";
   styleUrls: ['./list-main.component.scss']
 })
 export class ListMainComponent implements OnInit, OnDestroy {
+
+  public formGroup: FormGroup;
+  public breadcrumbs: Breadcrumb[] = [];
+
   @Input()
   set document(value: BasicList | null | undefined) {
     this._document = value;
@@ -21,10 +26,8 @@ export class ListMainComponent implements OnInit, OnDestroy {
   }
 
   private _document: BasicList | null | undefined;
-
-  public formGroup: FormGroup;
-
   private subscription: Subscription | undefined;
+
 
   @Input()
   public isEditing = false;
@@ -43,9 +46,9 @@ export class ListMainComponent implements OnInit, OnDestroy {
   constructor(
     private location: Location, private fb: FormBuilder) {
     this.formGroup = this.fb.group({
-      id: new FormControl('', {updateOn: "blur"}),
-      name: new FormControl('', {updateOn: "blur"}),
-      description1: new FormControl('', {updateOn: "blur"})
+      id: new FormControl('', { updateOn: "blur" }),
+      name: new FormControl('', { updateOn: "blur" }),
+      description1: new FormControl('', { updateOn: "blur" })
     });
   }
 
@@ -78,7 +81,7 @@ export class ListMainComponent implements OnInit, OnDestroy {
       id: this.document?.id ?? null,
       name: this.document?.name ?? '',
       description1: this.document?.description1 ?? ''
-    }, { emitEvent: false})
+    }, { emitEvent: false })
   }
 
   ngOnDestroy(): void {

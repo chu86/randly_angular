@@ -1,32 +1,35 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {BasicList} from "../../../list/models/basic-list.model";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {Subscription} from "rxjs";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { BasicList } from "../../../list/models/basic-list.model";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { Breadcrumb } from 'src/app/shared/model/breadcrumb.model';
 
 @Component({
     selector: 'app-item-main',
     templateUrl: './item-main.component.html',
     styleUrls: ['./item-main.component.scss']
 })
-export class ItemMainComponent implements OnInit, OnDestroy{
-[x: string]: any;
+export class ItemMainComponent implements OnInit, OnDestroy {
+    [x: string]: any;
 
     public formGroup: FormGroup;
     public tagInput = new FormControl('');
+    public breadcrumbs: Breadcrumb[] = [];
 
     private subscription: Subscription | undefined;
 
     constructor(private fb: FormBuilder) {
         this.formGroup = this.fb.group({
-            id: new FormControl('', {updateOn: "blur"}),
-            name: new FormControl('', {updateOn: "blur"}),
-            description1: new FormControl('', {updateOn: "blur"})
+            id: new FormControl('', { updateOn: "blur" }),
+            name: new FormControl('', { updateOn: "blur" }),
+            description1: new FormControl('', { updateOn: "blur" })
         });
     }
 
     @Input()
     set document(value: BasicList | null | undefined) {
         this._document = value;
+        this.buildBreadcrumbs();
         this.patchForm();
     }
 
@@ -51,8 +54,8 @@ export class ItemMainComponent implements OnInit, OnDestroy{
     @Output() editCancel = new EventEmitter<void>();
     @Output() navigateBack = new EventEmitter<void>();
     @Output() valueChanged = new EventEmitter<BasicList>();
-    @Output() deleteTagClicked = new EventEmitter<{doc: BasicList, tagIndex: number}>();
-    @Output() addTagClicked = new EventEmitter<{doc: BasicList, tag: string}>();
+    @Output() deleteTagClicked = new EventEmitter<{ doc: BasicList, tagIndex: number }>();
+    @Output() addTagClicked = new EventEmitter<{ doc: BasicList, tag: string }>();
 
 
     ngOnDestroy(): void {
@@ -64,7 +67,7 @@ export class ItemMainComponent implements OnInit, OnDestroy{
     }
 
     private onValueChanged(value: BasicList) {
-        if (!this.document){
+        if (!this.document) {
             return;
         }
         this.document.name = value.name;
@@ -77,7 +80,7 @@ export class ItemMainComponent implements OnInit, OnDestroy{
             id: this.document?.id ?? null,
             name: this.document?.name ?? '',
             description1: this.document?.description1 ?? ''
-        }, { emitEvent: false})
+        }, { emitEvent: false })
     }
 
     onEdit() {
@@ -101,7 +104,7 @@ export class ItemMainComponent implements OnInit, OnDestroy{
     }
 
     onDeleteTag(index: number) {
-        if (!this.document){
+        if (!this.document) {
             return;
         }
         this.document.tags.splice(index, 1);
@@ -110,15 +113,23 @@ export class ItemMainComponent implements OnInit, OnDestroy{
 
     onTagEntered() {
         const tagInputValue = this.tagInput.getRawValue()!;
-        if (!this.document || !tagInputValue){
+        if (!this.document || !tagInputValue) {
             return;
         }
-        if (!this.document.tags){
+        if (!this.document.tags) {
             this.document.tags = [];
         }
         this.document.tags.push(this.tagInput.getRawValue()!);
         this.tagInput.reset();
 
         this.valueChanged.emit(this.document);
+    }
+
+    buildBreadcrumbs() {
+        const breadcrumbList: Breadcrumb = {
+            name: this.document?.parent?.name!,
+            pathParams: ['list', this.document?.parent?.id!]
+        }
+        this.breadcrumbs = [breadcrumbList];
     }
 }

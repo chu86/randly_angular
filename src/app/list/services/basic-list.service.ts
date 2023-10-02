@@ -56,8 +56,13 @@ export class BasicListService {
 
     public getItemDocument(listId: string, docId: string): Observable<BasicList> {
         const path = doc(this.firestore, `basic-list/${listId}/listItems/${docId}`);
-        return from(getDoc(path)).pipe(map(docSnap =>
-            ({ ...docSnap.data(), id: docId } as BasicList)))
+        const parentPath = doc(this.firestore, `basic-list/${listId}`);
+        return from(getDoc(parentPath).then(parent=>{
+            const parentData = {...parent.data(), id: listId} as BasicList;
+            return getDoc(path).then(result=>{
+                return { ...result.data() as BasicList, id: docId, parent: parentData } as BasicList
+            })
+        }));
     }
 
     public async updateItemDocument(listId: string, document: BasicList): Promise<void> {
@@ -196,7 +201,7 @@ export class BasicListService {
         });
     }
 
-    public getMaxOrder(listItems: BasicList[] | null | undefined): number {
+    public getMaxOrder(listItems: ItemListItem[] | null | undefined): number {
         if (!listItems) {
             return 0;
         }
@@ -214,7 +219,14 @@ export class BasicListService {
                 return item.name.toLowerCase().includes(lcFilter) || item.tags?.map(t => t.toLowerCase()).includes(lcFilter);
             })
         }
-        return filteredValue?.sort(({ order: a }, { order: b }) => a - b);
+        return this.sortAlphabetical(filteredValue);
+    }
+
+    private sortAlphabetical(value: BasicList[] | null | undefined): BasicList[] {
+        if (!value){
+            return [];
+        }
+        return value?.sort(({ name: a }, { name: b }) => a.localeCompare(b))
     }
 }
 

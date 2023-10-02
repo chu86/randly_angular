@@ -14,7 +14,8 @@ import {
   trash,
   x,
   share,
-  dice6
+  dice6,
+  house
 } from "ngx-bootstrap-icons";
 import { ListMainComponent } from './components/list-main/list-main.component';
 import { NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle } from "@ng-bootstrap/ng-bootstrap";
@@ -34,7 +35,8 @@ const icons = {
   search,
   threeDotsVertical,
   share,
-  dice6
+  dice6,
+  house
 };
 
 @NgModule({
@@ -51,7 +53,7 @@ const icons = {
     CommonModule,
     ListRoutingModule,
     ReactiveFormsModule,
-    NgxBootstrapIconsModule.pick(icons),
+    NgxBootstrapIconsModule.pick(icons, {width: '16px', height: '16px'}),
     NgbDropdown,
     NgbDropdownItem,
     NgbDropdownMenu,
