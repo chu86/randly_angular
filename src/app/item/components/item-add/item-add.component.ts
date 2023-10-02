@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ItemListItem } from '../../models/item-list-item.model';
+import { BasicListService } from 'src/app/list/services/basic-list.service';
 
 @Component({
   selector: 'app-item-add',
@@ -14,11 +15,17 @@ export class ItemAddComponent {
   public name = new FormControl('');
   public count = new FormControl('');
 
+  @Input()
+  public listitems: ItemListItem[] | null = [];
+
   @Output()
   public confirm: EventEmitter<ItemListItem> = new EventEmitter<ItemListItem>();
 
   @Output()
   public cancel: EventEmitter<void> = new EventEmitter<void>();
+
+  constructor(public listService: BasicListService) {
+  }
 
   public onCancel(): void {
     this.cancel.emit();
@@ -26,9 +33,13 @@ export class ItemAddComponent {
   }
 
   public onConfirm(): void {
+    const nameValue = this.name.getRawValue();
+    if (!nameValue){
+      return;
+    }
     const newItem: ItemListItem = {
       name: this.name.getRawValue()!,
-      order: 0,
+      order: this.listService.getMaxOrder(this.listitems) + 1,
       count: this.count.getRawValue()!
     }
 

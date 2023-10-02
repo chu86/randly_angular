@@ -4,36 +4,24 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col p-0">
-                        <app-item-main
-                                [document]="doc$ | async"
-                                [isEditing]="isEditing"
-                                [isAdding]="isAdding"
-                                (editClicked)="onEdit()"
-                                (confirmClicked)="onConfirm()"
-                                (addClicked)="onAdd()"
-                                (editCancel)="onEditCancel()"
-                                (navigateBack)="onNavigateBack()"
-                                (valueChanged)="onValueChanged($event)"
-                                (addTagClicked)="onAddTag($event)"
-                                (deleteTagClicked)="onDeleteTag($event)">
+                        <app-item-main [document]="doc$ | async" [isEditing]="isEditing" [isAdding]="isAdding"
+                            (editClicked)="onEdit()" (confirmClicked)="onConfirm()" (addClicked)="onAdd()"
+                            (editCancel)="onEditCancel()" (navigateBack)="onNavigateBack()"
+                            (valueChanged)="onValueChanged($event)" (addTagClicked)="onAddTag($event)"
+                            (deleteTagClicked)="onDeleteTag($event)">
                         </app-item-main>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col p-0">
-                        <app-item-add *ngIf="isAdding"
-                        (cancel)="onEditCancel()"
-                        (confirm)="onAddConfirm($event)"></app-item-add>
-                        <app-item-list
-                                [listitems]="listitems$ | async"
-                                [isEditing]="isEditing"
-                                (deleteActivated)="onDeleteActivated($event)"
-                                (itemsChanged)="onEditItemActivated($event)"
-                        ></app-item-list>
+                        <app-item-add *ngIf="isAdding" [listitems]="listitems$ | async" (cancel)="onEditCancel()"
+                            (confirm)="onAddConfirm($event)"></app-item-add>
+                        <app-item-list [listitems]="listitems$ | async" [isEditing]="isEditing"
+                            (deleteActivated)="onDeleteActivated($event)"
+                            (itemsChanged)="onEditItemActivated($event)"></app-item-list>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

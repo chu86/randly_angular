@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
-import { Subscription } from "rxjs";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { FormControl} from "@angular/forms";
 import { BasicList } from '../../models/basic-list.model';
 
 @Component({

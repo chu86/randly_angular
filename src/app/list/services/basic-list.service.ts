@@ -202,7 +202,7 @@ export class BasicListService {
     }
 
     public getMaxOrder(listItems: ItemListItem[] | null | undefined): number {
-        if (!listItems) {
+        if (!listItems || listItems.length === 0) {
             return 0;
         }
         return Math.max(...listItems.map(o => o.order ?? 1), 1)

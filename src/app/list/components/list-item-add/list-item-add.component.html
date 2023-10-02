@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col p-0">
       <div class="input-group">
-        <input #nameInput type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" [formControl]="name" placeholder="Enter name">
+        <input #nameInput type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" [formControl]="name" placeholder="Enter name" (keydown.enter)="onConfirm()">
         <button class="btn btn-primary" type="button" (click)="onConfirm()">
           <i-bs name="check"></i-bs>
           <span class="visually-hidden">Cancel Edit</span>

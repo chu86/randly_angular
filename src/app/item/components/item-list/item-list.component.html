@@ -1,40 +1,34 @@
 <ng-container *ngIf="listitems">
     <div class="container-fluid">
-        <ng-container *ngIf="isEditing; else showOnly">
-            <div [formGroup]="form">
-                <ng-container formArrayName="listitems">
-                    <ng-container *ngFor="let lessonForm of listitemControls.controls; let i = index">
-                        <div class="row" [formGroupName]="i">
-                            <div class="col p-0">
-                                <input type="text" class="form-control" formControlName="name">
+        <ng-container *ngIf="listitems && listitems.length > 0; else noItems">
+            <ng-container *ngIf="isEditing; else showOnly">
+                <div [formGroup]="form">
+                    <ng-container formArrayName="listitems">
+                        <ng-container *ngFor="let lessonForm of listitemControls.controls; let i = index">
+                            <div class="row" [formGroupName]="i">
+                                <div class="col p-0 input-group">
+                                    <input type="text" class="form-control" formControlName="name">
+                                    <input type="text" class="form-control" formControlName="count">
+                                    <button class="btn btn-outline-secondary" type="button" (click)="deleteItem(i)">
+                                        <i-bs name="trash"></i-bs>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col p-0">
-                                <input type="text" class="form-control" formControlName="count">
-                            </div>
-                            <div class="col-auto p-0">
-                                <button class="btn btn-light" type="button" (click)="deleteItem(i)">
-                                    <i-bs name="trash"></i-bs>
-                                </button>
-                            </div>
-                        </div>
+                        </ng-container>
                     </ng-container>
-                </ng-container>
-            </div>
-        </ng-container>
-        <ng-template #showOnly>
-            <ng-container *ngIf="listitems">
-              <ng-container *ngIf="listitems.length > 0; else noItems">
-                <div class="row" *ngFor="let item of listitems">
-                  <div class="col">{{item.name}}</div>
-                  <div class="col">{{item.count}}</div>
                 </div>
-              </ng-container>
-              <ng-template #noItems>
-                <div class="d-flex justify-content-center">
-                  <p>No items yet.</p>
-                </div>
-              </ng-template>
             </ng-container>
+            <ng-template #showOnly>
+                <div class="row" *ngFor="let item of listitems">
+                    <div class="col">{{item.name}}</div>
+                    <div class="col">{{item.count}}</div>
+                </div>
+            </ng-template>
+        </ng-container>
+        <ng-template #noItems>
+            <div class="d-flex justify-content-center">
+                <p>-</p>
+            </div>
         </ng-template>
     </div>
 </ng-container>

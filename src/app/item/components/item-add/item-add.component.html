@@ -1,12 +1,8 @@
 <div class="container-fluid">
     <div class="row">
-      <div class="col p-0">
-        <input autofocus #nameInput type="text" class="form-control" aria-label="Name" [formControl]="name" placeholder="Enter name">
-      </div>
-      <div class="col p-0">
-        <input type="text" class="form-control" aria-label="Count" [formControl]="count" placeholder="Enter count">
-      </div>
-      <div class="col-auto p-0">
+      <div class="col p-0 input-group">
+        <input autofocus #nameInput type="text" class="form-control" aria-label="Name" [formControl]="name" placeholder="Enter name" (keydown.enter)="onConfirm()">
+        <input type="text" class="form-control" aria-label="Count" [formControl]="count" placeholder="Enter count" (keydown.enter)="onConfirm()">
         <button class="btn btn-primary" type="button" (click)="onConfirm()">
           <i-bs name="check"></i-bs>
           <span class="visually-hidden">Cancel Edit</span>
