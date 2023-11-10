@@ -5,8 +5,12 @@
                 <div [formGroup]="form">
                     <ng-container formArrayName="listitems">
                         <ng-container *ngFor="let lessonForm of listitemControls.controls; let i = index">
-                            <div class="row" [formGroupName]="i">
-                                <div class="col p-0 input-group">
+                            <div class="row drag-wrapper" [formGroupName]="i">
+                                <div class="col p-0 input-group" [draggable]="true" (dragstart)="onDragStart(i)"
+                                (dragenter)="onDragEnter(i)" (dragend)="onDragEnd()">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i-bs name="grip-vertical"></i-bs>
+                                    </button>
                                     <input type="text" class="form-control" formControlName="name">
                                     <input type="text" class="form-control" formControlName="count">
                                     <button class="btn btn-outline-secondary" type="button" (click)="deleteItem(i)">

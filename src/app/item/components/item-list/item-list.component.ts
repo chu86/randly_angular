@@ -96,4 +96,14 @@ export class ItemListComponent implements OnDestroy {
     ngOnDestroy(): void {
         this.formSubscriptions.forEach(sub => sub.unsubscribe())
     }
+
+    onDragEnd() {
+        
+    }
+    onDragStart(arg0: any) {
+        
+    }
+    onDragEnter(_t24: number) {
+        
+    }
 }
