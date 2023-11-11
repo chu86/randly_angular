@@ -6,6 +6,7 @@ import { BasicListService } from "../../services/basic-list.service";
 import { UserListService } from "../../services/user-list.service";
 import { ModalService } from 'src/app/shared/service/modal.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { MetaService } from 'src/app/shared/service/meta.service';
 
 @Component({
   selector: 'app-collections-layout',
@@ -27,11 +28,13 @@ export class CollectionsLayoutComponent implements OnInit {
     private router: Router,
     private userlistService: UserListService,
     private listService: BasicListService,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private metaDataService: MetaService) {
   }
 
   public ngOnInit(): void {
     this.readData();
+    this.updateMetaData();
   }
 
   onListSelected($event: string) {
@@ -90,5 +93,11 @@ export class CollectionsLayoutComponent implements OnInit {
 
   onFilterValueChanged($event: string | null) {
     this.filter = $event;
+  }
+
+  updateMetaData() {
+    this.metaDataService.updateMetadata({
+        title: "Home"
+    });
   }
 }

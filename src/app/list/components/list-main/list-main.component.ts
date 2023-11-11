@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Breadcrumb } from 'src/app/shared/model/breadcrumb.model';
+import { MetaService } from 'src/app/shared/service/meta.service';
 
 @Component({
   selector: 'app-list-main',
@@ -19,6 +20,7 @@ export class ListMainComponent implements OnInit, OnDestroy {
   set document(value: BasicList | null | undefined) {
     this._document = value;
     this.patchForm();
+    this.updateMetaData();
   }
 
   get document() {
@@ -44,7 +46,8 @@ export class ListMainComponent implements OnInit, OnDestroy {
   @Output() fullRandomClicked = new EventEmitter<void>();
 
   constructor(
-    private location: Location, private fb: FormBuilder) {
+    private location: Location, private fb: FormBuilder,
+    private metaDataService: MetaService) {
     this.formGroup = this.fb.group({
       id: new FormControl('', { updateOn: "blur" }),
       name: new FormControl('', { updateOn: "blur" }),
@@ -107,4 +110,11 @@ export class ListMainComponent implements OnInit, OnDestroy {
   onRandomClicked() {
     this.fullRandomClicked.emit();
   }
+
+  updateMetaData() {
+    this.metaDataService.updateMetadata({
+        title: this._document?.name,
+        description: this.document?.description1
+    });
+}
 }

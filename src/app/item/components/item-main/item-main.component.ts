@@ -3,6 +3,7 @@ import { BasicList } from "../../../list/models/basic-list.model";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Breadcrumb } from 'src/app/shared/model/breadcrumb.model';
+import { MetaService } from 'src/app/shared/service/meta.service';
 
 @Component({
     selector: 'app-item-main',
@@ -18,7 +19,7 @@ export class ItemMainComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription | undefined;
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private metaDataService: MetaService) {
         this.formGroup = this.fb.group({
             id: new FormControl('', { updateOn: "blur" }),
             name: new FormControl('', { updateOn: "blur" }),
@@ -31,6 +32,7 @@ export class ItemMainComponent implements OnInit, OnDestroy {
         this._document = value;
         this.buildBreadcrumbs();
         this.patchForm();
+        this.updateMetaData();
     }
 
     get document() {
@@ -134,5 +136,12 @@ export class ItemMainComponent implements OnInit, OnDestroy {
             pathParams: ['list', this.document?.parent?.id!]
         }
         this.breadcrumbs = [breadcrumbList];
+    }
+
+    updateMetaData() {
+        this.metaDataService.updateMetadata({
+            title: this._document?.name,
+            description: this.document?.description1
+        });
     }
 }
