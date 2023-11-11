@@ -1,13 +1,19 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './auth/components/login/login.component';
+import { authenticationGuard } from './auth/services/auth-guard.service';
 
 const routes: Routes = [
   {
-    path: '', pathMatch: 'full', redirectTo: 'list',
+    path: '', pathMatch: 'full', redirectTo: 'list'
+  },
+  {
+    path: 'login', component: LoginComponent
   },
   {
     path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListModule)
+    loadChildren: () => import('./list/list.module').then(m => m.ListModule),
+    canActivate: [authenticationGuard()]
   },
   {
     path: 'item/:listId/:docId',
@@ -15,9 +21,12 @@ const routes: Routes = [
   },
   {
     path: 'invite/:id',
-    loadChildren: () => import('./invite/invite.module').then(m => m.InviteModule)
+    loadChildren: () => import('./invite/invite.module').then(m => m.InviteModule),
+    canActivate: [authenticationGuard()]
   },
-  {path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)},
+  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [authenticationGuard()]
+  },
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {GoogleAuthProvider} from 'firebase/auth';
-import {Auth, authState, FacebookAuthProvider, signInWithPopup, signOut, User, user} from "@angular/fire/auth";
-import {BehaviorSubject, Observable, Subscription} from "rxjs";
+import {Auth, authState, FacebookAuthProvider, signInWithPopup, signOut, User, user, signInAnonymously} from "@angular/fire/auth";
+import {BehaviorSubject, Observable, Subscription, firstValueFrom, map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +21,22 @@ export class AuthService implements OnDestroy {
     this.authState$ = authState(auth)
     this.userSubscription = this.authState$.subscribe((aUser: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user.
+      if (!aUser){
+        //this.anonymousLogin(); Dont do this yet
+      }
+      
       this.user = aUser;
       this._initialized.next(this.user);
     })
+  }
+
+  public anonymousLogin(): Promise<void> {
+    return signInAnonymously(this.auth) .then(() => {
+      console.log('You have been successfully logged in anonymously!');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   public googleLogin(): Promise<void> {
@@ -44,7 +57,13 @@ export class AuthService implements OnDestroy {
       });
   }
 
-  public isLoggedIn(): boolean {
+  public isLoggedOutOrAnonymous(): Observable<boolean> {
+    return this.user$.pipe(map((user)=>{
+      return user == null || user.isAnonymous
+    }));
+  }
+
+  public isAuthenticated(): boolean {
     return this.user != null && this.user.uid != null;
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BasicList } from "../models/basic-list.model";
-import { firstValueFrom, from, map, Observable, switchMap } from "rxjs";
+import { from, map, Observable } from "rxjs";
 import {
     addDoc,
     collection,

@@ -4,23 +4,6 @@
       <div class="container-fluid h-100">
         <div class="row row-actions">
           <div class="col d-flex flex-row-reverse p-0">
-            <!--
-            <div *ngIf="!isEditing" ngbDropdown class="d-inline-block" placement="bottom-end">
-              <button type="button" class="btn btn-light" id="dropdownBasic1" ngbDropdownToggle>
-                <i-bs name="three-dots-vertical"></i-bs>
-              </button>
-              <div ngbDropdownMenu class="dropdown-menu-end" aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem *ngIf="!isEditing" class="btn btn-light" type="button"
-                  (click)="onEditClicked()">
-                  <i-bs name="pencil"></i-bs>
-                  <span class="px-2">Edit</span>
-                </button>
-              </div>
-            </div>
-            <button *ngIf="isEditing" class="btn btn-light" type="button" (click)="onEditCancel()">
-              <i-bs name="x"></i-bs>
-            </button>
-          -->
             <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEditClicked()"
             (addClicked)="onAddClicked()"(confirm)="onConfirmClicked()" [isEditing]="isEditing">
             </app-button-edit>

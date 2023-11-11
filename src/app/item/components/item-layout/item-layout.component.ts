@@ -6,6 +6,7 @@ import { BasicListService } from "../../../list/services/basic-list.service";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Location } from '@angular/common';
 import { ModalService } from 'src/app/shared/service/modal.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
     selector: 'app-item-layout',
@@ -25,6 +26,7 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
     public paramMapSubscription: Subscription | undefined;
 
     constructor(
+        public authService: AuthService,
         private listService: BasicListService,
         private route: ActivatedRoute,
         private location: Location,

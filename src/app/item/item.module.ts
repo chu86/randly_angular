@@ -8,6 +8,7 @@ import {ItemMainComponent} from './components/item-main/item-main.component';
 import {ItemListComponent} from './components/item-list/item-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { ItemAddComponent } from './components/item-add/item-add.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // Select some icons (use an object, not an array)
 const icons = {
@@ -32,6 +33,7 @@ const icons = {
         ReactiveFormsModule,
         ItemRoutingModule,
         SharedModule,
+        DragDropModule,
         NgxBootstrapIconsModule.pick(icons),
     ]
 })

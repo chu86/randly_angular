@@ -3,6 +3,8 @@ import {ItemListItem} from "../../models/item-list-item.model";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {ItemListForm} from "../../models/item-list-form.model";
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ArrayService } from 'src/app/shared/service/array.service';
 
 @Component({
     selector: 'app-item-list',
@@ -39,7 +41,8 @@ export class ItemListComponent implements OnDestroy {
     })
 
     constructor(
-        private fb: FormBuilder) {
+        private fb: FormBuilder,
+        private arrayService: ArrayService) {
     }
 
     private initFormGroup(items: ItemListItem[]) {
@@ -97,13 +100,11 @@ export class ItemListComponent implements OnDestroy {
         this.formSubscriptions.forEach(sub => sub.unsubscribe())
     }
 
-    onDragEnd() {
-        
-    }
-    onDragStart(arg0: any) {
-        
-    }
-    onDragEnter(_t24: number) {
-        
+    drop(event: CdkDragDrop<string[]>) {
+        if (!this.listitems){
+            return;
+        }
+       moveItemInArray(this.listitems, event.previousIndex, event.currentIndex);
+       this.listitems = this.arrayService.reorderArray(this.listitems) as ItemListItem[];
     }
 }

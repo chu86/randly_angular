@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col p-0">
-                        <app-item-main [document]="doc$ | async" [isEditing]="isEditing" [isAdding]="isAdding"
+                        <app-item-main [document]="doc$ | async" [isEditing]="isEditing" [isAdding]="isAdding" [canEdit]="authService.isAuthenticated()"
                             (editClicked)="onEdit()" (confirmClicked)="onConfirm()" (addClicked)="onAdd()"
                             (editCancel)="onEditCancel()" (navigateBack)="onNavigateBack()"
                             (valueChanged)="onValueChanged($event)" (addTagClicked)="onAddTag($event)"

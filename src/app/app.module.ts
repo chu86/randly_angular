@@ -13,16 +13,17 @@ import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {FooterComponent} from './layout/components/footer/footer.component';
 import {AuthModule} from "./auth/auth.module";
-import {check, NgxBootstrapIconsModule, pencil, plus, threeDotsVertical, trash} from "ngx-bootstrap-icons";
+import {check, NgxBootstrapIconsModule, pencil, plus, threeDotsVertical, trash, personCircle} from "ngx-bootstrap-icons";
 import {SharedModule} from "./shared/shared.module";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
-// Select some icons (use an object, not an array)
 const icons = {
   pencil,
   trash,
   check,
   plus,
-  threeDotsVertical
+  threeDotsVertical,
+  personCircle
 };
 
 @NgModule({
@@ -30,7 +31,6 @@ const icons = {
     AppComponent,
     HeaderComponent,
     UserQuickComponent,
-
     FooterComponent
   ],
   imports: [
@@ -39,6 +39,7 @@ const icons = {
     NgbModule,
     HttpClientModule,
     AuthModule,
+    DragDropModule,
     NgxBootstrapIconsModule.pick(icons),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),

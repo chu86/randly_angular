@@ -1,10 +1,10 @@
 <div class="container-fluid item-main" [formGroup]="formGroup">
     <div class="row">
         <div class="col-auto d-flex align-items-center p-0">
-            <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
+            <app-breadcrumb *ngIf="canEdit" [breadcrumbs]="breadcrumbs"></app-breadcrumb>
         </div>
         <div class="col d-flex flex-row-reverse p-0">
-            <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEdit()" (addClicked)="onAdd()"
+            <app-button-edit *ngIf="!isAdding && canEdit" (cancel)="onCancel()" (editClicked)="onEdit()" (addClicked)="onAdd()"
                 (confirm)="onConfirm()" [isEditing]="isEditing">
             </app-button-edit>
         </div>
