@@ -1,35 +1,30 @@
-<div class="col p-0" *ngIf="(authService.authState$ | async) === null; else content">
-  <app-login></app-login>
-</div>
-<ng-template #content>
-  <div class="h-100 container-fluid">
-    <div class="row list-top">
-      <div class="col p-0">
-        <div class="container-fluid h-100">
-          <div class="row row-actions">
-            <div class="col d-flex flex-row-reverse p-0">
-              <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEditClicked()"
-              (addClicked)="onAddClicked()"(confirm)="onConfirmClicked()" [isEditing]="isEditing">
-              </app-button-edit>
-            </div>
+<div class="h-100 container-fluid">
+  <div class="row list-top">
+    <div class="col p-0">
+      <div class="container-fluid h-100">
+        <div class="row row-actions">
+          <div class="col d-flex flex-row-reverse p-0">
+            <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEditClicked()"
+              (addClicked)="onAddClicked()" (confirm)="onConfirmClicked()" [isEditing]="isEditing">
+            </app-button-edit>
           </div>
-          <div class="row">
-            <div class="col p-0">
-              <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col p-0">
+            <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col p-0">
-        <app-list-item-add *ngIf="isAdding" (confirm)="onAddNewActivated($event)" (cancel)="onCancel()"></app-list-item-add>
-        <app-list-item *ngIf="!isEditing" [listitems]="list$ | async" (itemSelected)="onListSelected($event)"
-          [filter]="filter"></app-list-item>
-        <app-list-item-edit *ngIf="isEditing" [listitems]="list$ | async"
-          (deleteActivated)="onDeleteActivated($event)"
-          (editItemActivated)="onValueChanged($event)" [filter]="filter"></app-list-item-edit>
-      </div>
+  </div>
+  <div class="row">
+    <div class="col p-0">
+      <app-list-item-add *ngIf="isAdding" (confirm)="onAddNewActivated($event)"
+        (cancel)="onCancel()"></app-list-item-add>
+      <app-list-item *ngIf="!isEditing" [listitems]="list$ | async" (itemSelected)="onListSelected($event)"
+        [filter]="filter"></app-list-item>
+      <app-list-item-edit *ngIf="isEditing" [listitems]="list$ | async" (deleteActivated)="onDeleteActivated($event)"
+        (editItemActivated)="onValueChanged($event)" [filter]="filter"></app-list-item-edit>
     </div>
   </div>
-</ng-template>
+</div>

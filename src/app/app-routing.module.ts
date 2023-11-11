@@ -12,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListModule)
+    loadChildren: () => import('./list/list.module').then(m => m.ListModule),
+    canActivate: [authenticationGuard()]
   },
   {
     path: 'item/:listId/:docId',

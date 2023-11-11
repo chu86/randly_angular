@@ -59,8 +59,7 @@ const icons = {
         NgbDropdownItem,
         NgbDropdownMenu,
         NgbDropdownToggle,
-        SharedModule,
-        AuthenticationModule
+        SharedModule
     ]
 })
 export class ListModule {
