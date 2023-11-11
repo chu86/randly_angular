@@ -4,8 +4,7 @@
       <app-header></app-header>
     </div>
   </div>
-  <!--<div class="row h-100" *ngIf="authService.authState$ | async; else load">-->
-  <div class="row h-100">
+  <div class="row h-100" *ngIf="authService.authState$ | async; else load">
     <div class="col p-0">
       <router-outlet></router-outlet>
     </div>
@@ -17,7 +16,10 @@
       </div>
     </div>
   </ng-template>
-  
+
+  <div class="col p-0" *ngIf="(authService.initialized$ | async) === null">
+    <app-login></app-login>
+  </div>
   <div class="row">
     <div class="col p-0">
       <!--<app-footer></app-footer>-->
