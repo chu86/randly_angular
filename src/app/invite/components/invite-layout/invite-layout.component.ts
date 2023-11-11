@@ -1,14 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {firstValueFrom, map, Observable, Subscription, switchMap} from "rxjs";
-import {InviteService} from "../../../list/services/invite.service";
-import {Invite} from "../../../list/models/share.model";
-import {BasicList} from "../../../list/models/basic-list.model";
-import {BasicListService} from "../../../list/services/basic-list.service";
-import {UserListService} from "../../../list/services/user-list.service";
-import {UserList} from "../../../list/models/user-list.model";
-import {AuthService} from "../../../auth/services/auth.service";
-import {UserListRole} from "../../../list/models/user-list-role-enum.model";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
+import { firstValueFrom, map, Observable, Subscription, switchMap } from "rxjs";
+import { InviteService } from "../../../list/services/invite.service";
+import { Invite } from "../../../list/models/share.model";
+import { BasicList } from "../../../list/models/basic-list.model";
+import { BasicListService } from "../../../list/services/basic-list.service";
+import { UserListService } from "../../../list/services/user-list.service";
+import { UserList } from "../../../list/models/user-list.model";
+import { AuthService } from "../../../auth/services/auth.service";
+import { UserListRole } from "../../../list/models/user-list-role-enum.model";
+import { MetaService } from 'src/app/shared/service/meta.service';
 
 @Component({
   selector: 'app-invite-layout',
@@ -26,11 +27,12 @@ export class InviteLayoutComponent implements OnInit, OnDestroy {
 
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private inviteService: InviteService,
-              private listService: BasicListService,
-              private userListService: UserListService,
-              private authService: AuthService) {
+    private router: Router,
+    private inviteService: InviteService,
+    private listService: BasicListService,
+    private userListService: UserListService,
+    private authService: AuthService,
+    private metaDataService: MetaService) {
   }
 
   public ngOnInit(): void {
@@ -57,8 +59,8 @@ export class InviteLayoutComponent implements OnInit, OnDestroy {
       return this.listService.getCollectionDocument(invite.listId);
     }));
     this.userListDoc$ = this.inviteDoc$.pipe(switchMap(invite => {
-      return this.userListService.getAllForUser().pipe(map(lists=> {
-        return lists.find(l=>l.listUid == invite.listId)
+      return this.userListService.getAllForUser().pipe(map(lists => {
+        return lists.find(l => l.listUid == invite.listId)
       }))
     }))
   }
@@ -68,22 +70,27 @@ export class InviteLayoutComponent implements OnInit, OnDestroy {
   }
 
   async onAccept() {
-    if (!this.inviteDoc$ || !this.authService.user){
+    if (!this.inviteDoc$ || !this.authService.user) {
       return;
     }
     const value = await firstValueFrom(this.inviteDoc$);
-
 
     const userList: UserList = {
       listUid: value.listId,
       userUid: this.authService.user?.uid,
       role: UserListRole.Participant
     }
-    this.userListService.add(userList).then(()=> {
+    this.userListService.add(userList).then(() => {
       console.log('userlist added.')
-      this.inviteService.delete(value).then(()=> {
+      this.inviteService.delete(value).then(() => {
         this.onNavigateToLists();
       })
     })
+  }
+
+  updateMetaData() {
+    this.metaDataService.updateMetadata({
+      title: "Invite"
+    });
   }
 }
