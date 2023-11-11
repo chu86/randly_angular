@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, switchMap } from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { Observable, switchMap } from "rxjs";
 import { BasicList } from "../../models/basic-list.model";
 import { Router } from "@angular/router";
 import { BasicListService } from "../../services/basic-list.service";
 import { UserListService } from "../../services/user-list.service";
 import { ModalService } from 'src/app/shared/service/modal.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-collections-layout',
@@ -22,6 +23,7 @@ export class CollectionsLayoutComponent implements OnInit {
   public adds: BasicList | undefined = undefined;
 
   constructor(
+    public authService: AuthService,
     private router: Router,
     private userlistService: UserListService,
     private listService: BasicListService,
@@ -45,7 +47,7 @@ export class CollectionsLayoutComponent implements OnInit {
   }
 
   onConfirmClicked() {
-    if (this.changes && this.changes.length > 0){
+    if (this.changes && this.changes.length > 0) {
       this.listService.updateCollectionBatch(this.changes).then(() => {
         console.log('updated!');
         this.isEditing = false;

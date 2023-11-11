@@ -19,5 +19,5 @@ import {AngularSvgIconPreloaderModule} from "angular-svg-icon-preloader";
   ],
   exports: [LoginComponent]
 })
-export class AuthModule {
+export class AuthenticationModule {
 }

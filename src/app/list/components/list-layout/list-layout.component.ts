@@ -109,8 +109,8 @@ export class ListLayoutComponent implements OnInit {
   }
 
   onConfirmClicked() {
-    if (this.changes){
-      this.listService.updateCollection(this.changes).then(()=>{
+    if (this.changes) {
+      this.listService.updateCollection(this.changes).then(() => {
         console.log('main updated!');
         this.readDocument();
       });
@@ -169,7 +169,7 @@ export class ListLayoutComponent implements OnInit {
     const items = await firstValueFrom(this.listItems$);
     const filteredItems = this.listService.filterSortListItems(items, this.filter);
     const randomItem = this.randomService.getArrayRandom(filteredItems);
-    this.modalRef = this.ngbModal.open(RandomModalComponent, {fullscreen: true});
+    this.modalRef = this.ngbModal.open(RandomModalComponent, { fullscreen: true });
     this.modalRef.componentInstance.listItem = randomItem;
     this.modalRef.componentInstance.listUid = this.listId;
   }

@@ -12,7 +12,7 @@ import {UserQuickComponent} from './auth/components/user-quick/user-quick.compon
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {getFirestore, provideFirestore} from '@angular/fire/firestore';
 import {FooterComponent} from './layout/components/footer/footer.component';
-import {AuthModule} from "./auth/auth.module";
+import {AuthenticationModule} from "./auth/authentication.module";
 import {check, NgxBootstrapIconsModule, pencil, plus, threeDotsVertical, trash, personCircle} from "ngx-bootstrap-icons";
 import {SharedModule} from "./shared/shared.module";
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -38,7 +38,7 @@ const icons = {
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    AuthModule,
+    AuthenticationModule,
     DragDropModule,
     NgxBootstrapIconsModule.pick(icons),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
