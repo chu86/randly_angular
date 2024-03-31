@@ -51,12 +51,12 @@
     </div>
     <div class="row">
         <div class="col px-2" *ngIf="!isEditing && document?.description1">
-            <pre class="m-0">{{document?.description1}}</pre>
+            <pre class="m-0 item-description">{{document?.description1}}</pre>
         </div>
         <div class="col py-2" *ngIf="isEditing">
             <div class="form-group">
                 <label for="description"><h3 class="h6">Description</h3></label>
-                <textarea id="description" rows="3" class="form-control" formControlName="description1"
+                <textarea id="description" rows="6" class="form-control" formControlName="description1"
                     placeholder="Enter description"></textarea>
             </div>
         </div>

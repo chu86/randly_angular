@@ -77,13 +77,8 @@ export class ListLayoutComponent implements OnInit {
     this.isEditing = true;
   }
 
-  onAdd() {
-    this.isAdding = true;
-  }
-
   onCancel() {
     this.isEditing = false;
-    this.isAdding = false;
   }
 
   onNavigateBack() {
@@ -104,7 +99,6 @@ export class ListLayoutComponent implements OnInit {
     if (this.listId) {
       this.listService.addListItem(this.listId, $event).then(() => console.log('added!'));
     }
-    this.isAdding = false;
   }
 
   onConfirmClicked() {
