@@ -23,7 +23,6 @@ export class ListLayoutComponent implements OnInit {
   public filteredListItems$: Observable<BasicList[]> | undefined;
   public listId: string | null | undefined;
   public isEditing = false;
-  public isAdding = false;
   public filter: string | null | undefined;
 
   modalRef: NgbModalRef | null = null;

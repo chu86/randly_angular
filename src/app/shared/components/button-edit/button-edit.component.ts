@@ -8,6 +8,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ButtonEditComponent {
 
   @Input()
+  public canEdit = false;
+  @Input()
+  public canAdd = false;
+  @Input()
   public isEditing = false;
 
   @Output()

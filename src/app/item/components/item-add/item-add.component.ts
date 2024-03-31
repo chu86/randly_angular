@@ -21,15 +21,7 @@ export class ItemAddComponent {
   @Output()
   public confirm: EventEmitter<ItemListItem> = new EventEmitter<ItemListItem>();
 
-  @Output()
-  public cancel: EventEmitter<void> = new EventEmitter<void>();
-
   constructor(public listService: BasicListService) {
-  }
-
-  public onCancel(): void {
-    this.cancel.emit();
-    
   }
 
   public onConfirm(): void {

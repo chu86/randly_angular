@@ -13,6 +13,4 @@ import { Orderable } from "../model/orderable.model";
         }
         return input;
     }
-    
-
   }

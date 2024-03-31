@@ -19,7 +19,7 @@
           </button>
         </div>
       </div>
-      <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEdit()" (addClicked)="onAdd()"
+      <app-button-edit (cancel)="onCancel()" (editClicked)="onEdit()" [canEdit]="true"
         (confirm)="onConfirm()" [isEditing]="isEditing">
       </app-button-edit>
     </div>

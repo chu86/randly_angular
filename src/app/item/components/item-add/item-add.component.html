@@ -1,14 +1,11 @@
 <div class="container-fluid">
     <div class="row">
+      <div class="spacer"></div>
       <div class="col p-0 input-group">
         <input autofocus #nameInput type="text" class="form-control" aria-label="Name" [formControl]="name" placeholder="Enter name" (keydown.enter)="onConfirm()">
         <input type="text" class="form-control" aria-label="Count" [formControl]="count" placeholder="Enter count" (keydown.enter)="onConfirm()">
         <button class="btn btn-primary" type="button" (click)="onConfirm()">
-          <i-bs name="check"></i-bs>
-          <span class="visually-hidden">Cancel Edit</span>
-        </button>
-        <button class="btn btn-secondary" type="button" (click)="onCancel()">
-          <i-bs name="x"></i-bs>
+          <i-bs name="plus"></i-bs>
           <span class="visually-hidden">Cancel Edit</span>
         </button>
       </div>

@@ -33,11 +33,8 @@ export class ListMainComponent implements OnInit, OnDestroy {
 
   @Input()
   public isEditing = false;
-  @Input()
-  public isAdding = false;
 
   @Output() editClicked = new EventEmitter<void>();
-  @Output() addClicked = new EventEmitter<void>();
   @Output() confirmClicked = new EventEmitter<void>();
   @Output() editCancel = new EventEmitter<void>();
   @Output() navigateBack = new EventEmitter<void>();
@@ -57,10 +54,6 @@ export class ListMainComponent implements OnInit, OnDestroy {
 
   onEdit() {
     this.editClicked.emit();
-  }
-
-  onAdd() {
-    this.addClicked.emit();
   }
 
   onCancel() {

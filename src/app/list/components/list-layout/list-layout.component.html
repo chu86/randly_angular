@@ -1,7 +1,7 @@
 <div *ngIf="doc$ | async as doc" class="container-fluid">
     <div class="row">
         <div class="col p-0">
-            <app-list-main [document]="doc" [isEditing]="isEditing" [isAdding]="isAdding" (editClicked)="onEdit()"
+            <app-list-main [document]="doc" [isEditing]="isEditing" (editClicked)="onEdit()"
                 (editCancel)="onCancel()" (addClicked)="onAdd()" (navigateBack)="onNavigateBack()" (shareClicked)="onShareClicked()"
                 (valueChanged)="onValueChanged($event)" (fullRandomClicked)="onFullRandomClicked()" (confirmClicked)="onConfirmClicked()"></app-list-main>
         </div>
@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col p-0">
             <ng-container *ngIf="listId">
-                <app-list-item-add *ngIf="isAdding" (confirm)="onAddNewActivated($event)" (cancel)="onCancel()"></app-list-item-add>
+                <app-list-item-add *ngIf="isEditing" (confirm)="onAddNewActivated($event)" (cancel)="onCancel()"></app-list-item-add>
                 <app-list-item *ngIf="!isEditing" [listitems]="listItems$ | async" (itemSelected)="onItemSelected($event)"
                     [filter]="filter"></app-list-item>
                 <app-list-item-edit *ngIf="isEditing" [listitems]="listItems$ | async"

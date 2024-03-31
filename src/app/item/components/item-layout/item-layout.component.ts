@@ -21,7 +21,6 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
     public docChanges: BasicList | undefined | null;
     public itemChanges: ItemListItem[] = [];
     public isEditing = false;
-    public isAdding = false;
 
     public paramMapSubscription: Subscription | undefined;
 
@@ -81,17 +80,12 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
         }
       }
 
-    public onAdd() {
-        this.isAdding = true;
-    }
-
     ngOnDestroy(): void {
         this.paramMapSubscription?.unsubscribe();
     }
 
     onEditCancel() {
         this.isEditing = false;
-        this.isAdding = false;
         this.initializeData();
     }
 

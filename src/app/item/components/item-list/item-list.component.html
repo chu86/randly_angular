@@ -8,7 +8,7 @@
                             <ng-container *ngFor="let lessonForm of listitemControls.controls; let i = index">
                                 <div class="row" [formGroupName]="i">
                                     <div class="col p-0 input-group" cdkDrag>
-                                        <button class="btn btn-outline-secondary" type="button">
+                                        <button class="btn btn-outline-secondary" type="button" cdkDragHandle>
                                             <i-bs name="grip-vertical"></i-bs>
                                         </button>
                                         <input type="text" class="form-control" formControlName="name">

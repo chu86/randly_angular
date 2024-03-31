@@ -1,8 +1,8 @@
 <div class="input-group">
-  <button *ngIf="!isEditing" class="btn btn-light icon-button" type="button" (click)="onAddClicked()">
+  <button *ngIf="!isEditing && canAdd" class="btn btn-light icon-button" type="button" (click)="onAddClicked()">
     <i-bs name="plus"></i-bs>
   </button>
-  <button *ngIf="!isEditing" class="btn btn-light icon-button" type="button" (click)="onEditClicked()">
+  <button *ngIf="!isEditing && canEdit" class="btn btn-light icon-button" type="button" (click)="onEditClicked()">
     <i-bs name="pencil"></i-bs>
     <span class="visually-hidden">Edit</span>
   </button>

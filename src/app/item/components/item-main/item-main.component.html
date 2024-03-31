@@ -5,7 +5,7 @@
         </div>
         <div class="col d-flex flex-row-reverse p-0">
             <app-button-edit *ngIf="!isAdding && canEdit" (cancel)="onCancel()" (editClicked)="onEdit()" (addClicked)="onAdd()"
-                (confirm)="onConfirm()" [isEditing]="isEditing">
+                (confirm)="onConfirm()" [isEditing]="isEditing" [canEdit]="canEdit" [canAdd]="canAdd">
             </app-button-edit>
         </div>
     </div>

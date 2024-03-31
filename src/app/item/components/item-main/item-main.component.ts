@@ -51,7 +51,9 @@ export class ItemMainComponent implements OnInit, OnDestroy {
     public isAdding = false;
 
     @Input()
-    public canEdit = false;
+    public canEdit = true;
+    @Input()
+    public canAdd = false;
 
     @Output() editClicked = new EventEmitter<void>();
     @Output() addClicked = new EventEmitter<void>();

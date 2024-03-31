@@ -87,7 +87,6 @@ export class ItemListComponent implements OnDestroy {
           this.changes.push(item);
         }
         this.itemsChanged.emit(this.changes);
-    
       }
 
     deleteItem(index: number) {
@@ -105,6 +104,10 @@ export class ItemListComponent implements OnDestroy {
             return;
         }
        moveItemInArray(this.listitems, event.previousIndex, event.currentIndex);
-       this.listitems = this.arrayService.reorderArray(this.listitems) as ItemListItem[];
+       const reordered = this.arrayService.reorderArray(this.listitems) as ItemListItem[];
+       // TODO: By reassigning listitems, the formgroup gets rebuilt and changes to items are lost
+       this.listitems = reordered;
+       // TODO: very cheap and inefficient, we mark every single item as changed, even when they are not.
+       this.listitems.forEach(item=> this.onItemChanged(item));
     }
 }
