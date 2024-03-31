@@ -1,12 +1,12 @@
 @import "../../../../customize-bootstrap.scss";
 
 .nav-container {
-  background-color: whitesmoke;
+  background-color: $primary;
   border-bottom: 4px solid #dee2e6;
 }
 
 .brand {
-  color: $primary;
+  color: white;
 }
 
 .brand-link {
