@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
       private formBuilder: FormBuilder,
-      private route: ActivatedRoute,
       private router: Router,
       private authService: AuthService
       
@@ -39,7 +38,6 @@ export class LoginComponent implements OnInit {
           return;
       }
 
-      
       this.loading = true;
       
       this.authService.login(this.f['username'].value, this.f['password'].value)

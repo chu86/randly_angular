@@ -49,10 +49,6 @@ export class AuthService implements OnDestroy {
     return this.googleSigninPopup(new GoogleAuthProvider());
   }
 
-  public facebookLogin(): Promise<void> {
-    return this.googleSigninPopup(new FacebookAuthProvider());
-  }
-
   public logout(): Promise<void> {
     return signOut(this.auth)
       .then(() => {
