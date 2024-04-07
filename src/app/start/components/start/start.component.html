@@ -1,0 +1,31 @@
+<div class="container-fluid d-flex bg-primary start-container">
+    <div class="content-container">
+        <div class="logo-container">
+            <img class="start-logo" src="assets/logo.svg" >
+            <h1 class="start-text raleway-800">
+                Gemeinsam Rezepte verwalten.
+            </h1>
+        </div>
+    </div>
+</div>
+<div class="container-fluid d-flex justify-content-center">
+    <div class="content-container login-container">
+
+        <div class="logged-in-container" *ngIf="authService.isAuthenticated(); else login">
+            <h1>Hallo {{authService.user?.displayName}}</h1> 
+            <a routerLink="/list" class="btn btn-primary btn-lg" >Zu meinen Rezepten</a>
+            <button class="btn btn-light" type="submit" (click)="authService.logout()">
+                Logout
+            </button>
+        </div>
+        <ng-template #login>
+            <h1>
+                Login
+            </h1>
+            <button class="btn btn-light" type="submit" (click)="authService.googleLogin()">
+                <svg-icon name="google-logo" [svgStyle]="{ 'width.px':18, 'margin.px': 5 }"></svg-icon>
+                Sign in with Google
+            </button>
+        </ng-template>
+    </div>
+</div>

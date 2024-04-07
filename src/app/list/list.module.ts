@@ -24,7 +24,6 @@ import { SharedModule } from "../shared/shared.module";
 import { RandomModalComponent } from './components/random-modal/random-modal.component';
 import { ListItemEditComponent } from './components/list-item-edit/list-item-edit.component';
 import { ListItemAddComponent } from './components/list-item-add/list-item-add.component';
-import { AuthenticationModule } from '../auth/authentication.module';
 
 // Select some icons (use an object, not an array)
 const icons = {

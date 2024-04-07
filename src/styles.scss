@@ -4,14 +4,20 @@
 @import 'customize-bootstrap.scss';
 @import 'bootstrap/scss/bootstrap';
 
-
-html {
+body,html {
+  margin: 0;
+  padding: 0;
   height:100%;
+  box-sizing: border-box;
 }
 
 body {
-  height:100%;
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
 }
+
 
 .dropdown-toggle::after{
   content:initial
@@ -23,12 +29,20 @@ button {
   white-space: nowrap;
 }
 
+.btn {
+  font-weight: 600;
+}
+
 .btn-primary {
   color: white;
 }
 
 .social-icon {
   width: 30px;
+}
+
+.bg-primary {
+  background-color: $primary;
 }
 
 .icon-button {
@@ -41,3 +55,39 @@ i-bs {
   align-items: center;
   justify-content: center;
 }
+
+.content-container {
+  max-width: 1600px;
+  flex: 1;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+
+// Fonts
+.raleway-900-italic {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.raleway-800 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.raleway-400 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+

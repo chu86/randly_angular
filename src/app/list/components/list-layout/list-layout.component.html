@@ -1,4 +1,4 @@
-<div *ngIf="doc$ | async as doc" class="container-fluid">
+<div *ngIf="doc$ | async as doc" class="content-container container-fluid">
     <div class="row">
         <div class="col p-0">
             <app-list-main [document]="doc" [isEditing]="isEditing" (editClicked)="onEdit()"

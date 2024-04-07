@@ -1,14 +1,31 @@
-@import "../../../../customize-bootstrap.scss";
-
-.nav-container {
-  background-color: $primary;
-  border-bottom: 4px solid #dee2e6;
-}
-
 .brand {
   color: white;
 }
 
+.nav-container {
+  justify-content: center;
+}
+
+.nav-content {
+
+}
+
 .brand-link {
   text-decoration: none;
+  justify-content: center;
+}
+
+.logo {
+  width: 150px;
+  padding: 16px;
+  path {
+    fill: white;
+  }
+}
+
+.raleway-900-italic {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: italic;
 }

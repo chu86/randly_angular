@@ -5,7 +5,8 @@ import { authenticationGuard } from './auth/services/auth-guard.service';
 
 const routes: Routes = [
   {
-    path: '', pathMatch: 'full', redirectTo: 'list'
+    path: '',
+    loadChildren: () => import('./start/start.module').then(m => m.StartModule),
   },
   {
     path: 'login', component: LoginComponent
