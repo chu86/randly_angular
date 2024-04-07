@@ -10,22 +10,24 @@
 </div>
 <div class="container-fluid d-flex justify-content-center">
     <div class="content-container login-container">
-
-        <div class="logged-in-container" *ngIf="authService.isAuthenticated(); else login">
+        <div class="logged-in-container d-flex flex-column align-items-center gap-3 py-3" *ngIf="authService.isAuthenticated(); else login">
             <h1>Salü {{authService.user?.displayName}}</h1> 
-            <a routerLink="/list" class="btn btn-primary btn-lg" >Mini Rezäpt</a>
+            <a routerLink="/list" class="btn btn-primary btn-lg" >Mini Rezappt</a>
             <button class="btn btn-light" type="submit" (click)="authService.logout()">
                 Logout
             </button>
         </div>
         <ng-template #login>
-            <h1>
-                Login
-            </h1>
-            <button class="btn btn-light" type="submit" (click)="authService.googleLogin()">
-                <svg-icon name="google-logo" [svgStyle]="{ 'width.px':18, 'margin.px': 5 }"></svg-icon>
-                Sign in with Google
-            </button>
+            <div class="d-flex flex-column align-items-center gap-3 py-3">
+                <h1>
+                    Login
+                </h1>
+                <button class="btn btn-light d-flex justify-content-center align-items-center gap-2" type="submit" (click)="authService.googleLogin()">
+                    <svg-icon name="google-logo" [svgStyle]="{ 'width.px':18, 'margin.px': 5 }"></svg-icon>
+                    <span>Google Login</span>
+                </button>
+                <p>No kes Konto? <a routerLink="/register">Jetz registriere.</a></p>
+            </div>
         </ng-template>
     </div>
 </div>

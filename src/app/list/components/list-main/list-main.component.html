@@ -1,4 +1,4 @@
-<div class="container-fluid list-main" [formGroup]="formGroup">
+<div class="container-fluid list-main py-2" [formGroup]="formGroup">
   <div class="row">
     <div class="col-auto d-flex align-items-center p-0">
       <app-breadcrumb></app-breadcrumb>
@@ -29,6 +29,7 @@
       <h1 class="h2">{{document?.name}}</h1>
     </div>
     <div class="col" *ngIf="isEditing">
+      <h1 class="h2">Rezäptsammlig bearbeite</h1>
       <div class="form-group">
         <label for="name">Name</label>
         <input id="name" type="text" class="form-control" formControlName="name" placeholder="Gib ä Name ii">
