@@ -46,13 +46,13 @@ export class ListLayoutComponent implements OnInit {
 
   public ngOnInit(): void {
     this.route.paramMap.subscribe(p => {
-      this.listId = p.get('id')
+      this.listId = p.get('id');
       if (this.listId) {
         this.readDocument();
         this.readListItems();
       }
     });
-  }
+      }
 
   private readListItems() {
     if (!this.listId) {

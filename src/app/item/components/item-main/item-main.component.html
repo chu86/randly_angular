@@ -10,8 +10,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col px-2" *ngIf="!isEditing">
-            <h2 class="h5">{{document?.name}}</h2>
+        <div class="col" *ngIf="!isEditing">
+            <h2>{{document?.name}}</h2>
         </div>
         <div class="col py-2" *ngIf="isEditing">
             <div class="form-group">
@@ -21,8 +21,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col px-2" *ngIf="!isEditing && document?.tags">
-            <span>{{getTags}}</span>
+        <div class="col d-flex flex-row gap-1" *ngIf="!isEditing && document?.tags">
+            <div *ngFor="let tag of document?.tags; let i = index">
+                <span>{{tag}}</span>
+            </div>
         </div>
         <div class="col" *ngIf="isEditing">
             <h3 class="h6">Tags</h3>
@@ -50,7 +52,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col px-2" *ngIf="!isEditing && document?.description1">
+        <div class="col px-4 py-4" *ngIf="!isEditing && document?.description1">
             <pre class="m-0 item-description">{{document?.description1}}</pre>
         </div>
         <div class="col py-2" *ngIf="isEditing">
@@ -59,11 +61,6 @@
                 <textarea id="description" rows="6" class="form-control" formControlName="description1"
                     placeholder="Enter description"></textarea>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col d-flex align-items-center px-2">
-            <h3 class="h6 my-2">Ingredients</h3>
         </div>
     </div>
 </div>

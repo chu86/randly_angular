@@ -14,10 +14,9 @@ body,html {
 body {
   font-family: "Raleway", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 800;
+  font-weight: 500;
   font-style: normal;
 }
-
 
 .dropdown-toggle::after{
   content:initial
@@ -86,8 +85,13 @@ i-bs {
   font-style: normal;
 }
 
-h1 {
+h1,h2,h3,h4,h5 {
   font-weight: 800;
 }
 
+pre {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 1.2rem;
+}
 
