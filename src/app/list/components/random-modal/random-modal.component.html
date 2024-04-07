@@ -1,18 +1,17 @@
 <div class="modal-header">
-  <h4 class="modal-title">Full Random</h4>
+  <h4 class="modal-title">Zuefäuigi Uswau</h4>
   <button type="button" class="close btn btn-light" aria-label="Close" (click)="closeModal()">
     <i-bs name="x"></i-bs>
   </button>
 </div>
 <div class="modal-body">
-  <div class="text-center py-4">
-    <p>You have rolled:</p>
+  <div class="text-center d-flex flex-column align-items-center">
+    <p>Wie wärs mit ...</p>
     <h2>{{listItem?.name}}</h2>
-  </div>
-  <div class="d-flex justify-content-center">
-    <button type="button" class="btn btn-primary" aria-label="Show" (click)="showItem()">Show</button>
+    <button type="button" class="btn btn-primary" aria-label="Show" (click)="showItem()">Azeige</button>
+    <button type="button" class="btn btn-light my-5" aria-label="Show" (click)="rollAgain()">Nei, i wott öppis angers</button>
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Close</button>
+  <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Zuedue</button>
 </div>

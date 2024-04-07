@@ -165,6 +165,11 @@ export class ListLayoutComponent implements OnInit {
     this.modalRef = this.ngbModal.open(RandomModalComponent, { fullscreen: true });
     this.modalRef.componentInstance.listItem = randomItem;
     this.modalRef.componentInstance.listUid = this.listId;
+    this.modalRef.result.then((result) => {
+      if (result){
+        this.onFullRandomClicked();
+      }
+    });
   }
 
   onFilterValueChanged($event: string | null) {

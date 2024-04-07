@@ -3,7 +3,7 @@
         <div class="logo-container">
             <img class="start-logo" src="assets/logo.svg" >
             <h1 class="start-text raleway-800">
-                Gemeinsam Rezepte verwalten.
+                Gmeinsam Rezappt verwaute.
             </h1>
         </div>
     </div>
@@ -12,8 +12,8 @@
     <div class="content-container login-container">
 
         <div class="logged-in-container" *ngIf="authService.isAuthenticated(); else login">
-            <h1>Hallo {{authService.user?.displayName}}</h1> 
-            <a routerLink="/list" class="btn btn-primary btn-lg" >Zu meinen Rezepten</a>
+            <h1>Salü {{authService.user?.displayName}}</h1> 
+            <a routerLink="/list" class="btn btn-primary btn-lg" >Mini Rezäpt</a>
             <button class="btn btn-light" type="submit" (click)="authService.logout()">
                 Logout
             </button>

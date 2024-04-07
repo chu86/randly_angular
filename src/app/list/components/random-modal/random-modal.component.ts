@@ -10,6 +10,7 @@ import {BasicList} from "../../models/basic-list.model";
 })
 export class RandomModalComponent {
 
+
   @Input()
   public listItem: BasicList | undefined;
 
@@ -30,5 +31,9 @@ export class RandomModalComponent {
     }
     this.activeModal.close();
     this.router.navigate(['item', this.listUid, this.listItem.id]);
+  }
+
+  rollAgain() {
+    this.activeModal.close(true);
   }
 }

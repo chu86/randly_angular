@@ -11,11 +11,11 @@
         <div ngbDropdownMenu *ngIf="!isEditing" class="dropdown-menu-end icon-button" aria-labelledby="dropdownBasic1">
           <button ngbDropdownItem class="btn btn-light d-flex" type="button" (click)="onShare()">
             <i-bs name="share"></i-bs>
-            <span class="px-2">Share</span>
+            <span class="px-2">Teile/Ylade</span>
           </button>
           <button ngbDropdownItem class="btn btn-light d-flex" type="button" (click)="onRandomClicked()">
             <i-bs name="dice-6"></i-bs>
-            <span class="px-2">Full Random</span>
+            <span class="px-2">Zuefäuig uswähle</span>
           </button>
         </div>
       </div>
@@ -26,12 +26,12 @@
   </div>
   <div class="row">
     <div class="col px-2" *ngIf="!isEditing">
-      <h2 class="h5">{{document?.name}}</h2>
+      <h1 class="h2">{{document?.name}}</h1>
     </div>
     <div class="col" *ngIf="isEditing">
       <div class="form-group">
         <label for="name">Name</label>
-        <input id="name" type="text" class="form-control" formControlName="name" placeholder="Enter name">
+        <input id="name" type="text" class="form-control" formControlName="name" placeholder="Gib ä Name ii">
       </div>
     </div>
   </div>
@@ -41,9 +41,9 @@
     </div>
     <div class="col" *ngIf="isEditing">
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">Beschribig</label>
         <textarea id="description" rows="3" class="form-control" formControlName="description1"
-          placeholder="Enter description"></textarea>
+          placeholder="Gib ä Beschribig ii"></textarea>
       </div>
     </div>
   </div>

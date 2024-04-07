@@ -1,4 +1,4 @@
-<div class="container-fluid item-main" [formGroup]="formGroup">
+<div class="container-fluid item-main py-2" [formGroup]="formGroup">
     <div class="row">
         <div class="col-auto d-flex align-items-center p-0">
             <app-breadcrumb *ngIf="canEdit" [breadcrumbs]="breadcrumbs"></app-breadcrumb>
@@ -11,12 +11,12 @@
     </div>
     <div class="row">
         <div class="col" *ngIf="!isEditing">
-            <h2>{{document?.name}}</h2>
+            <h1 class="h2">{{document?.name}}</h1>
         </div>
         <div class="col py-2" *ngIf="isEditing">
             <div class="form-group">
                 <label for="name"><h3 class="h6">Name</h3></label>
-                <input id="name" type="text" class="form-control" formControlName="name" placeholder="Enter name">
+                <input id="name" type="text" class="form-control" formControlName="name" placeholder="Zuetat">
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="col" *ngIf="isEditing">
-            <h3 class="h6">Tags</h3>
+            <h3 class="h6">Tägs</h3>
             <div class="btn-group" role="group" aria-label="Tags">
                 <ng-container *ngIf="document?.tags?.length! === 0">
                     -
@@ -40,8 +40,8 @@
                 </ng-container>
             </div>
             <div class="form-group py-2">
-                <div id="name" class="input-group" role="group" aria-label="Enter new tag">
-                    <input type="text" class="form-control" [formControl]="tagInput" placeholder="Enter tag name"
+                <div id="name" class="input-group" role="group" aria-label="Gib es Täg ii">
+                    <input type="text" class="form-control" [formControl]="tagInput" placeholder="Gib es Täg ii"
                         (keydown.enter)="onTagEntered()">
                     <button type="button" class="close btn btn-outline-secondary btn-sm" aria-label="Close"
                         (click)="onTagEntered()">
@@ -52,14 +52,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col px-4 py-4" *ngIf="!isEditing && document?.description1">
-            <pre class="m-0 item-description">{{document?.description1}}</pre>
+        <div class="col p-4" *ngIf="!isEditing && document?.description1">
+            <pre class="m-0">{{document?.description1}}</pre>
         </div>
         <div class="col py-2" *ngIf="isEditing">
             <div class="form-group">
-                <label for="description"><h3 class="h6">Description</h3></label>
+                <label for="description"><h3 class="h6">Beschribig</h3></label>
                 <textarea id="description" rows="6" class="form-control" formControlName="description1"
-                    placeholder="Enter description"></textarea>
+                    placeholder="Gib ä Beschribig ii"></textarea>
             </div>
         </div>
     </div>
