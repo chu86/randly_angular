@@ -1,11 +1,6 @@
 <main>
-
-
-      <app-header></app-header>
-
-
-      <router-outlet></router-outlet>
-
+  <app-header></app-header>
+  <router-outlet></router-outlet>
   <ng-template>
     <div class="d-flex justify-content-center" *ngIf="(authService.initialized$ | async) !== null">
       <div class="spinner-grow text-primary" role="status">

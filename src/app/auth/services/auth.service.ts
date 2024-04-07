@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {GoogleAuthProvider} from 'firebase/auth';
-import {Auth, authState, FacebookAuthProvider, signInWithPopup, signOut, User, user, signInAnonymously} from "@angular/fire/auth";
+import {Auth, authState, FacebookAuthProvider, signInWithPopup, signInWithEmailAndPassword, signOut, User, user, signInAnonymously} from "@angular/fire/auth";
 import {BehaviorSubject, Observable, Subscription, firstValueFrom, map} from "rxjs";
 
 @Injectable({
@@ -31,11 +31,17 @@ export class AuthService implements OnDestroy {
   }
 
   public anonymousLogin(): Promise<void> {
-    return signInAnonymously(this.auth) .then(() => {
+    return signInAnonymously(this.auth).then(() => {
       console.log('You have been successfully logged in anonymously!');
     })
     .catch((error) => {
       console.log(error);
+    });
+  }
+
+  public login(email: string, password: string): Promise<void> {
+    return signInWithEmailAndPassword(this.auth, email, password).then((userCredential) => {
+      console.log(userCredential + " login successful.");
     });
   }
 

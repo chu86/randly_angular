@@ -39,11 +39,12 @@ const icons = {
     NgbModule,
     HttpClientModule,
     AuthenticationModule,
+    SharedModule,
     DragDropModule,
     NgxBootstrapIconsModule.pick(icons),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-    SharedModule,
+
 
   ],
   providers: [AuthService],

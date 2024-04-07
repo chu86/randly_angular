@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
 const defaultMetadata: PageMetadata = {
-  title: 'Randly',
-  description: 'Randly is your tool for recipe management',
+  title: 'Rezappt',
+  description: 'Rezappt is your tool for recipe management',
   author: 'Christian Hunziker',
-  keywords: ['Randly', 'Recipe', 'Shopping Basket'],
+  keywords: ['Rezappt', 'Recipe'],
   type: 'website',
 }
 
@@ -24,7 +24,7 @@ export class MetaService {
 
   public updateMetadata(metadata: Partial<PageMetadata>, index: boolean = true): void {
     const pageMetadata: PageMetadata = { ...defaultMetadata, ...metadata };
-    pageMetadata.title = `Randly - ${pageMetadata.title}`;
+    pageMetadata.title = `Rezappt - ${pageMetadata.title}`;
     const metatags: MetaDefinition[] = this.generateMetaDefinitions(pageMetadata);
 
     this.metaTagService.addTags([

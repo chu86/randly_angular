@@ -1,20 +1,26 @@
-<div class="flex-container login-container">
-    <div class="row">
-        <div class="login-wrapper text-center">
-            <div *ngIf="authService.isAuthenticated(); else login">
-                <button class="btn btn-light" type="submit" (click)="authService.logout()">
-                    Logout
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label class="form-label">Benutzername</label>
+                <input type="text" formControlName="username" autocomplete="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+                <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                    <div *ngIf="f['username'].errors['required']">Benutzername isch Pflicht</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Passwort</label>
+                <input type="password" formControlName="password" autocomplete="current-password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">Passwort isch Pflicht</div>
+                </div>
+            </div>
+            <div>
+                <button [disabled]="loading" class="btn btn-primary" type="submit">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Login
                 </button>
             </div>
-            <ng-template #login>
-                <h1>Welcome</h1>
-                <div>
-                    <button class="btn btn-light" type="submit" (click)="authService.googleLogin()">
-                        <svg-icon name="google-logo" [svgStyle]="{ 'width.px':18, 'margin.px': 5 }"></svg-icon>
-                        Sign in with Google
-                    </button>
-                </div>
-            </ng-template>
-        </div>
+        </form>
     </div>
 </div>

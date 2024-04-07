@@ -1,0 +1,24 @@
+<div class="flex-container">
+    <div class="row">
+        <div class="text-center">
+            <div *ngIf="authService.isAuthenticated(); else login">
+                <button class="btn btn-light" type="submit" (click)="authService.logout()">
+                    Logout
+                </button>
+            </div>
+            <ng-template #login>
+                <div class="d-flex flex-column gap-3 py-3">
+                    <h1>
+                        Login
+                    </h1>
+                    <app-login></app-login>
+                    <button class="btn btn-light d-flex justify-content-center align-items-center gap-2" type="submit" (click)="authService.googleLogin()">
+                        <svg-icon name="google-logo" [svgStyle]="{ 'width.px':18, 'margin.px': 5 }"></svg-icon>
+                        <span>Google Login</span>
+                    </button>
+                    <span>No kes Konto? <a routerLink="/register">Jetz registriere.</a></span>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

@@ -19,16 +19,26 @@
     max-width: 200px;
 }
 
-.start-text {
-    color: white;
-    font-size: 3rem;
+.start-text-wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.start-text {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    margin: 0;
+}
+
+.start-text.span {
+    color: green;
+
+}
+
+.start-login-wrapper {
     padding: 16px;
+    max-width: 480px;
 }
 
 .logged-in-container {

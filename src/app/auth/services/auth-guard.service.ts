@@ -12,7 +12,7 @@ export function authenticationGuard(): CanActivateFn {
         if (user){
           return true;
         }
-        routerService.navigate(['login']);
+        routerService.navigate(['/']);
         return false;
       })))
     };
