@@ -3,9 +3,9 @@
     <div class="col p-0">
       <div class="container-fluid h-100">
         <div class="row row-actions">
-          <div class="col d-flex flex-row-reverse p-0">
+          <div class="col d-flex flex-row-reverse py-2">
             <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEditClicked()"
-              (addClicked)="onAddClicked()" (confirm)="onConfirmClicked()" [isEditing]="isEditing" [canAdd]="true">
+              (addClicked)="onAddClicked()" (confirm)="onConfirmClicked()" [isEditing]="isEditing" [canEdit]="true">
             </app-button-edit>
           </div>
         </div>
@@ -19,7 +19,7 @@
   </div>
   <div class="row">
     <div class="col p-0">
-      <app-list-item-add *ngIf="isAdding" (confirm)="onAddNewActivated($event)"
+      <app-list-item-add *ngIf="isEditing" (confirm)="onAddNewActivated($event)"
         (cancel)="onCancel()"></app-list-item-add>
       <app-list-item *ngIf="!isEditing" [listitems]="list$ | async" (itemSelected)="onListSelected($event)"
         [filter]="filter"></app-list-item>
