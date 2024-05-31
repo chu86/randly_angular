@@ -32,7 +32,7 @@ export class ListItemAddComponent implements AfterViewInit {
       created: new Date(),
       tags: []
     }
-
+    this.name.reset();
     this.confirm.emit(newItem);
   }
 

@@ -97,7 +97,7 @@ export class ItemLayoutComponent implements OnInit, OnDestroy {
 
     onDeleteActivated($event: ItemListItem) {
         if (this.docId && this.listId) {
-            this.modalService.openConfirmModal('Confirm delete', 'Are you sure?').then(confirmed => {
+            this.modalService.openConfirmModal('Lösche beschtätige', 'Bisch ganz sicher?').then(confirmed => {
                 if (confirmed) {
                     this.listService.deleteItem(this.listId!, this.docId!, $event).then(() => console.log('deleted!'));
                 }

@@ -87,7 +87,7 @@ export class ListLayoutComponent implements OnInit {
 
   onDeleteActivated($event: BasicList) {
     if (this.listId) {
-      this.modalService.openConfirmModal('Confirm delete', 'Are you sure?').then(confirmed => {
+      this.modalService.openConfirmModal('Lösche bestätige', 'Bisch ganz sicher??').then(confirmed => {
         if (confirmed) {
           this.listService.deleteListItem(this.listId!, $event).then(() => console.log('deleted!'));
         }

@@ -72,7 +72,7 @@ export class CollectionsLayoutComponent implements OnInit {
   }
 
   onDeleteActivated($event: BasicList) {
-    this.modalService.openConfirmModal('Confirm delete', 'Are you sure?').then(confirmed => {
+    this.modalService.openConfirmModal('Lösche beschtätige', 'Bisch ganz sicher?').then(confirmed => {
       if (confirmed) {
         this.listService.deleteCollection($event);
       }

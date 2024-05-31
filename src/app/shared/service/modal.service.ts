@@ -10,7 +10,7 @@ export class ModalService {
   constructor(private ngbModalService: NgbModal) { }
 
 
-  public openConfirmModal(title: string, message: string, cancelText: string = 'Cancel', confirmText: string = 'Confirm'): Promise<boolean> {
+  public openConfirmModal(title: string, message: string, cancelText: string = 'Abbräche', confirmText: string = 'Beschtätige'): Promise<boolean> {
     const modalRef = this.ngbModalService.open(ConfirmModalComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.message = message;
