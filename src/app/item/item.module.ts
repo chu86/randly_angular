@@ -9,6 +9,7 @@ import {ItemListComponent} from './components/item-list/item-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { ItemAddComponent } from './components/item-add/item-add.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ItemDirectionsComponent } from './components/item-directions/item-directions.component';
 
 // Select some icons (use an object, not an array)
 const icons = {
@@ -25,6 +26,7 @@ const icons = {
     declarations: [
         ItemLayoutComponent,
         ItemMainComponent,
+        ItemDirectionsComponent,
         ItemListComponent,
         ItemAddComponent,
     ],

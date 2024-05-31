@@ -20,6 +20,7 @@ export class ListMainComponent implements OnInit, OnDestroy {
   set document(value: BasicList | null | undefined) {
     this._document = value;
     this.patchForm();
+    this.buildBreadcrumbs();
     this.updateMetaData();
   }
 
@@ -103,11 +104,19 @@ export class ListMainComponent implements OnInit, OnDestroy {
   onRandomClicked() {
     this.fullRandomClicked.emit();
   }
-
+  
   updateMetaData() {
     this.metaDataService.updateMetadata({
         title: this._document?.name,
         description: this.document?.description1
     });
-}
+  }
+
+  buildBreadcrumbs() {
+    const breadcrumbList: Breadcrumb = {
+        name: 'Lischte',
+        pathParams: ['list']
+    }
+    this.breadcrumbs = [breadcrumbList];
+  }
 }

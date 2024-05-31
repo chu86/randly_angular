@@ -7,6 +7,10 @@
 
 .nav-container {
   justify-content: center;
+  position: fixed;
+  height: 50px;
+  z-index: 1001;
+  box-shadow: 0 4px 6px -6px #222;
 }
 
 .nav-content {

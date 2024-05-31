@@ -18,6 +18,10 @@ body {
   font-style: normal;
 }
 
+main {
+  padding-top: 50px;
+}
+
 .dropdown-toggle::after{
   content:initial
 }
@@ -28,16 +32,48 @@ button {
   white-space: nowrap;
 }
 
+.btn-group {
+  gap: .2rem;
+}
+
+.btn-group > .btn {
+  flex-grow: 0;
+}
+
 .btn {
   font-weight: 600;
+
 }
 
 .btn-primary {
   color: white;
 }
 
+.btn-light {
+  background-color: transparent;
+}
+
 .social-icon {
   width: 30px;
+}
+
+.position-fixed-main {
+  position: fixed;
+  height: 100px;
+  top: 50px;
+  z-index: 1000;
+  max-width: 1600px;
+}
+
+.fixed-top-150 {
+  position: fixed;
+  top: 150px;
+  z-index: 500;
+  max-width: 1600px;
+}
+
+.margin-fixed-main {
+  margin-top: 100px;
 }
 
 .bg-primary {
@@ -90,7 +126,24 @@ h1,h2,h3,h4,h5 {
 pre {
   font-family: "Raleway", sans-serif;
   font-optical-sizing: auto;
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-wrap: pretty;
+  margin-bottom: 0.5rem;
+}
+
+span.description {
+  font-size: 0.75rem;
+  display: inline-block; /* Ensure the span is treated as a block container */
+  max-width: 100%;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide any overflowed text */
+  text-overflow: ellipsis; /* Apply ellipsis to overflowed text */
+  vertical-align: bottom; /* Align with surrounding text */
+}
+
+
+:root {
+  --bs-border-radius: 0; /* Example: Change the border radius */
+  --bs-border-radius-sm: 0; /* Example: Change the border radius */
 }
 

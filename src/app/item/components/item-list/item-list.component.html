@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <ng-container *ngIf="listitems && listitems.length > 0; else noItems">
             <ng-container *ngIf="isEditing; else showOnly">
-                <h2 class="h3">Zuetat bearbeite/lösche</h2>
+                <h2 class="h5">Zuetat bearbeite/lösche</h2>
                 <div [formGroup]="form">
                     <ng-container formArrayName="listitems" >
                         <div cdkDropList (cdkDropListDropped)="drop($event)">
@@ -25,7 +25,7 @@
                 </div>
             </ng-container>
             <ng-template #showOnly>
-                <h2 class="h3 py-3">Zuetate</h2>
+                <h2 class="h5 py-1">Zuetate</h2>
                 <div class="row" *ngFor="let item of listitems">
                     <div class="col">{{item.name}}</div>
                     <div class="col">{{item.count}}</div>

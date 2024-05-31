@@ -1,27 +1,30 @@
-<div *ngIf="doc$ | async as doc" class="content-container container-fluid">
+<div class="content-container h-100 container-fluid">
     <div class="row">
-        <div class="col p-0">
+      <div class="col p-0">
+        <div *ngIf="doc$ | async as doc" >
             <app-list-main [document]="doc" [isEditing]="isEditing" (editClicked)="onEdit()"
                 (editCancel)="onCancel()" (navigateBack)="onNavigateBack()" (shareClicked)="onShareClicked()"
                 (valueChanged)="onValueChanged($event)" (fullRandomClicked)="onFullRandomClicked()" (confirmClicked)="onConfirmClicked()"></app-list-main>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col p-0">
-            <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col p-0">
+        
+            <div [class.fixed-top-150]="!isEditing" class="w-100">
+                <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>
+            </div>
+        
             <ng-container *ngIf="listId">
-                <app-list-item-add *ngIf="isEditing" (confirm)="onAddNewActivated($event)" (cancel)="onCancel()"></app-list-item-add>
-                <app-list-item *ngIf="!isEditing" [listitems]="listItems$ | async" (itemSelected)="onItemSelected($event)"
-                    [filter]="filter"></app-list-item>
-                <app-list-item-edit *ngIf="isEditing" [listitems]="listItems$ | async"
-                    (deleteActivated)="onDeleteActivated($event)"
-                    (addNewActivated)="onAddNewActivated($event)" (editItemActivated)="onItemValueChanged($event)"
-                    [filter]="filter"></app-list-item-edit>
+                <div [class.app-list]="!isEditing">
+                    <app-list-item-add *ngIf="isEditing" (confirm)="onAddNewActivated($event)" (cancel)="onCancel()"></app-list-item-add>
+                    <app-list-item *ngIf="!isEditing" [listitems]="listItems$ | async" (itemSelected)="onItemSelected($event)"
+                        [filter]="filter"></app-list-item>
+                    <app-list-item-edit *ngIf="isEditing" [listitems]="listItems$ | async"
+                        (deleteActivated)="onDeleteActivated($event)"
+                        (addNewActivated)="onAddNewActivated($event)" (editItemActivated)="onItemValueChanged($event)"
+                        [filter]="filter"></app-list-item-edit>
+                </div>
             </ng-container>
         </div>
+      </div>
     </div>
 </div>
+
+
+

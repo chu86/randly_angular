@@ -23,7 +23,7 @@ export class BreadcrumbComponent {
   }
 
   onNavigateHome() {
-    this.router.navigate(['/list']);
+    this.router.navigate(['/']);
   }
 
   onNavigateCrumb(crumb: Breadcrumb) {

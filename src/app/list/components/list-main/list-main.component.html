@@ -1,7 +1,7 @@
-<div class="container-fluid list-main py-2" [formGroup]="formGroup">
+<div class="container-fluid list-main" [class.position-fixed-main]="!isEditing" [formGroup]="formGroup">
   <div class="row">
     <div class="col-auto d-flex align-items-center p-0">
-      <app-breadcrumb></app-breadcrumb>
+      <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
     </div>
     <div class="col d-flex flex-row-reverse  p-0">
       <div *ngIf="!isEditing" ngbDropdown class="d-inline-block" placement="bottom-end">
@@ -26,7 +26,7 @@
   </div>
   <div class="row">
     <div class="col px-2" *ngIf="!isEditing">
-      <h1 class="h2">{{document?.name}}</h1>
+      <h1 class="h4">{{document?.name}}</h1>
     </div>
     <div class="col" *ngIf="isEditing">
       <h1 class="h2">Rezäptsammlig bearbeite</h1>
@@ -38,7 +38,7 @@
   </div>
   <div class="row">
     <div class="col px-2" *ngIf="!isEditing && document?.description1">
-      <pre>{{document?.description1}}</pre>
+      <span class="description">{{document?.description1}}</span>
     </div>
     <div class="col" *ngIf="isEditing">
       <div class="form-group">

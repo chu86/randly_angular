@@ -3,7 +3,10 @@
     <div class="col p-0">
       <div class="container-fluid h-100">
         <div class="row row-actions">
-          <div class="col d-flex flex-row-reverse py-2">
+          <div class="col-auto d-flex align-items-center p-0">
+            <app-breadcrumb></app-breadcrumb>
+          </div>
+          <div class="col d-flex flex-row-reverse p-0">
             <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEditClicked()"
               (addClicked)="onAddClicked()" (confirm)="onConfirmClicked()" [isEditing]="isEditing" [canEdit]="true">
             </app-button-edit>

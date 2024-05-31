@@ -5,8 +5,8 @@
                 <i-bs name="house"></i-bs>
             </button>
             <ng-container *ngFor="let crumb of breadcrumbs; let i = index">
-                <button type="button" class="btn btn-light btn-sm d-flex icon-button align-items-center" (click)="onNavigateCrumb(crumb)">
-                    <h2 class="h6 m-0 d-flex">{{crumb.name}}</h2>
+                <button type="button" class="btn btn-light btn-sm px-0 d-flex icon-button align-items-center" (click)="onNavigateCrumb(crumb)">
+                    <span class="description m-0 d-flex"><&nbsp;{{crumb.name}}</span>
                 </button>
             </ng-container>
         </div>

@@ -133,11 +133,16 @@ export class ItemMainComponent implements OnInit, OnDestroy {
     }
 
     buildBreadcrumbs() {
-        const breadcrumbList: Breadcrumb = {
+        const breadcrumbList: Breadcrumb[] = [{
+            name: 'Lischte',
+            pathParams: ['list']
+        }, 
+        {
             name: this.document?.parent?.name!,
             pathParams: ['list', this.document?.parent?.id!]
-        }
-        this.breadcrumbs = [breadcrumbList];
+        }]
+
+        this.breadcrumbs = breadcrumbList;
     }
 
     updateMetaData() {

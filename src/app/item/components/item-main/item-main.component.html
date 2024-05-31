@@ -1,4 +1,4 @@
-<div class="container-fluid item-main py-2" [formGroup]="formGroup">
+<div class="container-fluid item-main" [formGroup]="formGroup" [class.position-fixed-main]="!isEditing">
     <div class="row">
         <div class="col-auto d-flex align-items-center p-0">
             <app-breadcrumb *ngIf="canEdit" [breadcrumbs]="breadcrumbs"></app-breadcrumb>
@@ -11,25 +11,23 @@
     </div>
     <div class="row">
         <div class="col" *ngIf="!isEditing">
-            <h1 class="h2">{{document?.name}}</h1>
+            <h1 class="h4">{{document?.name}}</h1>
         </div>
         <div class="col py-2" *ngIf="isEditing">
-            <h1 class="h2">Rezäpt bearbeite</h1>
+            <h1 class="h4">Rezäpt bearbeite</h1>
             <div class="form-group">
-                <label for="name"><h3 class="h6">Name</h3></label>
-                <input id="name" type="text" class="form-control" formControlName="name" placeholder="Zuetat">
+                <input id="name" type="text" class="form-control" formControlName="name" placeholder="Name">
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col d-flex flex-row gap-1" *ngIf="!isEditing && document?.tags">
-            <div *ngFor="let tag of document?.tags; let i = index">
+            <span class="description" *ngFor="let tag of document?.tags; let i = index">
                 <span>{{tag}}</span>
-            </div>
+            </span>
         </div>
         <div class="col" *ngIf="isEditing">
-            <h3 class="h6">Tägs</h3>
-            <div class="btn-group" role="group" aria-label="Tags">
+            <div class="btn-group flex-wrap" role="group" aria-label="Tags">
                 <ng-container *ngIf="document?.tags?.length! === 0">
                     -
                 </ng-container>
@@ -49,18 +47,6 @@
                         <i-bs name="plus">add</i-bs>
                     </button>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col p-4" *ngIf="!isEditing && document?.description1">
-            <pre class="m-0">{{document?.description1}}</pre>
-        </div>
-        <div class="col py-2" *ngIf="isEditing">
-            <div class="form-group">
-                <label for="description"><h3 class="h6">Beschribig</h3></label>
-                <textarea id="description" rows="6" class="form-control" formControlName="description1"
-                    placeholder="Gib ä Beschribig ii"></textarea>
             </div>
         </div>
     </div>

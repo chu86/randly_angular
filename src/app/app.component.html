@@ -1,6 +1,8 @@
-<main>
+
   <app-header></app-header>
-  <router-outlet></router-outlet>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
   <ng-template>
     <div class="d-flex justify-content-center" *ngIf="(authService.initialized$ | async) !== null">
       <div class="spinner-grow text-primary" role="status">
@@ -8,4 +10,3 @@
       </div>
     </div>
   </ng-template>
-</main>

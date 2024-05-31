@@ -1,0 +1,14 @@
+<div class="app-item-directions p-2" [formGroup]="formGroup" [class.margin-fixed-main]="!isEditing">
+    <div *ngIf="!isEditing">
+        <div *ngIf="document?.description1; else nodescription">
+            <pre>{{document?.description1}}</pre>
+        </div>
+        <ng-template #nodescription><span class="description">No ke Aleitig</span></ng-template>
+    </div>
+    <div class="" *ngIf="isEditing">
+        <div class="form-group">
+            <textarea id="description" rows="6" class="form-control" formControlName="description1"
+                placeholder="Gib ä Beschribig ii"></textarea>
+        </div>
+    </div>
+</div>

@@ -1,16 +1,17 @@
 <div class="card">
     <div class="card-body">
+        <h1 class="h2">
+            Login
+        </h1>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-                <label class="form-label">Benutzername</label>
-                <input type="text" formControlName="username" autocomplete="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+                <input type="text" placeholder="Benutzername" formControlName="username" autocomplete="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
                 <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
                     <div *ngIf="f['username'].errors['required']">Benutzername isch Pflicht</div>
                 </div>
             </div>
             <div class="mb-3">
-                <label class="form-label">Passwort</label>
-                <input type="password" formControlName="password" autocomplete="current-password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                <input type="password" placeholder="Passwort" formControlName="password" autocomplete="current-password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
                 <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
                     <div *ngIf="f['password'].errors['required']">Passwort isch Pflicht</div>
                 </div>
