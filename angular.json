@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "randly:build:production"
+              "buildTarget": "randly:build:production"
             },
             "development": {
-              "browserTarget": "randly:build:development"
+              "buildTarget": "randly:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "randly:build"
+            "buildTarget": "randly:build"
           }
         },
         "test": {
