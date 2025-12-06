@@ -172,7 +172,43 @@ export class ListLayoutComponent implements OnInit {
     }
     const items = await firstValueFrom(this.listItems$);
     const filteredItems = this.listService.filterSortListItems(items, this.filter);
-    const randomItem = this.randomService.getArrayRandom(filteredItems);
+    if (!filteredItems || filteredItems.length === 0) {
+      return;
+    }
+
+    const allIds = filteredItems
+      .map(item => item.id)
+      .filter((id): id is string => !!id);
+
+    if (allIds.length === 0) {
+      return;
+    }
+
+    let history = this.getRandomHistory();
+    // keep history consistent with current items
+    history = history.filter(id => allIds.includes(id));
+
+    let remaining = allIds.filter(id => !history.includes(id));
+
+    if (remaining.length === 0) {
+      // all items have been shown once; reset cycle
+      history = [];
+      remaining = allIds.slice();
+    }
+
+    const randomId = this.randomService.getArrayRandom(remaining);
+    if (!randomId) {
+      return;
+    }
+    const randomItem = filteredItems.find(item => item.id === randomId);
+
+    if (!randomItem) {
+      return;
+    }
+
+    history.push(randomId);
+    this.setRandomHistory(history);
+
     this.modalRef = this.ngbModal.open(RandomModalComponent, { fullscreen: true });
     this.modalRef.componentInstance.listItem = randomItem;
     this.modalRef.componentInstance.listUid = this.listId;
@@ -181,6 +217,44 @@ export class ListLayoutComponent implements OnInit {
         this.onFullRandomClicked();
       }
     });
+  }
+
+  private getRandomHistoryKey(): string | null {
+    if (!this.listId) {
+      return null;
+    }
+    return `randomHistory_${this.listId}`;
+  }
+
+  private getRandomHistory(): string[] {
+    if (typeof window === 'undefined') {
+      return [];
+    }
+    const key = this.getRandomHistoryKey();
+    if (!key) {
+      return [];
+    }
+    const raw = window.sessionStorage.getItem(key);
+    if (!raw) {
+      return [];
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+
+  private setRandomHistory(history: string[]): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const key = this.getRandomHistoryKey();
+    if (!key) {
+      return;
+    }
+    window.sessionStorage.setItem(key, JSON.stringify(history));
   }
 
   onFilterValueChanged($event: string | null) {

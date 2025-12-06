@@ -15,7 +15,7 @@ export class RandomModalComponent {
   public listItem: BasicList | undefined;
 
   @Input()
-  public listUid: number | undefined;
+  public listUid: string | undefined;
 
   constructor(private activeModal: NgbActiveModal,
               private router: Router) {
