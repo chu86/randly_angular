@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LoginContainer} from "./components/login-container/login-container.component";
 import {LoginComponent} from "./components/login/login.component";
-import {getAuth, provideAuth} from "@angular/fire/auth";
 import {AngularSvgIconModule} from "angular-svg-icon";
 import {AngularSvgIconPreloaderModule} from "angular-svg-icon-preloader";
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +20,6 @@ import { RouterModule } from '@angular/router';
     AngularSvgIconPreloaderModule.forRoot({
       configUrl: './assets/icons.json',
     }),
-    provideAuth(() => getAuth()),
   ],
   exports: [LoginComponent, LoginContainer]
 })

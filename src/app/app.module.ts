@@ -11,6 +11,7 @@ import {HeaderComponent} from './layout/components/header/header.component';
 import {UserQuickComponent} from './auth/components/user-quick/user-quick.component';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {getFirestore, provideFirestore} from '@angular/fire/firestore';
+import {getAuth, provideAuth} from '@angular/fire/auth';
 import {FooterComponent} from './layout/components/footer/footer.component';
 import {AuthenticationModule} from "./auth/authentication.module";
 import {check, NgxBootstrapIconsModule, pencil, plus, threeDotsVertical, trash, personCircle} from "ngx-bootstrap-icons";
@@ -42,12 +43,13 @@ const icons = {
     SharedModule,
     DragDropModule,
     NgxBootstrapIconsModule.pick(icons),
+  ],
+  providers: [
+    AuthService,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-
-
+    provideAuth(() => getAuth()),
   ],
-  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
