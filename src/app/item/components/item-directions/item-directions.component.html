@@ -1,7 +1,7 @@
 <div class="app-item-directions p-2" [formGroup]="formGroup" [class.margin-fixed-main]="!isEditing">
     <div *ngIf="!isEditing">
         <div *ngIf="document?.description1; else nodescription">
-            <pre>{{document?.description1}}</pre>
+            <pre [innerHTML]="document?.description1 | linkify"></pre>
         </div>
         <ng-template #nodescription><span class="description">No ke Aleitig</span></ng-template>
     </div>

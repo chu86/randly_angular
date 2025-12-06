@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { ButtonEditComponent } from './components/button-edit/button-edit.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { LinkifyPipe } from './pipes/linkify.pipe';
 
 const icons = {
     pencil,
@@ -23,14 +24,15 @@ const icons = {
         InputFilterComponent,
         ConfirmModalComponent,
         ButtonEditComponent,
-        BreadcrumbComponent
+        BreadcrumbComponent,
+        LinkifyPipe
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         NgxBootstrapIconsModule.pick(icons),
     ],
-    exports: [InputFilterComponent, ButtonEditComponent, BreadcrumbComponent]
+    exports: [InputFilterComponent, ButtonEditComponent, BreadcrumbComponent, LinkifyPipe]
 })
 export class SharedModule {
 }

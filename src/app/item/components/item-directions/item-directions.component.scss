@@ -7,4 +7,11 @@
   border-style: dashed;
   border-width: 2px;
   border-color: rgba(var(--bs-primary-rgb));
+  
+  pre {
+    white-space: pre-wrap;       /* preserve line breaks, allow wrapping */
+    word-wrap: break-word;       /* legacy support */
+    overflow-wrap: anywhere;     /* break very long words/URLs if needed */
+    word-break: break-word;      /* ensure long URLs wrap */
+  }
 }
