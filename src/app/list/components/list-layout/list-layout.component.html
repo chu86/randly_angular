@@ -4,7 +4,8 @@
         <div *ngIf="doc$ | async as doc" >
             <app-list-main [document]="doc" [isEditing]="isEditing" (editClicked)="onEdit()"
                 (editCancel)="onCancel()" (navigateBack)="onNavigateBack()" (shareClicked)="onShareClicked()"
-                (valueChanged)="onValueChanged($event)" (fullRandomClicked)="onFullRandomClicked()" (confirmClicked)="onConfirmClicked()"></app-list-main>
+                (valueChanged)="onValueChanged($event)" (fullRandomClicked)="onFullRandomClicked()" (confirmClicked)="onConfirmClicked()"
+                (addClicked)="onAddClicked()"></app-list-main>
         
             <div [class.fixed-top-150]="!isEditing" class="w-100">
                 <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>
@@ -12,7 +13,7 @@
         
             <ng-container *ngIf="listId">
                 <div [class.app-list]="!isEditing">
-                    <app-list-item-add *ngIf="isEditing" (confirm)="onAddNewActivated($event)" (cancel)="onCancel()"></app-list-item-add>
+                    <app-list-item-add *ngIf="isAdding" (confirm)="onAddNewActivated($event)" (cancel)="onAddCanceled()"></app-list-item-add>
                     <app-list-item *ngIf="!isEditing" [listitems]="listItems$ | async" (itemSelected)="onItemSelected($event)"
                         [filter]="filter"></app-list-item>
                     <app-list-item-edit *ngIf="isEditing" [listitems]="listItems$ | async"

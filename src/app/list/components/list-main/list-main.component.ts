@@ -42,6 +42,7 @@ export class ListMainComponent implements OnInit, OnDestroy {
   @Output() shareClicked = new EventEmitter<void>();
   @Output() valueChanged = new EventEmitter<BasicList>();
   @Output() fullRandomClicked = new EventEmitter<void>();
+  @Output() addClicked = new EventEmitter<void>();
 
   constructor(
     private location: Location, private fb: FormBuilder,
@@ -71,6 +72,10 @@ export class ListMainComponent implements OnInit, OnDestroy {
 
   onShare() {
     this.shareClicked.emit();
+  }
+
+  onAddClicked() {
+    this.addClicked.emit();
   }
 
   private patchForm() {

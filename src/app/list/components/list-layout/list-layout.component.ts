@@ -23,6 +23,7 @@ export class ListLayoutComponent implements OnInit {
   public filteredListItems$: Observable<BasicList[]> | undefined;
   public listId: string | null | undefined;
   public isEditing = false;
+  public isAdding = false;
   public filter: string | null | undefined;
 
   modalRef: NgbModalRef | null = null;
@@ -75,10 +76,19 @@ export class ListLayoutComponent implements OnInit {
 
   onEdit() {
     this.isEditing = true;
+    // keep add mode independent; do not auto-enable adding when editing
   }
 
   onCancel() {
     this.isEditing = false;
+  }
+
+  onAddClicked() {
+    this.isAdding = !this.isAdding;
+  }
+
+  onAddCanceled() {
+    this.isAdding = false;
   }
 
   onNavigateBack() {
@@ -99,6 +109,7 @@ export class ListLayoutComponent implements OnInit {
     if (this.listId) {
       this.listService.addListItem(this.listId, $event).then(() => console.log('added!'));
     }
+    this.isAdding = false;
   }
 
   onConfirmClicked() {

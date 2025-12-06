@@ -22,6 +22,9 @@
       <app-button-edit (cancel)="onCancel()" (editClicked)="onEdit()" [canEdit]="true"
         (confirm)="onConfirm()" [isEditing]="isEditing">
       </app-button-edit>
+      <button *ngIf="!isEditing" type="button" class="btn btn-light icon-button ms-2" (click)="onAddClicked()">
+        <i-bs name="plus"></i-bs>
+      </button>
     </div>
   </div>
   <div class="row">

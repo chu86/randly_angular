@@ -5,7 +5,10 @@
       <div class="input-group">
         <input autofocus #nameInput type="text" class="form-control" [formControl]="name" placeholder="Gib ä Name ii" (keydown.enter)="onConfirm()">
         <button class="btn btn-primary" type="button" (click)="onConfirm()">
-          <i-bs name="plus">add</i-bs>
+          <i-bs name="plus"></i-bs>
+        </button>
+        <button class="btn btn-secondary" type="button" (click)="onCancel()">
+          <i-bs name="x"></i-bs>
         </button>
       </div>
     </div>
