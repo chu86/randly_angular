@@ -7,6 +7,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
 import { ButtonEditComponent } from './components/button-edit/button-edit.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { LinkifyPipe } from './pipes/linkify.pipe';
+import { ToastContainerComponent } from './components/toast-container/toast-container.component';
 
 const icons = {
     pencil,
@@ -25,14 +26,15 @@ const icons = {
         ConfirmModalComponent,
         ButtonEditComponent,
         BreadcrumbComponent,
-        LinkifyPipe
+        LinkifyPipe,
+        ToastContainerComponent
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         NgxBootstrapIconsModule.pick(icons),
     ],
-    exports: [InputFilterComponent, ButtonEditComponent, BreadcrumbComponent, LinkifyPipe]
+    exports: [InputFilterComponent, ButtonEditComponent, BreadcrumbComponent, LinkifyPipe, ToastContainerComponent]
 })
 export class SharedModule {
 }

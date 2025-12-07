@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { BasicList } from "../../../list/models/basic-list.model";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { Breadcrumb } from 'src/app/shared/model/breadcrumb.model';
 import { MetaService } from 'src/app/shared/service/meta.service';
+import { WINDOW } from 'src/app/shared/token/window.token';
+import { ToastService } from 'src/app/shared/service/toast.service';
 
 @Component({
     selector: 'app-item-main',
@@ -19,7 +21,7 @@ export class ItemMainComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription | undefined;
 
-    constructor(private fb: FormBuilder, private metaDataService: MetaService) {
+    constructor(private fb: FormBuilder, private metaDataService: MetaService, @Inject(WINDOW) private window: Window, private toastService: ToastService) {
         this.formGroup = this.fb.group({
             id: new FormControl('', { updateOn: "blur" }),
             name: new FormControl('', { updateOn: "blur" }),
@@ -149,6 +151,13 @@ export class ItemMainComponent implements OnInit, OnDestroy {
         this.metaDataService.updateMetadata({
             title: this._document?.name,
             description: this.document?.description1
+        });
+    }
+
+    onCopyLink() {
+        const url = this.window.location.href;
+        this.window.navigator.clipboard.writeText(url).then(() => {
+            this.toastService.show('Link kopiert!', 'success', 2000);
         });
     }
 }

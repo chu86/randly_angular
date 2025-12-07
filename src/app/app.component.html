@@ -3,6 +3,7 @@
   <main>
     <router-outlet></router-outlet>
   </main>
+  <app-toast-container></app-toast-container>
   <ng-template>
     <div class="d-flex justify-content-center" *ngIf="(authService.initialized$ | async) !== null">
       <div class="spinner-grow text-primary" role="status">

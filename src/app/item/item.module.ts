@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {check, NgxBootstrapIconsModule, pencil, plus, trash, x, house, gripVertical} from "ngx-bootstrap-icons";
+import {check, NgxBootstrapIconsModule, pencil, plus, trash, x, house, gripVertical, link45Deg} from "ngx-bootstrap-icons";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ItemRoutingModule} from "./item-routing.module";
 import {ItemLayoutComponent} from './components/item-layout/item-layout.component';
@@ -19,7 +19,8 @@ const icons = {
     plus,
     x,
     house,
-    gripVertical
+    gripVertical,
+    link45Deg
 };
 
 @NgModule({

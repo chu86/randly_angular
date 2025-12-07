@@ -7,6 +7,9 @@
             <app-button-edit *ngIf="!isAdding && canEdit" (cancel)="onCancel()" (editClicked)="onEdit()" (addClicked)="onAdd()"
                 (confirm)="onConfirm()" [isEditing]="isEditing" [canEdit]="canEdit" [canAdd]="canAdd">
             </app-button-edit>
+            <button *ngIf="!isEditing" type="button" class="btn btn-light icon-button ms-2" (click)="onCopyLink()">
+                <i-bs name="link-45deg"></i-bs>
+            </button>
         </div>
     </div>
     <div class="row">
