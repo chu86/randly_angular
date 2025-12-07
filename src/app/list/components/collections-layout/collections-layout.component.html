@@ -7,11 +7,15 @@
             <app-breadcrumb></app-breadcrumb>
           </div>
           <div class="col d-flex flex-row-reverse p-0">
-            <app-button-edit *ngIf="!isAdding" (cancel)="onCancel()" (editClicked)="onEditClicked()"
-              (addClicked)="onAddClicked()" (confirm)="onConfirmClicked()" [isEditing]="isEditing" [canEdit]="true">
+            <app-button-edit (cancel)="onCancel()" (editClicked)="onEdit()"
+              (confirm)="onConfirmClicked()" [isEditing]="isEditing" [canEdit]="true">
             </app-button-edit>
+            <button *ngIf="!isEditing" type="button" class="btn btn-light icon-button ms-2" (click)="onAddClicked()">
+              <i-bs name="plus"></i-bs>
+            </button>
           </div>
         </div>
+
         <div class="row">
           <div class="col p-0">
             <app-input-filter (valueChanged)="onFilterValueChanged($event)"></app-input-filter>
@@ -22,10 +26,11 @@
   </div>
   <div class="row">
     <div class="col p-0">
-      <app-list-item-add *ngIf="isEditing" (confirm)="onAddNewActivated($event)"
-        (cancel)="onCancel()"></app-list-item-add>
+      <app-list-item-add *ngIf="isAdding" (confirm)="onAddNewActivated($event)"
+        (cancel)="onAddCanceled()"></app-list-item-add>
       <app-list-item *ngIf="!isEditing" [listitems]="list$ | async" (itemSelected)="onListSelected($event)"
         [filter]="filter"></app-list-item>
+
       <app-list-item-edit *ngIf="isEditing" [listitems]="list$ | async" (deleteActivated)="onDeleteActivated($event)"
         (editItemActivated)="onValueChanged($event)" [filter]="filter"></app-list-item-edit>
     </div>

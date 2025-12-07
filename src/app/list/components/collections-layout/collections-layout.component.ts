@@ -41,12 +41,12 @@ export class CollectionsLayoutComponent implements OnInit {
     this.router.navigate(['list', $event]);
   }
 
-  onEditClicked() {
+  onEdit() {
     this.isEditing = true;
   }
 
   onAddClicked() {
-    this.isAdding = true;
+    this.isAdding = !this.isAdding;
   }
 
   onConfirmClicked() {
@@ -63,6 +63,9 @@ export class CollectionsLayoutComponent implements OnInit {
 
   onCancel() {
     this.isEditing = false;
+  }
+
+  onAddCanceled() {
     this.isAdding = false;
   }
 
