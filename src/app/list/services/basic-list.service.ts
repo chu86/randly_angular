@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BasicList } from "../models/basic-list.model";
-import { from, map, Observable } from "rxjs";
+import { from, map, Observable, firstValueFrom } from "rxjs";
 import {
     addDoc,
     collection,
@@ -100,6 +100,31 @@ export class BasicListService {
         await batchWrite.commit().then(() => {
             console.log('item updated.')
         });
+    }
+
+    public async copyItemToCollection(sourceListId: string, sourceItemId: string, targetListId: string): Promise<void> {
+        // load source item data
+        const sourceItemPath = doc(this.firestore, `basic-list/${sourceListId}/listItems/${sourceItemId}`);
+        const sourceItemSnap = await getDoc(sourceItemPath);
+        const sourceItemData = sourceItemSnap.data() as BasicList | undefined;
+
+        if (!sourceItemData) {
+            throw new Error('Source item not found');
+        }
+
+        // create new item document in target list (without reusing id)
+        const targetItemsCollection = collection(this.firestore, `basic-list/${targetListId}/listItems`);
+        const { id: _ignoreId, parent: _ignoreParent, ...cleanData } = sourceItemData as any;
+        const newItemRef = await addDoc(targetItemsCollection, cleanData);
+
+        // copy nested itemlist entries (take a single snapshot of the current entries)
+        const itemListEntries = await firstValueFrom(this.getItemList(sourceListId, sourceItemId));
+        if (itemListEntries && itemListEntries.length > 0) {
+            for (const entry of itemListEntries) {
+                const { id: _oldId, ...cleanEntry } = entry as any;
+                await this.addItem(targetListId, newItemRef.id, cleanEntry as ItemListItem);
+            }
+        }
     }
 
     public async deleteItem(listId: string, docId: string, document: ItemListItem): Promise<void> {

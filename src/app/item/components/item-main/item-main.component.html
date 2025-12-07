@@ -10,6 +10,9 @@
             <button *ngIf="!isEditing" type="button" class="btn btn-light icon-button ms-2" (click)="onCopyLink()">
                 <i-bs name="link-45deg"></i-bs>
             </button>
+            <button *ngIf="!isEditing && isUserAuthenticated" type="button" class="btn btn-light icon-button ms-2" (click)="onCopyToCollection()">
+                <i-bs name="clipboard"></i-bs>
+            </button>
         </div>
     </div>
     <div class="row">

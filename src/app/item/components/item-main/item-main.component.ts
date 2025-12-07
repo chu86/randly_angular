@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, NgZone } from '@angular/core';
 import { BasicList } from "../../../list/models/basic-list.model";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { Subscription } from "rxjs";
@@ -6,6 +6,10 @@ import { Breadcrumb } from 'src/app/shared/model/breadcrumb.model';
 import { MetaService } from 'src/app/shared/service/meta.service';
 import { WINDOW } from 'src/app/shared/token/window.token';
 import { ToastService } from 'src/app/shared/service/toast.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { BasicListService } from 'src/app/list/services/basic-list.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ItemCopyModalComponent } from '../item-copy-modal/item-copy-modal.component';
 
 @Component({
     selector: 'app-item-main',
@@ -21,7 +25,16 @@ export class ItemMainComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription | undefined;
 
-    constructor(private fb: FormBuilder, private metaDataService: MetaService, @Inject(WINDOW) private window: Window, private toastService: ToastService) {
+    constructor(
+        private fb: FormBuilder,
+        private metaDataService: MetaService,
+        @Inject(WINDOW) private window: Window,
+        private toastService: ToastService,
+        private authService: AuthService,
+        private listService: BasicListService,
+        private modalService: NgbModal,
+        private ngZone: NgZone
+    ) {
         this.formGroup = this.fb.group({
             id: new FormControl('', { updateOn: "blur" }),
             name: new FormControl('', { updateOn: "blur" }),
@@ -43,6 +56,10 @@ export class ItemMainComponent implements OnInit, OnDestroy {
 
     get getTags() {
         return this.document?.tags?.join(", ");
+    }
+
+    get isUserAuthenticated(): boolean {
+        return this.authService.isAuthenticated();
     }
 
     private _document: BasicList | null | undefined;
@@ -159,5 +176,37 @@ export class ItemMainComponent implements OnInit, OnDestroy {
         this.window.navigator.clipboard.writeText(url).then(() => {
             this.toastService.show('Link kopiert!', 'success', 2000);
         });
+    }
+
+    async onCopyToCollection() {
+        if (!this.document || !this.document.id || !this.document.parent?.id) {
+            return;
+        }
+
+        if (!this.isUserAuthenticated) {
+            return;
+        }
+
+        const sourceListId = this.document.parent.id;
+        const sourceItemId = this.document.id;
+
+        try {
+            const modalRef = this.modalService.open(ItemCopyModalComponent);
+            const targetListId: string | undefined = await modalRef.result;
+
+            if (!targetListId) {
+                return;
+            }
+
+            await this.listService.copyItemToCollection(sourceListId, sourceItemId, targetListId);
+            this.ngZone.run(() => {
+                this.toastService.show('Erfolgrich kopiert!', 'success', 2000);
+            });
+        } catch (error) {
+            // modal dismiss or copy error
+            if (error) {
+                this.toastService.show('Öppis isch schiefgange :(', 'danger', 3000);
+            }
+        }
     }
 }
